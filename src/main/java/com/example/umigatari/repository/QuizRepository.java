@@ -1,5 +1,5 @@
 package com.example.umigatari.repository;
 
-public class UmigatariRepository {
+public class QuizRepository {
     
 }
