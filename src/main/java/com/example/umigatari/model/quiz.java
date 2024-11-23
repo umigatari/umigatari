@@ -8,10 +8,10 @@ public class quiz {
     @Id
     private Long id;
     private String question;
-    private String right;
+    private String correct;
     private String otherone;
     private String othertwo;
     private int type;
-    private boolean check;
+    private boolean confirmation;
     
 }
