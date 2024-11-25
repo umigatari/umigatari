@@ -13,11 +13,11 @@ public class UserService {
     private UserRepository userRepository;
 
     public void createAccount(account account){
-        return userRepository.createAccount(account);
+        userRepository.createAccount(account);
     }
 
-    public List<account> rankingAccount(account account){
-        return userRepository.rankingAccount(account);
+    public List<account> rankingAccount(int limit){
+        return userRepository.rankingAccount(limit);
     }
 
     public int myRanking(Long id){
@@ -36,8 +36,8 @@ public class UserService {
         userRepository.deleteAccount(id);
     }
 
-    public mail readMail(String name){
-        userRepository.readMail(name);
+    public String readMail(String name){
+        return userRepository.readMail(name);
     }
 
     
