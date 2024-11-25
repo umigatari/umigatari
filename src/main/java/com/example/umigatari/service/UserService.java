@@ -1,39 +1,43 @@
 package com.example.umigatari.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-@service
-
+import com.example.umigatari.model.account;
+import com.example.umigatari.repository.UserRepository;
+@Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public void createAccount(){
-
+    public void createAccount(account account){
+        return userRepository.createAccount(account);
     }
 
-    public account rankingAccount(){
-
+    public List<account> rankingAccount(account account){
+        return userRepository.rankingAccount(account);
     }
 
-    public rank myRanking(){
-
+    public int myRanking(Long id){
+        return userRepository.myRanking(id);
     }
 
-    public password readPassword(){
-
+    public String readPassword(String name){
+        return userRepository.readPassword(name);
     }
 
-    public void updatePassword(){
-
+    public void updatePassword(String name,String password){
+        userRepository.updatePassword(name,password);
     }
 
-    public void deleteAccount(){
-
+    public void deleteAccount(Long id){
+        userRepository.deleteAccount(id);
     }
 
-    public mail readMail(){
-        
+    public mail readMail(String name){
+        userRepository.readMail(name);
     }
 
     
