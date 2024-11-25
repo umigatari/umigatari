@@ -9,4 +9,32 @@ public class UserRepository {
     
     @Autowired
     public JdbcTemplate jdbcTemplate;
+
+    public void createAccount(){
+
+    }
+
+    public account rankingAccount(){
+
+    }
+
+    public rank myRanking(){
+
+    }
+
+    public password readPassword(){
+
+    }
+
+    public void updatePassword(){
+
+    }
+
+    public void deleteAccount(){
+
+    }
+
+    public mail readMail(){
+        
+    }
 }
