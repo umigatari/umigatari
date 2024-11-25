@@ -1,5 +1,7 @@
 package com.example.umigatari.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,7 @@ public class QuizService {
         return quizRepository.readQuiz(id);
     }
 
-    public quiz randomThreeQuiz(){
+    public List<quiz> randomThreeQuiz(){
         return quizRepository.randomThreeQuiz();
     }
 
@@ -31,11 +33,11 @@ public class QuizService {
         quizRepository.updateQuiz(quiz);
     }
 
-    public quiz listQuiz(){
+    public List<quiz> listQuiz(){
         return quizRepository.listQuiz();
     }
 
-    public quiz checkListQuiz(){
+    public List<quiz> checkListQuiz(){
         return quizRepository.checkListQuiz();
     }
     

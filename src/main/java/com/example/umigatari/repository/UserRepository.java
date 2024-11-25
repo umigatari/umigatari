@@ -49,8 +49,8 @@ public class UserRepository {
         jdbcTemplate.update(sql, id);      
     }
 
-    public String readMail(){
+    public String readMail(String name){
         String sql = "SELECT mail FROM account WHERE username = ?";
-        return jdbcTemplate.queryForObject(sql,String.class);      
+        return jdbcTemplate.queryForObject(sql,String.class,name);      
     }
 }
