@@ -2,65 +2,82 @@ package com.example.umigatari.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.example.umigatari.service.UserService;
 
 @Controller
 
 public class UserController {
     @Autowired
-    private UserController userController;
+    private UserService userService;
 
+    @GetMapping("")
     public String mail(){
         return "createaccountone";
     }
 
+    @PostMapping("")
     public String sendMail(){
         return "createaccountone";
     }
 
+    @GetMapping("")
     public String account(){
         return "createaccounttwo";
     }
 
+    @PostMapping("")
     public String createAccount(){
-        quizService.createAccount();
+        userService.createAccount();
     }
 
+    @GetMapping("")
     public String login(){
         return "login";
     }
 
+    @PostMapping("")
     public String loginPassword(){
-        quizService.readPassword();
+        userService.readPassword();
     }
 
+    @GetMapping("")
     public String passwordmail(){
         return "forgotpassone";
     }
 
+    @PostMapping("")
     public String readmail(){
-        quizService.readMail();
+        userService.readMail();
     }
 
+    @PostMapping
     public String password(){
         return "forgotpasstwo";
     }
 
+    @PostMapping
     public String changePassword(){
-        quizService.updatePassword();
+        userService.updatePassword();
         //同じか判定
     }
 
+    @PostMapping
     public String deleteAccount(){
-        quizService.deleteAccount();
+        userService.deleteAccount();
     }
 
+    @GetMapping
     public String getStamp(){
         return "stamp";
     }
 
+    @GetMapping
     public String ranking(){
-        quizService.myRanking();
-        quizService.rankingAccount();
+        userService.myRanking();
+        userService.rankingAccount();
         //ページを表示
     }
     
