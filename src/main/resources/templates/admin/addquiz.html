@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クイズ追加</title>
+</head>
+<body>
+    <h1>クイズ登録</h1>
+    <form action="/addQuiz" method="POST"> 
+        <label for="name">クイズ:</label>
+        <input type="text" id="question" name="quiestion" maxlength="100" required th:value="${quiz != null ? quiz.question : ''}">
+
+        <label for="correct">正解の回答:</label>
+        <input type="text" id="correct" name="correct" maxlength="100" required th:value="${quiz != null ? quiz.correct : ''}">
+
+        <label for="otherone">不正解の回答1:</label>
+        <input type="text"  id="otherone" name="otherone" maxlength="100" required th:value="${quiz != null ? quiz.otherone : ''}">
+
+        <label for="othertwo">不正解の回答2:</label>
+        <input type="text" id="othertwo" name="othertwo" maxlength="100" required th:value="${quiz != null ? quiz.othertwo : ''}">
+
+        <label for="type">ジャンル:</label>
+        <input type="number" id="type" name="type" required th:value="${quiz != null ? quiz.type : ''}">
+
+        <input type="hidden" name="confirmation" value="true">
+
+        <button type="submit">登録・変更する</button>
+    </form>
+
+</body>
+</html>
