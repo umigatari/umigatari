@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>国の一覧</title>
+</head>
+<body>
+    <div class="container">
+        <h1>クイズ一覧</h1>
+        <ul>
+            <li th:each="quiz : ${quiz}">
+                <div class="quiz-details">
+                    <span th:text="'問題: ' + ${quiz.question} ">問題</span>
+                    <span th:text="'正解: ' + ${quiz.correct} ">正解</span>
+                    <span th:text="'不正解の選択肢: ' + ${quiz.otherone}">不正解1</span>
+                    <span th:text="'不正解の選択肢: ' + ${quiz.othertwo}">不正解2</span>
+                    <span th:text="'クイズのジャンル: ' + ${quiz.type}">ジャンル</span>
+
+                    <form th:action="@{/remove}" method="post">
+                        <input type="hidden" name="id" th:value="${quiz.id}" />
+                        <button type="submit" class="delete-button">削除</button>
+                    </form>
+                    <form th:action="@{/editing}" method="post">
+                        <input type="hidden" name="id" th:value="${quiz.id}" />
+                        <button type="submit" class="delete-button">更新</button>
+                    </form>
+                    <form th:action="@{/登録のやつ}" method="post">
+                        <input type="hidden" name="id" th:value="${quiz.id}" />
+                        <button type="submit" class="delete-button">投稿</button>
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
