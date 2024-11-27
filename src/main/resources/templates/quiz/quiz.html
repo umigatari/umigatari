@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クイズ選択画面</title>
+</head>
+<body>
+    <h1>クイズ: <span th:text="${quiz.question}"></span></h1>
+</h1>
+    <div>
+        <img th:src="@{${quiz.imageUrl}}" alt="画像" width="300"/>
+    </div>
+    <form action="/submitAnswer" method="post">
+        <ul>
+            <!-- 解答選択肢を表示 -->
+            <th:block th:each="option : ${quiz.options}">
+                <li>
+                    <input type="radio" th:value="${option}" th:id="${option}" name="answer" />
+                    <label th:for="${option}" th:text="${option}"></label>
+                </li>
+            </th:block>
+        </ul>
+
+        <button type="submit">解答</button>
+    </form>
+
+
+
+</body>
+</html>
