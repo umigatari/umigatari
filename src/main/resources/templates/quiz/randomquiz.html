@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クイズ選択画面</title>
+</head>
+<body>
+
+    <h1>３つの中から１つクイズを選んでね！</h1>
+
+    <div>
+        <ol>
+            <!-- クイズを表示する -->
+            <th:block th:each="quiz : ${quizzes}">
+                <li>
+                    <a href="@{${quiz.url}}" th:text="${quiz.question}"></a>
+                </li>
+            </th:block>
+        </ol>
+    </div>
+
+</body>
+</html>
