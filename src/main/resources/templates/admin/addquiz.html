@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>クイズ追加</title>
+    <link rel="stylesheet" href="addquiz.css">
 </head>
 <body>
-    <h1>クイズ登録</h1>
+    <header class="header">
+        <h1>作成</h1>
+    </header>
     <form action="/addQuiz" method="POST"> 
-        <label for="name">クイズ:</label>
-        <input type="text" id="question" name="quiestion" maxlength="100" required th:value="${quiz != null ? quiz.question : ''}">
-
+        <label for="question">クイズ:</label>
+        <textarea id="question" name="question" maxlength="100" required th:value="${quiz != null ? quiz.question : ''}"></textarea>
         <label for="correct">正解の回答:</label>
         <input type="text" id="correct" name="correct" maxlength="100" required th:value="${quiz != null ? quiz.correct : ''}">
 

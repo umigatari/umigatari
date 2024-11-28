@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: aliceblue;
+    margin: 0; 
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    flex-direction: column;
+    padding-top: 20px;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.header {
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 10px; 
+    color: #4b5eaa;
+}
+
+.container {
+    padding: 20px;
+    width: 100%;
+    max-width: 900px;
+    position: relative;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.quiz-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.quiz-buttons {
+    display: flex;
+    gap: 15px; 
+    justify-content: flex-end; 
+}
+
+span {
+    font-size: 16px;
+    color: #333;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: normal;  
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+button:hover {
+    opacity: 0.8;  
+}
+
+button.update-button {
+    background-color: #61b3e9;  
+}
+
+button.update-button:hover {
+    background-color: #2980b9;  
+}
+
+button.delete-button {
+    background-color: #f77d6f;  
+}
+
+button.delete-button:hover {
+    background-color: #c0392b;  
+}
