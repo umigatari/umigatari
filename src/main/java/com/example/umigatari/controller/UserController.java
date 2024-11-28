@@ -102,6 +102,13 @@ public class UserController {
     @SuppressWarnings("unchecked")
     @GetMapping("stamp")
     public String getStamp(HttpSession session,Model model){
+        
+        if(session.getAttribute("id")==null){
+            return "nopage";
+        }
+        Object obj = session.getAttribute("id");
+       Long id = (Long)obj;
+        model.addAttribute("count", userService.getCount(id));
         Set<Integer> correct = (Set<Integer>) session.getAttribute("correct");
         model.addAttribute("correct", correct);
         return "stamp";
@@ -110,6 +117,9 @@ public class UserController {
     @SuppressWarnings("unchecked")
     @GetMapping("ranking")
     public String ranking(HttpSession session, Model model){
+        if(session.getAttribute("id")==null){
+            return "nopage";
+        }
         int limit = 5;
         Object obj = session.getAttribute("id");
        Long id = (Long)obj;

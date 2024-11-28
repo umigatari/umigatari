@@ -1,0 +1,114 @@
+/* 基本のスタイル */
+body {
+    font-family: Arial, sans-serif;
+    background-color: aliceblue;
+    margin: 0;
+    padding: 0;
+    display: flex; /* 全体を中央に寄せるためにflexboxを使用 */
+    justify-content: center; /* 水平方向の中央寄せ */
+    align-items: center; /* 垂直方向の中央寄せ */
+    min-height: 100vh; /* 高さを画面全体に合わせる */
+}
+
+/* 全体のコンテナ */
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box; /* パディングを含めた幅指定にする */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 中央寄せ */
+}
+
+/* ヘッダーボタン */
+.header-buttons {
+    display: flex;
+    justify-content: flex-end; /* 右寄せ */
+    width: 100%; /* 横幅を全体に広げる */
+    margin-bottom: 20px;
+}
+
+.header-buttons button {
+    background-color: #1e90ff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.header-buttons button:hover {
+    background-color: #4682b4;
+}
+
+/* 累計正解数表示 */
+.score-box {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 20px;
+}
+
+/* スタンプ台紙 */
+.stamp-card {
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    width: 330px; /* 台紙の幅調整 */
+    height: auto; /* 必要に応じて高さを自動調整 */
+}
+
+.stamp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 100px); /* 3列のスタンプ */
+    grid-gap: 20px; /* スタンプ間の余白 */
+}
+
+.stamp {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #d3d3d3;
+    border: 2px solid #4682b4;
+}
+
+/* ポップアップのスタイル */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.popup button {
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #1e90ff;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.popup button:hover {
+    background-color: #4682b4;
+}
+
