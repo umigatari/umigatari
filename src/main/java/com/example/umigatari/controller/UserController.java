@@ -1,11 +1,21 @@
 package com.example.umigatari.controller;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.umigatari.model.account;
 import com.example.umigatari.service.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 
@@ -13,72 +23,102 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("")
+    @GetMapping("createaccount/mail")
     public String mail(){
-        return "createaccountone";
+        return "account/createaccountone";
     }
 
-    @PostMapping("")
+    @PostMapping("sendmail/mail")
     public String sendMail(){
-        return "createaccountone";
+        //メールを送る処理
+        return "account/createaccountone";
     }
 
-    @GetMapping("")
-    public String account(){
-        return "createaccounttwo";
+    @GetMapping("createaccount/create")
+    public String account(@RequestParam("email") String email, Model model){
+        model.addAttribute("email", email);
+        return "account/createaccounttwo";
     }
 
-    @PostMapping("")
-    public String createAccount(){
-        userService.createAccount();
+    @PostMapping("createaccount/create")
+    public String createAccount(@ModelAttribute account account,Model model){
+        userService.createAccount(account);
+        model.addAttribute("clear","登録しました");
+        return "account/createaccounttwo";
     }
 
-    @GetMapping("")
+    @GetMapping("login")
     public String login(){
-        return "login";
+        return "account/login";
     }
 
-    @PostMapping("")
-    public String loginPassword(){
-        userService.readPassword();
+    @PostMapping("login/password")
+    public String loginPassword(@RequestParam String name,@RequestParam String password,HttpSession session, Model model){
+        Map<String, Object> result = userService.readPassword(name, password);
+
+        boolean checkpassword = result != null && (boolean) result.get("passwordMatch");
+        Long id = result != null ? (Long) result.get("id") : null;
+
+        if(checkpassword&&id!=null){
+            session.setAttribute("id", id);
+            return "redirect:quiz/stamp";
+        }else{
+            model.addAttribute("failure", "パスワードもしくはユーザーネームが間違っています");
+            return "account/login";
+        }      
     }
 
-    @GetMapping("")
+    @GetMapping("login/forgotpassword")
     public String passwordmail(){
-        return "forgotpassone";
+        return "account/forgotpassone";
     }
 
-    @PostMapping("")
+    @PostMapping("login/forgotpassword")
     public String readmail(){
-        userService.readMail();
+        //メールを送る処理。上と同様
+        return "account/forgotpasswordone";
     }
 
-    @PostMapping
+    @GetMapping("login/password")
     public String password(){
-        return "forgotpasstwo";
+        return "account/forgotpasstwo";
     }
 
-    @PostMapping
+    /*@PostMapping
     public String changePassword(){
-        userService.updatePassword();
+        //userService.updatePassword();
+        return "nopage";
         //同じか判定
+    }*/
+
+    @PostMapping("deleteaccount")
+    public String deleteAccount(HttpSession session){
+       Object obj = session.getAttribute("id");
+       Long id = (Long)obj;
+       userService.deleteAccount(id);
+       return "nopage";
     }
 
-    @PostMapping
-    public String deleteAccount(){
-        userService.deleteAccount();
-    }
-
-    @GetMapping
-    public String getStamp(){
+    @SuppressWarnings("unchecked")
+    @GetMapping("stamp")
+    public String getStamp(HttpSession session,Model model){
+        Set<Integer> correct = (Set<Integer>) session.getAttribute("correct");
+        model.addAttribute("correct", correct);
         return "stamp";
     }
 
-    @GetMapping
-    public String ranking(){
-        userService.myRanking();
-        userService.rankingAccount();
-        //ページを表示
+    @SuppressWarnings("unchecked")
+    @GetMapping("ranking")
+    public String ranking(HttpSession session, Model model){
+        int limit = 5;
+        Object obj = session.getAttribute("id");
+       Long id = (Long)obj;
+        Map<String,Object> result=userService.ranking(limit,id);
+        List<account> ranking =  (List<account>) result.get("rankingList");
+        int myRanking= (int) result.get("myRanking");
+        model.addAttribute("ranking", ranking);
+        model.addAttribute("myranking", myRanking);
+        return "ranking";
     }
     
 }
