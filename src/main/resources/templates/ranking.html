@@ -4,66 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ランキング</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .ranking-list {
-            list-style: none;
-            padding: 0;
-        }
-        .ranking-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        .ranking-item:last-child {
-            border-bottom: none;
-        }
-        .rank {
-            font-weight: bold;
-            width: 50px;
-        }
-        .name {
-            width: 200px;
-        }
-        .points {
-            text-align: right;
-            width: 100px;
-        }
-        .highlight {
-            background-color: #e0ffe0;
-            font-weight: bold;
-        }
-        .my-ranking {
-            text-align: center;
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/ranking.css">
 </head>
 <body>
 
+<!-- タイトル表示 -->
+<div class="header">
+    <h1>海がたり クイズスタンプラリー</h1>
+</div>
+
 <div class="container">
-    <h1>ランキング</h1>
+    <h2>ランキング</h2>
+
+    <!-- 更新日時 -->
+    <div class="update-time">
+        <p>最終更新: <span id="update-time">loading...</span></p>
+    </div>
 
     <ul class="ranking-list">
-        <!-- ランキングデータを表示 -->
+        <!-- ランキングヘッダー -->
         <li class="ranking-item">
             <span class="rank">順位</span>
             <span class="name">名前</span>
@@ -82,7 +41,11 @@
     <div class="my-ranking">
         <p>あなたの順位は <span th:text="${myranking}">5</span> 位です。</p>
     </div>
+    <form action="stamp" method="get">
+        <button type="submit">スタンプへ</button>
+    </form>
 </div>
 
+<script src=js/ranking.js"></script>
 </body>
 </html>

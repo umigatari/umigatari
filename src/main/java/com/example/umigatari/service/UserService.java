@@ -72,6 +72,10 @@ public class UserService {
             return null;
         }
     }
+
+    public int getCount(Long id){
+        return userRepository.getCount(id);
+    }
     
     
 

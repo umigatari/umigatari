@@ -71,4 +71,9 @@ public class UserRepository {
         String sql ="select id from account where name = ?";
         return jdbcTemplate.queryForObject(sql,Long.class,name);
     }
+
+    public int getCount(Long id){
+        String sql = "select count from account where id = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class,id);
+    }
 }
