@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="randomquiz.css">
     <title>クイズ選択画面</title>
 </head>
 <body>
-
+ 
     <h1>３つの中から１つクイズを選んでね！</h1>
-
+ 
     <div>
         <ol>
             <!-- クイズを表示する -->
-            <th:block th:each="quiz : ${quizzes}">
+            <th:block th:each="quiz : ${quiz}">
                 <li>
-                    <a href="@{${quiz.url}}" th:text="${quiz.question}"></a>
+                    <button>選択</button>
                 </li>
             </th:block>
         </ol>
     </div>
-
+ 
 </body>
 </html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>問題作成フォーム</title>
+</head>
+<body>
+
+    <div>
+        <h1>問題作成</h1>
+
+        <form id="question-form">
+            <!-- 問題文 -->
+            <label for="question">問題文:</label>
+            <input type="text" id="question" name="question" placeholder="問題文を入力してください" required>
+
+            <!-- 正解の選択肢 -->
+            <label for="correct-answer">正解の選択肢:</label>
+            <input type="text" id="correct-answer" name="correct-answer" placeholder="正解の選択肢を入力" required>
+
+            <!-- 不正解の選択肢1 -->
+            <label for="wrong-answer-1">不正解の選択肢1:</label>
+            <input type="text" id="wrong-answer-1" name="wrong-answer-1" placeholder="不正解の選択肢を入力" required>
+
+            <!-- 不正解の選択肢2 -->
+            <label for="wrong-answer-2">不正解の選択肢2:</label>
+            <input type="text" id="wrong-answer-2" name="wrong-answer-2" placeholder="不正解の選択肢を入力" required>
+
+            <!-- 送信ボタン -->
+            <input type="submit" value="問題を作成する">
+        </form>
+
+        <div id="message" style="margin-top: 20px;"></div>
+    </div>
+
+</body>
+</html>
