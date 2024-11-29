@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スタンプラリー</title>
+    <link rel="stylesheet" href="stamp.css"> <!-- CSSファイルの読み込み -->
+    <script src="stamp.js"></script> <!-- JSファイルの読み込み -->
+</head>
+<body>
+
+<div class="container">
+    <!-- ログアウトとアカウント削除ボタン -->
+    <div class="header-buttons">
+        <button id="logout-btn">ログアウト</button>
+        <button id="delete-btn">アカウント削除</button>
+    </div>
+
+    <!-- 累計正解数表示 -->
+    <div class="score-box">
+        <p>今までの累計正解数：<span id="count" th:text="${count}">0</span></p>
+    </div>
+
+    <!-- スタンプ台紙 -->
+    <div class="stamp-card">
+        <!-- スタンプの円（3×3のグリッド）-->
+        <div class="stamp-grid">
+            <div class="stamp" id="stamp-1"></div>
+            <div class="stamp" id="stamp-2"></div>
+            <div class="stamp" id="stamp-3"></div>
+            <div class="stamp" id="stamp-4"></div>
+            <div class="stamp" id="stamp-5"></div>
+            <div class="stamp" id="stamp-6"></div>
+            <div class="stamp" id="stamp-7"></div>
+            <div class="stamp" id="stamp-8"></div>
+            <div class="stamp" id="stamp-9"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ログアウト確認ポップアップ -->
+<div id="logout-popup" class="popup">
+    <div class="popup-content">
+        <p>ログアウトしますか？</p>
+        <button id="confirm-logout-yes">はい</button>
+        <button id="confirm-logout-no">いいえ</button>
+    </div>
+</div>
+
+<!-- アカウント削除確認ポップアップ -->
+<div id="delete-popup" class="popup">
+    <div class="popup-content">
+        <p>アカウントは完全に削除されますがよろしいですか？</p>
+        <button id="confirm-delete-yes">はい</button>
+        <button id="confirm-delete-no">いいえ</button>
+    </div>
+</div>
+
+<!-- 最終確認ポップアップ（アカウント削除） -->
+<div id="final-delete-popup" class="popup">
+    <div class="popup-content">
+        <p>本当に削除しますか？</p>
+        <button id="confirm-final-delete-yes">はい</button>
+        <button id="confirm-final-delete-no">いいえ</button>
+    </div>
+</div>
+
+<script>
+    // サーバー側で渡されたcorrect値をJavaScriptに渡す
+    window.onload = function() {
+        // サーバーから渡されたcorrectの値を受け取る
+        var correct = /*[[${correct}]]*/ [];
+
+        // 画像をセットするための処理
+        for (var i = 0; i < correct.length; i++) {
+            var stampId = "stamp-" + correct[i];  // 例: "stamp-1"、"stamp-2"など
+            var stampElement = document.getElementById(stampId);
+            if (stampElement) {
+                // スタンプ画像のパスを指定
+                stampElement.style.backgroundImage = "url('stamp-image.png')"; // 画像のURLを指定
+                stampElement.style.backgroundSize = "cover";  // 画像がスタンプに合うように調整
+            }
+        }
+    };
+</script>
+
+</body>
+</html>

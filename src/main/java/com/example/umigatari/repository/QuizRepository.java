@@ -16,9 +16,9 @@ public class QuizRepository {
     public JdbcTemplate jdbcTemplate;
     
     //ランダムにクイズを3つ表示する
-    public List<quiz> randomThreeQuiz() {
-        String sql = "SELECT * FROM quiz ORDER BY RANDOM() LIMIT 3";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
+    public List<quiz> randomThreeQuiz(int type) {
+        String sql = "SELECT * FROM quiz WHERE type = ? ORDER BY RANDOM() LIMIT 3";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class),type);
     }
 
     //クイズを参照する
