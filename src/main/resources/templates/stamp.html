@@ -5,16 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>スタンプラリー</title>
     <link rel="stylesheet" href="stamp.css"> <!-- CSSファイルの読み込み -->
-    <script src="stamp.js"></script> <!-- JSファイルの読み込み -->
+    
 </head>
 <body>
 
 <div class="container">
+    <header class="header">
+        <img src="umigatari-logo.svg" class="header-logo">
+
+        <div class="account-info">
+            <span th:text="'アカウント名: ' + ${account} ">アカウント名</span>
+        </div>
+
     <!-- ログアウトとアカウント削除ボタン -->
-    <div class="header-buttons">
-        <button id="logout-btn">ログアウト</button>
-        <button id="delete-btn">アカウント削除</button>
-    </div>
+        <div class="header-buttons">
+            <button id="logout-btn">ログアウト</button>
+            <button id="delete-btn">アカウント削除</button>
+        </div>
+　　</header>
 
     <!-- 累計正解数表示 -->
     <div class="score-box">
@@ -35,6 +43,10 @@
             <div class="stamp" id="stamp-8"></div>
             <div class="stamp" id="stamp-9"></div>
         </div>
+    </div>
+
+    <div class="ranking-button-container">
+        <button id="ranking-btn" class="ranking-btn">ランキングへ</button>
     </div>
 </div>
 
