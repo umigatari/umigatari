@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正誤判定</title>
+</head>
+<body>
+
+    <!-- メッセージを表示 -->
+    <div style="border: #ff69b4 solid 1px; font-size: 100%; padding: 50px;">
+        <p th:text="${message}"></p> <!-- ここで正誤メッセージを表示 -->
+    </div>
+
+    <!-- クイズが正解なら「クイズを作成する」ボタンを表示 -->
+    <button th:if="${message != null and message == '正解'}" id="createQuizButton">クイズを作成する</button>
+
+    <!-- 正解・不正解に関係なく表示されるトップページへ戻るボタン -->
+    <button onclick="location.href='/'">トップページへ戻る</button>
+
+</body>
+</html>

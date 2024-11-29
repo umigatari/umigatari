@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=".css">
+    <link rel="stylesheet" href="quiz.css">
     <title>クイズ解答画面</title>
 </head>
 <body>
@@ -12,23 +12,15 @@
     <div>
         <img th:src="@{${quiz.imageUrl}}" alt="画像" width="300"/>
     </div>
-    <form th: action="/submitAnswer" method="post">
+    <form th: action="quiz/answer" method="post">
         <ul>
             <!-- 解答選択肢を表示 -->
             <th:block th:each="option : ${quiz.options}">
-                <li>
-                    <input type="radio" th:value="${option}" th:id="${option}" name="answer" />
-                    <label th:for="${option}" th:text="${option}"></label>
-                </li>
+                <button type="submit" name="choice" value="author" text="${author}">解答１</button>
+                <button type="submit" name="choice" value="other" text="${other1}">解答２</button>
+                <button type="submit" name="choice" value="other" text="${other2}">解答３</button>
             </th:block>
         </ul>
-
-        <button type="submit" name="choice" value="author" th:text="${quiz.author}">解答１</button>
-        <button type="submit" name="choice" value="other" th:text="${quiz.other1}">解答２</button>
-        <button type="submit" name="choice" value="other" th:text="${quiz.other2}">解答３</button>
     </form>
-
-
-
 </body>
 </html>
