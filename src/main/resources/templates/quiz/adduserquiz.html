@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>問題作成フォーム</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="text"], input[type="radio"], input[type="submit"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        input[type="radio"] {
+            width: auto;
+        }
+        .choices-container {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>問題作成</h1>
+
+        <form id="question-form">
+            <!-- 問題文 -->
+            <label for="question">問題文:</label>
+            <input type="text" id="question" name="question" placeholder="問題文を入力してください" required>
+
+            <!-- 正解の選択肢 -->
+            <label for="correct-answer">正解の選択肢:</label>
+            <input type="text" id="correct-answer" name="correct-answer" placeholder="正解の選択肢を入力" required>
+
+            <!-- 不正解の選択肢1 -->
+            <label for="wrong-answer-1">不正解の選択肢1:</label>
+            <input type="text" id="wrong-answer-1" name="wrong-answer-1" placeholder="不正解の選択肢を入力" required>
+
+            <!-- 不正解の選択肢2 -->
+            <label for="wrong-answer-2">不正解の選択肢2:</label>
+            <input type="text" id="wrong-answer-2" name="wrong-answer-2" placeholder="不正解の選択肢を入力" required>
+
+            <!-- 正解選択肢のラジオボタン -->
+            <div class="choices-container">
+                <label>正解の選択肢:</label>
+                <input type="radio" name="correct-choice" value="1" id="choice-1" required>
+                <label for="choice-1">選択肢1 (正解)</label><br>
+                <input type="radio" name="correct-choice" value="2" id="choice-2">
+                <label for="choice-2">選択肢2</label><br>
+                <input type="radio" name="correct-choice" value="3" id="choice-3">
+                <label for="choice-3">選択肢3</label>
+            </div>
+
+            <!-- 送信ボタン -->
+            <input type="submit" value="問題を作成する">
+        </form>
+
+        <div id="message" style="margin-top: 20px;"></div>
+    </div>
+
+    <script>
+        // フォームの送信時の処理
+        document.getElementById("question-form").addEventListener("submit", function(event) {
+            event.preventDefault();  // ページリロードを防ぐ
+
+            // フォームデータを取得
+            const question = document.getElementById("question").value;
+            const correctAnswer = document.getElementById("correct-answer").value;
+            const wrongAnswer1 = document.getElementById("wrong-answer-1").value;
+            const wrongAnswer2 = document.getElementById("wrong-answer-2").value;
+
+            const correctChoice = document.querySelector('input[name="correct-choice"]:checked');
+
+            // 正解の選択肢を確認
+            let correctChoiceLabel = "";
+            if (correctChoice) {
+                if (correctChoice.value === "1") {
+                    correctChoiceLabel = correctAnswer;
+                } else if (correctChoice.value === "2") {
+                    correctChoiceLabel = wrongAnswer1;
+                } else if (correctChoice.value === "3") {
+                    correctChoiceLabel = wrongAnswer2;
+                }
+            }
+
+            // メッセージを表示
+            const message = `
+                <h2>作成された問題:</h2>
+                <p><strong>問題文:</strong> ${question}</p>
+                <p><strong>正解の選択肢:</strong> ${correctChoiceLabel}</p>
+                <p><strong>不正解の選択肢1:</strong> ${wrongAnswer1}</p>
+                <p><strong>不正解の選択肢2:</strong> ${wrongAnswer2}</p>
+            `;
+            document.getElementById("message").innerHTML = message;
+        });
+    </script>
+
+</body>
+</html>

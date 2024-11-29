@@ -14,7 +14,12 @@
             <!-- クイズを表示する -->
             <th:block th:each="quiz : ${quizzes}">
                 <li>
-                    <a href="@{${quiz.url}}" th:text="${quiz.question}"></a>
+                    <!-- ユーザーが解いたクイズIDを元にリンクを無効化 -->
+                    <a th:href="@{/quiz/{id}(id=${quiz.id})}"
+                       th:text="${quiz.question}"
+                       th:classappend="${userSolvedQuizzes.contains(quiz.id) ? 'disabled' : ''}"
+                       th:attr="onclick=${userSolvedQuizzes.contains(quiz.id) ? 'event.preventDefault();' : ''}">
+                    </a>
                 </li>
             </th:block>
         </ol>
