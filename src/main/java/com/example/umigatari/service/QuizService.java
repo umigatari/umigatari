@@ -19,6 +19,37 @@ public class QuizService {
         return quizRepository.readQuiz(id);
     }
 
+    //typeをもとにクイズを表示
+    public List<quiz> selectByType(int type){
+        return quizRepository.readTypeQuiz(type);
+    }
+
+    //並び替え
+    public List<quiz> selectByOrder(String order){
+        System.out.println(order);
+        if("asc".equals(order)){
+            List<quiz> quiz =quizRepository.readOrderAscQuiz();
+            System.out.println("取得したクイズデータ:");
+            for (quiz q : quiz) {
+                System.out.println(q);
+            return quiz;}
+        }else if("desc".equals(order)){
+        return quizRepository.readOrderDescQuiz();}
+        List<quiz> quiz =null;
+        return quiz;
+        
+    }
+
+    //並び替えタイプで選ぶ
+    public List<quiz> readOrderTypeQuiz(String order,int type){
+        if("asc".equals(order)){
+            return quizRepository.readAsc(type);
+        }else if("desc".equals(order)){
+        return quizRepository.readDesc(type);}
+        List<quiz> quiz =quizRepository.listQuiz();
+        return quiz;
+    }
+
     //クイズを３問表示
     public List<quiz> randomThreeQuiz(int type){
         return quizRepository.randomThreeQuiz(type);
@@ -51,6 +82,11 @@ public class QuizService {
             throw new NotFoundException("チェックが必要なクイズが見つかりませんでした。");
         }
         return quizzes;
+    }
+
+    //問題チェック済みにする
+    public void updateConfirmation(Long id){
+        quizRepository.updateConfirmation(id);
     }
     
 }

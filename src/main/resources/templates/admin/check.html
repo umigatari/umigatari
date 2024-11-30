@@ -1,41 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>クイズ問題チェック</title>
-    <link rel="stylesheet" href="check.css">
+    <title>クイズ管理画面</title>
+    <link rel="stylesheet" href="/css/admin/check.css">
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1>一覧</h1>
+            <h1>クイズ一覧</h1>
         </header>
+        <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
+        <p th:text="${errorMessage}"></p>
         <ul>
             <li th:each="quiz : ${quiz}">
                 <div class="quiz-details">
+                    <span th:text="'ID: ' + ${quiz.id} ">問題</span>
                     <span th:text="'問題: ' + ${quiz.question} ">問題</span>
                     <span th:text="'正解: ' + ${quiz.correct} ">正解</span>
-                    <span th:text="'不正解の選択肢: ' + ${quiz.otherone}">不正解1</span>
-                    <span th:text="'不正解の選択肢: ' + ${quiz.othertwo}">不正解2</span>
+                    <span th:text="'不正解の選択肢: ' + ${quiz.other_one}">不正解1</span>
+                    <span th:text="'不正解の選択肢: ' + ${quiz.other_two}">不正解2</span>
                     <span th:text="'クイズのジャンル: ' + ${quiz.type}">ジャンル</span>
-
+                    <span th:text="'投稿されているか: ' + ${quiz.confirmation}">ジャンル</span>
                     <div class="quiz-buttons">
-                    <form th:action="@{/登録のやつ}" method="post">
-                        <input type="hidden" name="id" th:value="${quiz.id}" />
-                        <button type="submit" class="post-button">投稿</button>
-                    </form>
-                    <form th:action="@{/editing}" method="post">
-                        <input type="hidden" name="id" th:value="${quiz.id}" />
-                        <button type="submit" class="update-button">更新</button>
-                    </form>
-                    <form th:action="@{/remove}" method="post">
-                        <input type="hidden" name="id" th:value="${quiz.id}" />
-                        <button type="submit" class="delete-button">削除</button>
-                    </form>
-                    
-                    
+                        <form th:action="@{/admin/update}" method="post">
+                            <input type="hidden" name="id" th:value="${quiz.id}" />
+                            <button type="submit" class="post-button">投稿</button>
+                        </form>
+                        <form th:action="@{/editing}" method="post">
+                            <input type="hidden" name="id" th:value="${quiz.id}" />
+                            <button type="submit" class="update-button">更新</button>
+                        </form>
+                        <form th:action="@{/admin/delete}" method="post">
+                            <input type="hidden" name="id" th:value="${quiz.id}" />
+                            <button type="submit" class="delete-button">削除</button>
+                        </form>
+                    </div>
                 </div>
             </li>
         </ul>
     </div>
+
+
 </body>
 </html>

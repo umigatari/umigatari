@@ -71,12 +71,33 @@ button {
     cursor: pointer;
     transition: background-color 0.3s ease;
     position: absolute;
-    right: 400px;
-    bottom: 20px;
-    
+    right: 20px; /* 右上に配置 */
+    top: 20px;   /* 上に配置 */
 }
 
 button:hover {
+    background-color: #3b4b8a;
+}
+
+.back-button {
+    background-color: #4b5eaa;
+    color: white;
+    border: none;
+    padding: 12px 20px; /* パディングを調整 */
+    font-size: 16px;   /* フォントサイズを調整 */
+    font-weight: bold;
+    width: auto; /* 幅をコンテンツに合わせて自動調整 */
+    max-width: 200px;  /* 最大幅を指定して広がりすぎないように制限 */
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    left: 20px; /* 左側に配置 */
+    top: 20px;  /* 上側に配置 */
+}
+
+
+.back-button:hover {
     background-color: #3b4b8a;
 }
 

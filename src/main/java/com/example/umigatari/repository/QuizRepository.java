@@ -25,12 +25,13 @@ public class QuizRepository {
     public quiz readQuiz(Long id) {
         String sql = "SELECT * FROM quiz WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(quiz.class), id);
-}
+    }
+
 
     //追加する
     public void insertQuiz(quiz quiz){
         String sql = "insert into quiz (question,correct,other_one,other_two,type,confirmation) values (?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql,quiz.getQuestion(),quiz.getCorrect(),quiz.getOtherone(),quiz.getOthertwo(),quiz.getType(),quiz.isConfirmation());
+        jdbcTemplate.update(sql,quiz.getQuestion(),quiz.getCorrect(),quiz.getOther_one(),quiz.getOther_two(),quiz.getType(),quiz.isConfirmation());
     }
 
     //削除する
@@ -41,8 +42,8 @@ public class QuizRepository {
 
     //更新する
     public void updateQuiz(quiz quiz){
-        String sql = "UPDATE quizzes SET question = ?, correct = ?, otherone = ?,othertwo = ?,type = ?,confirmation = ? WHERE id = ?";
-        jdbcTemplate.update(sql, quiz.getQuestion(), quiz.getCorrect(), quiz.getOtherone(), quiz.getOthertwo(),quiz.getType(),quiz.isConfirmation(),quiz.getId());
+        String sql = "UPDATE quiz SET question = ?, correct = ?, other_one = ?, other_two = ?, type = ?, confirmation = ?, updatedate = NOW() WHERE id = ?";
+        jdbcTemplate.update(sql, quiz.getQuestion(), quiz.getCorrect(), quiz.getOther_one(), quiz.getOther_two(),quiz.getType(),quiz.isConfirmation(),quiz.getId());
     }
 
     //一覧を表示する
@@ -51,9 +52,44 @@ public class QuizRepository {
     return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
     }
 
+    //tpe一覧を表示する
+    public List<quiz> readTypeQuiz(int type){
+        String sql = "SELECT * FROM quiz where type = ?";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class),type);
+    }
+
+    //一覧を表示するASC
+    public List<quiz> readOrderAscQuiz(){
+        String sql = "SELECT * FROM quiz order by creationday ASC";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
+    }
+    
+    //一覧を表示するdesc
+    public List<quiz> readOrderDescQuiz(){
+        String sql = "SELECT * FROM quiz order by creationday Desc";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
+    }
+
+    //一覧を表示するtype&
+    public List<quiz> readDesc(int type){
+        String sql = "SELECT * FROM quiz WHERE type = ? ORDER BY creationday DESC;";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class),type);
+    }
+
+    //一覧を表示するtype&
+    public List<quiz> readAsc(int type){
+        String sql = "SELECT * FROM quiz WHERE type = ? ORDER BY creationday ASC";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class),type);
+    }
+
     //チェックが必要な一覧を表示する
     public List<quiz> checkListQuiz() {
-        String sql = "SELECT * FROM quiz WHERE  confirmation = TRUE";
+        String sql = "SELECT * FROM quiz WHERE  confirmation = true";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
+    }
+
+    public void updateConfirmation(Long id){
+        String sql ="UPDATE quiz SET confirmation = false WHERE id = ?";
+        jdbcTemplate.update(sql, id);
     }
 }
