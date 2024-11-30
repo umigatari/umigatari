@@ -94,29 +94,58 @@ public class QuizController {
         return "quiz/adduserquiz";
     }
 
+
+    //管理者ページ
+
+
+    //adminページを表示　ok
     @GetMapping("admin")
     public String admin(){
         return "admin/admin";
     }
 
+    //問題作成ページを表示　ok
     @GetMapping("admin/create")
-    public String adminCreatQuizPage(){
-        return "admin/addquiz";
+    public String adminCreatQuizPage(HttpSession session,Model model){
+        Object sessionId = session.getAttribute("quizid");
+        //更新ボタンが押された時の処理
+        if(sessionId != null){
+            Long sessionIdLong = (Long) sessionId;
+            session.removeAttribute("quizid");
+            quiz quiz =quizService.selectOneById(sessionIdLong);
+            model.addAttribute("quiz",quiz);
+            
+        }
+        return "admin/createquiz";
     }
 
+    //問題作成　ok
     @PostMapping("admin/create")
     public String adminCreateQuiz(@ModelAttribute quiz quiz,Model model){
-        quizService.insertQuiz(quiz);
-        model.addAttribute("create", "問題を作成しました!");
-        return "admin/addquiz";
+        //問題作成なのか更新なのかチェック
+        if(quiz.getId()==null){
+            quizService.insertQuiz(quiz);
+        model.addAttribute("create", "問題を作成しました!");  
+        //問題チェック画面からの遷移の場合 
+        }else{
+        quizService.updateQuiz(quiz);
+        if(quiz.isConfirmation()==true){
+            model.addAttribute("posting", "編集したのでこの問題を投稿しますか？");
+            model.addAttribute("id", quiz.getId());
+        //一覧画面からの遷移の場合    
+        }else{
+        model.addAttribute("create", "更新しました!");}}
+        return "admin/createquiz";
     }
 
+    //問題チェック画面表示 ok
     @GetMapping("admin/check")
     public String checkQuizPage(Model model){
+        //チェックが必要なクイズを表示。なければな”問題はありません”と表示
         try {
             List<quiz> quizzes = quizService.checkListQuiz();
-            model.addAttribute("quizzes", quizzes);
-            return "admin/check";
+            model.addAttribute("quiz", quizzes);
+            return "admincheck";
         } catch (NotFoundException e) {
             model.addAttribute("errorMessage", "問題はありません");
             return "admin/check";
@@ -128,22 +157,61 @@ public class QuizController {
         quizService.updateQuiz();
     }*/
 
+    //クイズ一覧 ok
     @GetMapping("admin/quizlist")
-    public String quizListPage(Model model){
-       List<quiz> quiz= quizService.listQuiz();
-       model.addAttribute("quiz",quiz);
-       return "admin/quizlist";
+    public String quizListPage(Model model,@RequestParam(value = "p_cocid", required = false) Integer pCocid,
+    @RequestParam(value = "dord", required = false) String dord){
+        System.out.print(dord);
+        if (pCocid != null && dord != null) {
+            // 両方のパラメータがある場合の処理
+            List<quiz> quiz= quizService.readOrderTypeQuiz(dord,pCocid);
+            model.addAttribute("quiz",quiz);
+            return "admin/quizlist";
+        } else if (pCocid != null) {
+            // p_cocidのみがある場合の処理
+            List<quiz> quiz= quizService.selectByType(pCocid);
+            model.addAttribute("quiz",quiz);
+            return "admin/quizlist";
+        } else if (dord != null) {
+            // dordのみがある場合の処理
+            List<quiz> quiz= quizService.selectByOrder(dord);
+            model.addAttribute("quiz",quiz);
+            return "admin/quizlist";
+        } else {
+            // 両方ともない場合の処理
+            List<quiz> quiz= quizService.listQuiz();
+            model.addAttribute("quiz",quiz);
+            return "admin/quizlist";
+        }
     }
 
+    //クイズ削除 問題チェック画面からok
     @PostMapping("admin/delete")
-    public void deleteQuiz(@RequestParam Long id){
+    public String deleteQuiz(@RequestParam Long id){
         quizService.deleteQuiz(id);
+        return "redirect:/admin/check";
     }
 
+    //クイズ削除 一覧からok
+    @PostMapping("admin/delete2")
+    public String deleteQuiz2(@RequestParam Long id){
+        quizService.deleteQuiz(id);
+        return "redirect:/admin/quizlist";
+    }
+
+    //チェック済みにする　ok
     @PostMapping("admin/update")
-    public void updateQuiz(@ModelAttribute quiz quiz){
-        quizService.updateQuiz(quiz);
+    public String updateQuiz(@RequestParam Long id){
+        quizService.updateConfirmation(id);
+        return "redirect:/admin/check";
+        //quizService.updateQuiz(quiz);
     }
 
-    
+    //クイズ更新ページに遷移
+    @PostMapping("/editing")
+    public String editingCountry(@RequestParam("id") long id, HttpSession session) {
+        session.setAttribute("quizid", id);
+        return "redirect:/admin/create";
+    }
+
 }

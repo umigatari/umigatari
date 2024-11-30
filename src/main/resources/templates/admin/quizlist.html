@@ -2,20 +2,50 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>クイズ更新削除</title>
-    <link rel="stylesheet" href="quizlist.css">
+    <link rel="stylesheet" href="/css/admin/quizlist.css">
 </head>
 <body>
     <div class="container">
         <header class="header">
             <h1>一覧</h1>
-    　　</header>
+    </header>
+    <form action="/admin/quizlist" method="get" onsubmit="removeEmptyParams()">
+        <!-- 1から9の選択肢 -->
+        <label for="p_cocid">選択肢 (1-9):</label>
+        <select id="p_cocid" name="p_cocid">
+            <option value="">選択しない</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+        </select>
+        <br><br>
+        
+        <!-- 昇順・降順の選択肢 -->
+        <label for="dord">並び順:</label>
+        <select id="dord" name="dord">
+            <option value="">選択しない</option>
+            <option value="asc">昇順</option>
+            <option value="desc">降順</option>
+        </select>
+        <br><br>
+        
+        <!-- フォーム送信ボタン -->
+        <button type="submit">送信</button>
+    </form>
+    <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
         <ul>
             <li th:each="quiz : ${quiz}">
                 <div class="quiz-details">
                     <span th:text="'問題: ' + ${quiz.question} ">問題</span>
                     <span th:text="'正解: ' + ${quiz.correct} ">正解</span>
-                    <span th:text="'不正解の選択肢: ' + ${quiz.otherone}">不正解1</span>
-                    <span th:text="'不正解の選択肢: ' + ${quiz.othertwo}">不正解2</span>
+                    <span th:text="'不正解の選択肢: ' + ${quiz.other_one}">不正解1</span>
+                    <span th:text="'不正解の選択肢: ' + ${quiz.other_two}">不正解2</span>
                     <span th:text="'クイズのジャンル: ' + ${quiz.type}">ジャンル</span>
                     
                     <div class="quiz-buttons">
@@ -23,7 +53,7 @@
                             <input type="hidden" name="id" th:value="${quiz.id}" />
                             <button type="submit" class="update-button">編集</button>
                     </form>
-                        <form th:action="@{/remove}" method="post">
+                        <form th:action="@{/admin/delete2}" method="post">
                             <input type="hidden" name="id" th:value="${quiz.id}" />
                             <button type="submit" class="delete-button">削除</button>
                     </form>
@@ -33,4 +63,23 @@
         </ul>
     </div>
 </body>
+<script>
+    function removeEmptyParams() {
+        // 'p_cocid'と'dord'の選択された値を取得
+        const pCocid = document.getElementById('p_cocid').value;
+        const dord = document.getElementById('dord').value;
+
+        // 'p_cocid'が空なら、このパラメータを削除（送信しない）
+        if (pCocid === "") {
+            const pCocidParam = document.querySelector('select[name="p_cocid"]');
+            pCocidParam.removeAttribute('name');  // 'p_cocid'パラメータを送信しない
+        }
+
+        // 'dord'が空なら、このパラメータを削除（送信しない）
+        if (dord === "") {
+            const dordParam = document.querySelector('select[name="dord"]');
+            dordParam.removeAttribute('name');  // 'dord'パラメータを送信しない
+        }
+    }
+</script>
 </html>
