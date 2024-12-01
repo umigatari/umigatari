@@ -10,26 +10,37 @@
     <div>
         <h1>問題作成</h1>
 
-        <form id="question-form">
-            <!-- 問題文 -->
-            <label for="question">問題文:</label>
-            <input type="text" id="question" name="question" placeholder="問題文を入力してください" required>
+        <div th:if="${create}">
+            <p th:text="${create}"></p>
+            <form th:action="@{/stamp}" method="get">
+                <button type="submit" class="stampbutton">スタンプ一覧へ</button>
+            </form>
+        </div>
 
-            <!-- 正解の選択肢 -->
-            <label for="correct-answer">正解の選択肢:</label>
-            <input type="text" id="correct-answer" name="correct-answer" placeholder="正解の選択肢を入力" required>
-
-            <!-- 不正解の選択肢1 -->
-            <label for="wrong-answer-1">不正解の選択肢1:</label>
-            <input type="text" id="wrong-answer-1" name="wrong-answer-1" placeholder="不正解の選択肢を入力" required>
-
-            <!-- 不正解の選択肢2 -->
-            <label for="wrong-answer-2">不正解の選択肢2:</label>
-            <input type="text" id="wrong-answer-2" name="wrong-answer-2" placeholder="不正解の選択肢を入力" required>
-
-            <!-- 送信ボタン -->
-            <input type="submit" value="問題を作成する">
-        </form>
+        <div th:unless="${create}">
+            <form action="/quiz/create" method="post">
+                <label for="question">クイズ:</label>
+                <input type="text" id="question" name="question" maxlength="100" required 
+                       th:value="${quiz != null ? quiz.question : ''}">
+            
+                <label for="correct">正解の回答:</label>
+                <input type="text" id="correct" name="correct" maxlength="100" required 
+                       th:value="${quiz != null ? quiz.correct : ''}">
+            
+                <label for="otherone">不正解の回答1:</label>
+                <input type="text" id="other_one" name="other_one" maxlength="100" required 
+                       th:value="${quiz != null ? quiz.other_one : ''}">
+            
+                <label for="othertwo">不正解の回答2:</label>
+                <input type="text" id="other_two" name="other_two" maxlength="100" required 
+                       th:value="${quiz != null ? quiz.other_two : ''}">
+               
+                <input type="hidden" name="confirmation" 
+                       th:value="${quiz != null && quiz.confirmation != null ? quiz.confirmation : true}">
+            
+                <button type="submit">送信</button>
+            </form>
+        </div>
 
         <div id="message" style="margin-top: 20px;"></div>
     </div>

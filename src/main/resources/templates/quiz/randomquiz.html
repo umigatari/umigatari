@@ -9,13 +9,18 @@
 <body>
  
     <h1>３つの中から１つクイズを選んでね！</h1>
- 
+    
+    <!-- すでに問題を解いている場合のメッセージ -->
+    <p th:text="${soved}"></p>
+    
     <div>
         <ol>
             <!-- クイズを表示する -->
             <th:block th:each="quiz : ${quiz}">
                 <li>
-                    <button>選択</button>
+                    <form th:action="@{/quiz/{id}(id=${quiz.id})}" method="post">
+                        <button type="submit">選択: <span th:text="${quiz.question}"></span></button>
+                    </form>
                 </li>
             </th:block>
         </ol>
