@@ -89,7 +89,7 @@ public class QuizController {
         return "quiz/adduserquiz";
     }
 
-
+    //クイズ作成機能
     @SuppressWarnings("unchecked")
     @PostMapping("quiz/create")
     public String createQuiz(@ModelAttribute quiz quiz, Model model, HttpSession session) {
