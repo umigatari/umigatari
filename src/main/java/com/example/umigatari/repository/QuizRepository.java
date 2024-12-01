@@ -52,7 +52,7 @@ public class QuizRepository {
     return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
     }
 
-    //tpe一覧を表示する
+    //一覧を表示するtype
     public List<quiz> readTypeQuiz(int type){
         String sql = "SELECT * FROM quiz where type = ?";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class),type);
@@ -70,13 +70,13 @@ public class QuizRepository {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
     }
 
-    //一覧を表示するtype&
+    //一覧を表示するdesc type order
     public List<quiz> readDesc(int type){
         String sql = "SELECT * FROM quiz WHERE type = ? ORDER BY creationday DESC;";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class),type);
     }
 
-    //一覧を表示するtype&
+    //一覧を表示するasc type order
     public List<quiz> readAsc(int type){
         String sql = "SELECT * FROM quiz WHERE type = ? ORDER BY creationday ASC";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class),type);
@@ -88,8 +88,18 @@ public class QuizRepository {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
     }
 
+    //チェック済みにする
     public void updateConfirmation(Long id){
         String sql ="UPDATE quiz SET confirmation = false WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
+
+    //通知の件数を表示
+    public int getNotice() {
+        String sql = "SELECT COUNT(*) FROM quiz WHERE confirmation = TRUE";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class);
+        return count != null ? count : 0; // null の場合は 0 を返す
+    }
+    
+
 }

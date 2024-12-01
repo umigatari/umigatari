@@ -88,5 +88,10 @@ public class QuizService {
     public void updateConfirmation(Long id){
         quizRepository.updateConfirmation(id);
     }
+
+    //通知の件数を表示
+    public int getNotice(){
+       return quizRepository.getNotice();
+    }
     
 }
