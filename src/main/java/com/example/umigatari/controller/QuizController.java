@@ -100,7 +100,12 @@ public class QuizController {
 
     //adminページを表示　ok
     @GetMapping("admin")
-    public String admin(){
+    public String admin(Model model){
+        int notice = quizService.getNotice();
+        if(notice>=99){
+            notice=99;
+        }
+        model.addAttribute("notice",notice);
         return "admin/admin";
     }
 
