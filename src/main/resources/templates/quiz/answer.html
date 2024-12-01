@@ -13,7 +13,10 @@
     </div>
 
     <!-- クイズが正解なら「クイズを作成する」ボタンを表示 -->
-    <button th:if="${message != null and message == '正解'}" id="createQuizButton">クイズを作成する</button>
+     <form th:action="@{/quiz/createpage}" method="get">
+        <button th:if="${message != null and message == '正解'}" id="createQuizButton">クイズを作成する</button>
+            </form>
+
 
     <!-- 正解・不正解に関係なく表示されるトップページへ戻るボタン -->
     <button onclick="location.href='/'">トップページへ戻る</button>

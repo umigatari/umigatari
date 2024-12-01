@@ -8,19 +8,23 @@
 </head>
 <body>
     <h1>クイズ: <span th:text="${quiz.question}"></span></h1>
-</h1>
-    <div>
-        <img th:src="@{${quiz.imageUrl}}" alt="画像" width="300"/>
-    </div>
-    <form th: action="quiz/answer" method="post">
+
+    <form th:action="@{/quiz/answer}" method="post">
+        <!-- quiz.typeをhiddenフィールドとして送信 -->
+        <input type="hidden" name="type" th:value="${quiz.type}"/>
+    
         <ul>
-            <!-- 解答選択肢を表示 -->
-            <th:block th:each="option : ${quiz.options}">
-                <button type="submit" name="choice" value="author" text="${author}">解答１</button>
-                <button type="submit" name="choice" value="other" text="${other1}">解答２</button>
-                <button type="submit" name="choice" value="other" text="${other2}">解答３</button>
-            </th:block>
+            <li>
+                <button type="submit" name="choice" value="correct" th:text="${quiz.correct}">解答１: 正解</button>
+            </li>
+            <li>
+                <button type="submit" name="choice" value="${quiz.other_one}" th:text="${quiz.other_one}">解答２</button>
+            </li>
+            <li>
+                <button type="submit" name="choice" value="${quiz.other_two}" th:text="${quiz.other_two}">解答３</button>
+            </li>
         </ul>
     </form>
+    
 </body>
 </html>

@@ -29,15 +29,21 @@ public class QuizController {
     @Autowired
     private QuizService quizService;
 
+    /*セッションは二つあって解いたtypeを保管するのsolvedQuizzesと、正解したtypeを保管するのcorrectがある。
+     * スタンプに表示するのはcorrect
+     * クイズを２かい解けなくさせるのはsolvedQuizzes
+     */
+
+    //typeごとのクイズを表示する
     @SuppressWarnings("unchecked")
     @GetMapping("quiz/{type}")
     public String randomThreeQuiz(@PathVariable("type") int type, Model model, HttpSession session) {
         Set<Integer> solvedQuizzes = (Set<Integer>) session.getAttribute("solvedQuizzes");
-
+        //リスト作成
         if (solvedQuizzes == null) {
             solvedQuizzes = new LinkedHashSet<>();
         }
-
+        //すでに解いているか判断。解いていれば、問題は表示されない。
         if (!solvedQuizzes.contains(type)) {
             solvedQuizzes.add(type);
             session.setAttribute("solvedQuizzes", solvedQuizzes);
@@ -46,21 +52,23 @@ public class QuizController {
         } else {
             model.addAttribute("soved", "すでに問題を解いています");
         }
-
         return "quiz/randomquiz";
     }
 
+    //ひとつ選ばれたクイズを表示する
     @PostMapping("quiz/{id}")
     public String showOneQuiz(@PathVariable("id") Long id, Model model) {
         quiz quiz = quizService.selectOneById(id);
         model.addAttribute("quiz", quiz);
-        return "quiz/answer";
+        return "quiz/quiz";
     }
 
+    //クイズの回答を表示する
     @SuppressWarnings("unchecked")
     @PostMapping("quiz/answer")
     public String check(@RequestParam String choice,@RequestParam int type, Model model,HttpSession session) {
-        if ("author".equals(choice)) {
+        //正解なら正解を表示して、せっしょんにあってるよってるのを付与する。
+        if ("correct".equals(choice)) {
             model.addAttribute("message", "正解");
             Set<Integer> correct = (Set<Integer>) session.getAttribute("carrect");
             if (correct == null) {
@@ -68,21 +76,24 @@ public class QuizController {
             }
             correct.add(type);
             session.setAttribute("correct", correct);
-
+        //不正解なら不正解と表示
         } else {
             model.addAttribute("message", "不正解");
         }
-        return "quiz/check";
+        return "quiz/answer";
     }
 
+    //クイズ作成のページを表示
     @GetMapping("quiz/createpage")
     public String createQuizPage() {
         return "quiz/adduserquiz";
     }
 
+
     @SuppressWarnings("unchecked")
     @PostMapping("quiz/create")
     public String createQuiz(@ModelAttribute quiz quiz, Model model, HttpSession session) {
+        //セッションに含まれるtypeを確認しそのtypeの問題が作成できるよにする
         Set<Integer> solvedQuizzes = (Set<Integer>) session.getAttribute("solvedQuizzes");
         if (solvedQuizzes != null && !solvedQuizzes.isEmpty()) {
             List<Integer> solvedList = new ArrayList<>(solvedQuizzes);
