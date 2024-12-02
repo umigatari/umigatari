@@ -77,24 +77,32 @@
     </div>
 </div>
 
-<script>
-    // サーバー側で渡されたcorrect値をJavaScriptに渡す
+<script th:inline="javascript">
     window.onload = function() {
         // サーバーから渡されたcorrectの値を受け取る
         var correct = /*[[${correct}]]*/ [];
+
+        // IDと画像パスのマッピングを定義
+        var images = {
+            1: 'url1.png',
+            2: 'url2.png',
+            3: 'url3.png',
+            // 必要に応じて他のIDと画像パスを追加
+        };
 
         // 画像をセットするための処理
         for (var i = 0; i < correct.length; i++) {
             var stampId = "stamp-" + correct[i];  // 例: "stamp-1"、"stamp-2"など
             var stampElement = document.getElementById(stampId);
-            if (stampElement) {
+            if (stampElement && images[correct[i]]) {
                 // スタンプ画像のパスを指定
-                stampElement.style.backgroundImage = "url('stamp-image.png')"; // 画像のURLを指定
+                stampElement.style.backgroundImage = "url('" + images[correct[i]] + "')"; 
                 stampElement.style.backgroundSize = "cover";  // 画像がスタンプに合うように調整
             }
         }
     };
 </script>
+
 
 </body>
 </html>

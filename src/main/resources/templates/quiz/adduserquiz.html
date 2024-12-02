@@ -7,10 +7,11 @@
     <title>問題作成フォーム</title>
 </head>
 <body>
+    <div class="container">
+        <!-- 見出し -->
+        <h1 class="page-title">問題作成</h1>
 
-    <div>
-        <h1>問題作成</h1>
-
+        <!-- スタンプ一覧ボタン -->
         <div th:if="${create}">
             <p th:text="${create}"></p>
             <form th:action="@{/stamp}" method="get">
@@ -18,33 +19,35 @@
             </form>
         </div>
 
+        <!-- 問題作成フォーム -->
         <div th:unless="${create}">
-            <form action="/quiz/create" method="post">
-                <label for="question">クイズ:</label>
+            <form action="/quiz/create" method="post" class="quiz-form">
+                <label for="question" class="fancy-label">クイズ:</label>
                 <input type="text" id="question" name="question" maxlength="100" required 
                        th:value="${quiz != null ? quiz.question : ''}">
             
-                <label for="correct">正解の回答:</label>
+                <label for="correct" class="fancy-label">正解の回答:</label>
                 <input type="text" id="correct" name="correct" maxlength="100" required 
                        th:value="${quiz != null ? quiz.correct : ''}">
             
-                <label for="otherone">不正解の回答1:</label>
+                <label for="otherone" class="fancy-label">不正解の回答1:</label>
                 <input type="text" id="other_one" name="other_one" maxlength="100" required 
                        th:value="${quiz != null ? quiz.other_one : ''}">
             
-                <label for="othertwo">不正解の回答2:</label>
+                <label for="othertwo" class="fancy-label">不正解の回答2:</label>
                 <input type="text" id="other_two" name="other_two" maxlength="100" required 
                        th:value="${quiz != null ? quiz.other_two : ''}">
-               
                 <input type="hidden" name="confirmation" 
                        th:value="${quiz != null && quiz.confirmation != null ? quiz.confirmation : true}">
             
-                <button type="submit">送信</button>
+                <button type="submit" class="submit-button">送信</button>
             </form>
+            <!-- 注意書き -->
+            <p class="warning">
+                ※作成した問題は、他の人のクイズとして表示されます。不適切な言葉は使用しないでください。
+                クイズ、または回答は１００字まで入力できます。
+            </p>
         </div>
-
-        <div id="message" style="margin-top: 20px;"></div>
     </div>
-
 </body>
 </html>

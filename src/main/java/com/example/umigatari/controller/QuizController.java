@@ -169,7 +169,7 @@ public class QuizController {
         try {
             List<quiz> quizzes = quizService.checkListQuiz();
             model.addAttribute("quiz", quizzes);
-            return "admincheck";
+            return "admin/check";
         } catch (NotFoundException e) {
             model.addAttribute("errorMessage", "問題はありません");
             return "admin/check";
@@ -250,5 +250,11 @@ public class QuizController {
         session.setAttribute("quizid", id);
         return "redirect:/admin/create";
     }
+
+    @GetMapping("rule")
+    public String getMethodName() {
+        return "rule";
+    }
+    
 
 }
