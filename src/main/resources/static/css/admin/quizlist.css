@@ -26,6 +26,37 @@ body {
     position: relative;
 }
 
+button[type="submit"]{
+    background-color: #f5da53;
+    color: white; /* テキストを白色に */
+    padding: 10px 20px; /* 内側余白 */
+    font-size: 16px; /* フォントサイズ */
+    border: none; /* ボーダーを消去 */
+    border-radius: 6px; /* 角を丸く */
+    cursor: pointer; /* ホバー時にポインター */
+    transition: background-color 0.3s ease; /* 背景色のアニメーション */
+}
+
+button[type="submit"]:hover {
+    background-color: #dba80e
+}
+
+button.back-button {
+    background-color: #5ff76e; /* サンドカラー */
+    color: white; /* テキストを白色に */
+    padding: 10px 20px; /* 内側余白 */
+    font-size: 16px; /* フォントサイズ */
+    border: none; /* ボーダーを消去 */
+    border-radius: 6px; /* 角を丸く */
+    cursor: pointer; /* ホバー時にポインター */
+    transition: background-color 0.3s ease; /* 背景色のアニメーション */
+}
+
+button.back-button:hover {
+    background-color: #30cd30; /* 濃いサンドカラーに変更 */
+}
+
+
 ul {
     list-style: none;
     padding: 0;
@@ -59,6 +90,7 @@ span {
 
 button {
     padding: 10px 20px;
+    color: white;
     font-size: 16px;
     font-weight: normal;  
     border-radius: 6px;
@@ -86,3 +118,20 @@ button.delete-button {
 button.delete-button:hover {
     background-color: #c0392b;  
 }
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.popup button {
+    margin: 5px;
+}
+
