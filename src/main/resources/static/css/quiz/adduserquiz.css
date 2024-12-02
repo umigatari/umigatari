@@ -1,55 +1,91 @@
+/* 全体のレイアウト */
 body {
     font-family: Arial, sans-serif;
-    background-color: aliceblue;
+    background-color: #F0F8FF; /* アリスブルー */
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* 上寄せ */
+    height: 100vh;
+    padding-top: 20px;
 }
 
-div {
-    max-width: 600px;
-    margin: 50px auto;
+/* コンテナのスタイル */
+.container {
+    background-color: white;
     padding: 20px;
-    background-color: aliceblue;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影の調整 */
     border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+    text-align: center; /* 全体を中央揃え */
 }
 
-h1 {
-    text-align: center;
-    color: #333;
+/* 見出し（問題作成）のスタイル */
+.page-title {
+    font-size: 28px;
+    color: black;
+    margin-bottom: 20px; /* フォームとの間隔 */
 }
 
+/* スタンプ一覧ボタン */
+.stampbutton {
+    background-color: #4682b4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 20px; /* フォームとの間隔 */
+}
+
+.stampbutton:hover {
+    background-color: #5a8cc0; /* ホバー時の色 */
+}
+
+/* フォーム内のラベルと入力フィールド */
 label {
-    display: block;
+    font-size: 16px;
     margin-bottom: 8px;
-    font-weight: bold;
+    display: block;
+    text-align: left;
+    color: #333;
 }
 
 input[type="text"] {
-    width: calc(100% - 22px);
+    width: 100%;
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 16px;
     box-sizing: border-box;
 }
 
-input[type="submit"] {
-    width: 100%;
-    padding: 15px;
-    background-color: aliceblue;
+/* 送信ボタンのスタイル */
+button.submit-button {
+    background-color: #FAC61E;
     color: white;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    padding: 12px 25px;
     font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
 }
 
-input[type="submit"]:hover {
-    background-color: aliceblue;
+button.submit-button:hover {
+    background-color: #f7a800; /* ホバー時に色を濃く */
 }
-
-#message {
-    text-align: center;
-    color: #333;
+.warning {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+    text-align: left;
+    line-height: 1.5;
 }

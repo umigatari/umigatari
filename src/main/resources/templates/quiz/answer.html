@@ -8,19 +8,55 @@
 </head>
 <body>
 
-    <!-- メッセージを表示 -->
-    <div style="border: #ff69b4 solid 1px; font-size: 100%; padding: 50px;">
-        <p th:text="${message}"></p> <!-- ここで正誤メッセージを表示 -->
+    <h1 th:text="${message}"></h1>
+
+    <div class="stamp-card">
+        <!-- スタンプの円（3×3のグリッド）-->
+        <div class="stamp-grid">
+            <div class="stamp" id="stamp-1"></div>
+            <div class="stamp" id="stamp-2"></div>
+            <div class="stamp" id="stamp-3"></div>
+            <div class="stamp" id="stamp-4"></div>
+            <div class="stamp" id="stamp-5"></div>
+            <div class="stamp" id="stamp-6"></div>
+            <div class="stamp" id="stamp-7"></div>
+            <div class="stamp" id="stamp-8"></div>
+            <div class="stamp" id="stamp-9"></div>
+        </div>
     </div>
 
-    <!-- クイズが正解なら「クイズを作成する」ボタンを表示 -->
-     <form th:action="@{/quiz/createpage}" method="get">
+    <form th:action="@{/quiz/createpage}" method="get">
         <button th:if="${message != null and message == '正解'}" id="createQuizButton">クイズを作成する</button>
-            </form>
+    </form>
+
+    <a href="/stamp" class="admin-button">スタンプ一覧へ戻る</a>
 
 
-    <!-- 正解・不正解に関係なく表示されるトップページへ戻るボタン -->
-    <button onclick="location.href='/'">トップページへ戻る</button>
+    <script th:inline="javascript">
+        window.onload = function() {
+            // サーバーから渡されたcorrectの値を受け取る
+            var correct = /*[[${correct}]]*/ [];
+    
+            // IDと画像パスのマッピングを定義
+            var images = {
+                1: 'url1.png',
+                2: 'url2.png',
+                3: 'url3.png',
+                // 必要に応じて他のIDと画像パスを追加
+            };
+    
+            // 画像をセットするための処理
+            for (var i = 0; i < correct.length; i++) {
+                var stampId = "stamp-" + correct[i];  // 例: "stamp-1"、"stamp-2"など
+                var stampElement = document.getElementById(stampId);
+                if (stampElement && images[correct[i]]) {
+                    // スタンプ画像のパスを指定
+                    stampElement.style.backgroundImage = "url('" + images[correct[i]] + "')"; 
+                    stampElement.style.backgroundSize = "cover";  // 画像がスタンプに合うように調整
+                }
+            }
+        };
+    </script>
 
 </body>
 </html>
