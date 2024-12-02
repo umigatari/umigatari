@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.umigatari.NotFoundException;
 import com.example.umigatari.model.quiz;
 import com.example.umigatari.service.QuizService;
+//import com.example.umigatari.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -29,9 +30,13 @@ public class QuizController {
     @Autowired
     private QuizService quizService;
 
+   /*  @Autowired
+    private UserService userService;*/
+
     /*セッションは二つあって解いたtypeを保管するのsolvedQuizzesと、正解したtypeを保管するのcorrectがある。
      * スタンプに表示するのはcorrect
      * クイズを２かい解けなくさせるのはsolvedQuizzes
+     * ログインしてないとページを表示できない機能を追加
      */
 
     //typeごとのクイズを表示する
@@ -69,6 +74,9 @@ public class QuizController {
     public String check(@RequestParam String choice,@RequestParam int type, Model model,HttpSession session) {
         //正解なら正解を表示して、せっしょんにあってるよってるのを付与する。
         if ("correct".equals(choice)) {
+        /*Object obj = session.getAttribute("id");
+       Long id = (Long)obj;
+            userService.countUp(id);*/
             model.addAttribute("message", "正解");
             Set<Integer> correct = (Set<Integer>) session.getAttribute("carrect");
             if (correct == null) {
