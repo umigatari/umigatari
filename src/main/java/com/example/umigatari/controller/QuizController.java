@@ -210,10 +210,23 @@ public class QuizController {
 
     //クイズ削除 一覧からok
     @PostMapping("admin/delete2")
-    public String deleteQuiz2(@RequestParam Long id){
-        quizService.deleteQuiz(id);
-        return "redirect:/admin/quizlist";
+    public String deleteQuiz2(@RequestParam Long id, @RequestParam(required = false) String p_cocid, 
+                          @RequestParam(required = false) String dord) {
+    quizService.deleteQuiz(id);
+    
+    // 削除後にパラメータをリダイレクトURLに追加
+    String redirectUrl = "redirect:/admin/quizlist";
+    if (p_cocid != null && !p_cocid.isEmpty()) {
+        redirectUrl += "?p_cocid=" + p_cocid;
     }
+    if (dord != null && !dord.isEmpty()) {
+        // パラメータを&で繋げて追加
+        redirectUrl += (redirectUrl.contains("?") ? "&" : "?") + "dord=" + dord;
+    }
+
+    return redirectUrl;
+}
+
 
     //チェック済みにする　ok
     @PostMapping("admin/update")

@@ -11,9 +11,9 @@
     </header>
     <form action="/admin/quizlist" method="get" onsubmit="removeEmptyParams()">
         <!-- 1から9の選択肢 -->
-        <label for="p_cocid">選択肢 (1-9):</label>
+        <label for="p_cocid">クイズジャンルごとに絞り込む:</label>
         <select id="p_cocid" name="p_cocid">
-            <option value="">選択しない</option>
+            <option value="">すべて表示する</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -27,7 +27,7 @@
         <br><br>
         
         <!-- 昇順・降順の選択肢 -->
-        <label for="dord">並び順:</label>
+        <label for="dord">問題作成日で並び替える:</label>
         <select id="dord" name="dord">
             <option value="">選択しない</option>
             <option value="asc">昇順</option>
@@ -52,13 +52,15 @@
                         <form th:action="@{/editing}" method="post">
                             <input type="hidden" name="id" th:value="${quiz.id}" />
                             <button type="submit" class="update-button">編集</button>
-                    </form>
+                        </form>
                         <form th:action="@{/admin/delete2}" method="post">
                             <input type="hidden" name="id" th:value="${quiz.id}" />
+                            <input type="hidden" name="p_cocid" th:value="${param.p_cocid}" />
+                            <input type="hidden" name="dord" th:value="${param.dord}" />
                             <button type="submit" class="delete-button">削除</button>
-                    </form>
+                        </form>
+                    </div>
                     
-                </div>
             </li>
         </ul>
     </div>
