@@ -1,43 +1,102 @@
+/* ページ全体の基本スタイル */
 body {
-    font-family: Arial, sans-serif;
-    background-color: aliceblue;
-    margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif; /* フォントをArialとSans-serifに設定 */
+    background-color: aliceblue; /* 背景色を淡い青色に設定 */
+    margin: 0; /* ページ全体の余白をなくす */
+    padding: 0; /* ページ全体の内側余白をなくす */
 }
 
+/* 見出し (タイトル) のスタイル */
 h1 {
-    text-align: center;
-    color: #333;
-    margin-top: 50px;
+    text-align: center; /* タイトルを中央揃え */
+    color: #333; /* 文字色を濃い灰色に設定 */
+    margin-top: 50px; /* 上部に50pxの余白を追加 */
 }
 
-div {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: aliceblue;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+/* クイズのリスト (番号付きリスト) のスタイル */
+.quiz-container ol {
+    padding-left: 20px; /* リスト全体の左側に20pxの余白 */
 }
 
-ol {
-    padding-left: 20px;
+/* 各クイズ項目のスタイル */
+.quiz-item {
+    margin-bottom: 10px; /* 各クイズ項目の間に10pxの余白を追加 */
 }
 
-li {
-    margin-bottom: 10px;
+/* クイズボタンのスタイル */
+.quiz-button {
+    display: block; /* ボタンをブロック要素にして幅を占有 */
+    width: 750px; /* 幅を150pxに固定 */ 
+    height: 85px; /* 高さを50pxに固定 */
+    margin: 0 auto; /* 左右中央揃えにする */
+    color: black; /* テキストの色を黒に設定 */
+    border: 2px solid rgb(19, 93, 167); /* 青い枠線を追加 */
+    border-radius: 4px; /* 角を4pxの半径で丸める */
+    cursor: pointer; /* マウスオーバー時にポインターアイコンを表示 */
+    font-size: 16px; /* フォントサイズを16pxに設定 */
+    background-color: white; /* ボタンの背景色を白に設定 */
+    text-align: left; /* テキストを左揃えにする */
 }
 
-button {
-    padding: 10px 20px;
-    background-color: aliceblue;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
+/* ボタンのホバー時のスタイル */
+.quiz-button:hover {
+    background-color: #e0f7ff; /* マウスオーバー時に背景色を淡い青色に変更 */
 }
 
-button:hover {
-    background-color: aliceblue;
+/* 画像コンテナのスタイル */
+.image-container {
+    display: flex; /* 子要素を横並びに配置 */
+    justify-content: space-between; /* 子要素の間を均等に配置 */
+    align-items: center; /* 子要素を上下中央揃え */
+    max-width: 600px; /* 最大幅を600pxに制限 */
+    margin: 20px auto; /* 上下に20pxの余白、左右を中央揃え */
+    gap: 20px; /* 子要素間のスペースを20px追加 */
+}
+
+/* コンテナ内の画像のスタイル */
+.image-container img {
+    max-width: 45%; /* 画像の幅を親コンテナの45%に制限 */
+    height: auto; /* 高さをアスペクト比に応じて自動調整 */
+    border-radius: 50%; /* 画像を円形に切り抜く */
+    border: none; /* 枠線を削除 */
+}
+
+/* スマホ画面対応（画面幅が768px以下のとき） */
+@media (max-width: 768px) {
+    /* クイズボタンのスタイル */
+    .quiz-button {
+        width: 100%; /* ボタンの幅を画面サイズに合わせて100%にする */
+        height: 60px; /* 高さを少し小さく設定 */
+        font-size: 14px; /* フォントサイズを少し小さく設定 */
+    }
+
+    /* 画像の表示設定 */
+    .image-container {
+        flex-direction: column; /* 画像を縦に並べる */
+        gap: 10px; /* 画像間の隙間を少し縮める */
+    }
+
+    /* 画像のサイズを調整 */
+    .image-container img {
+        max-width: 80%; /* 画像の幅を80%に設定 */
+    }
+}
+
+/* タブレット画面対応（画面幅が1024px以下のとき） */
+@media (max-width: 1024px) {
+    .quiz-button {
+        width: 80%; /* 幅を80%にする */
+        height: 70px; /* 高さを70pxに設定 */
+        font-size: 15px; /* フォントサイズを少し調整 */
+    }
+
+    /* 画像の表示設定 */
+    .image-container {
+        flex-direction: row; /* 画像を横並びに戻す */
+        gap: 15px; /* 画像間の隙間を調整 */
+    }
+
+    .image-container img {
+        max-width: 45%; /* 画像の幅を45%に設定 */
+    }
 }
