@@ -9,9 +9,8 @@
 <body>
     <h1>クイズ: <span th:text="${quiz.question}"></span></h1>
     <div>
-        <img th:src="${quiz.image}" alt="クイズ画像" style="max-width: 100%; height: auto;">
+        <img src="/img/魚1.jpg" alt="クイズ画像" style="max-width: 100%; height: auto;">
     </div>
-
     <form th:action="@{/quiz/answer}" method="post">
         <!-- quiz.typeをhiddenフィールドとして送信 -->
         <input type="hidden" name="type" th:value="${quiz.type}"/>
