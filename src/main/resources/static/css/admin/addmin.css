@@ -68,7 +68,3 @@ body {
 .notification-container[data-noticen=null] {
     display: none; /* 通知が0のとき非表示 */
 }
- 
- 
- 
- 
