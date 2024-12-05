@@ -100,3 +100,55 @@ h1 {
         max-width: 45%; /* 画像の幅を45%に設定 */
     }
 }
+/* ルールセクション全体のスタイル */
+.rules-container {
+    max-width: 800px; /* セクション全体の幅を制限 */
+    margin: 20px auto; /* 上下20pxの余白、左右を中央揃え */
+    padding: 20px; /* セクション内部に余白を追加 */
+    background-color: #f9f9f9; /* 背景色を薄いグレーに設定 */
+    border: 1px solid #ddd; /* 薄い灰色の枠線を追加 */
+    border-radius: 8px; /* 角を丸くする */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
+}
+
+/* ルールセクションの見出しスタイル */
+.rules-container h2 {
+    text-align: center; /* 見出しを中央揃え */
+    color: #333; /* 文字色を濃い灰色に設定 */
+    margin-bottom: 15px; /* 下部に余白を追加 */
+    font-size: 1.5em; /* 見出しの文字サイズを調整 */
+}
+
+/* ルールリストのスタイル */
+.rules-container ul {
+    list-style-type: disc; /* リストアイコンを「・」に設定 */
+    padding-left: 20px; /* リスト全体に左側の余白を追加 */
+    margin: 0; /* リスト周囲の余白をリセット */
+}
+
+/* 各ルール項目のスタイル */
+.rules-container ul li {
+    margin-bottom: 10px; /* 各項目の間に余白を追加 */
+    color: #555; /* 文字色を少し薄い灰色に設定 */
+    font-size: 1em; /* 文字サイズを通常に設定 */
+    line-height: 1.5; /* 行間を少し広げて見やすくする */
+}
+
+/* スマホ画面対応（画面幅が768px以下のとき） */
+@media (max-width: 768px) {
+    .rules-container {
+        padding: 15px; /* 内側余白を縮小 */
+        font-size: 0.9em; /* 全体の文字サイズを少し小さくする */
+    }
+
+    .rules-container h2 {
+        font-size: 1.2em; /* 見出しのサイズを調整 */
+    }
+}
+
+/* タブレット画面対応（画面幅が1024px以下のとき） */
+@media (max-width: 1024px) {
+    .rules-container {
+        padding: 18px; /* 内側余白を調整 */
+    }
+}

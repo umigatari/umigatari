@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="answer.css">
+    <link rel="stylesheet" href="/css/quiz/answer.css">
     <title>正誤判定</title>
 </head>
 <body>
@@ -27,7 +27,7 @@
 
         <div class="button-container">
             <form th:action="@{/quiz/createpage}" method="get">
-                <button th:if="${message != null and message == '正解'}">クイズを作成する</button>
+                <button th:if="${message != null and message == '正解!'}">クイズを作成する</button>
             </form>
             <form action="/stamp" method="get">
                 <button type="submit">スタンプ一覧へ戻る</button>
