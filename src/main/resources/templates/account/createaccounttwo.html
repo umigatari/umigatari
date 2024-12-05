@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="account.css">
+    <title>アカウント作成 情報入力</title>
+
+</head>
+<body>
+
+<div class="container">
+    <h1>アカウント作成</h1>
+    <p>新しいアカウントを作成するために、以下の情報を入力してください。</p>
+
+    <form action="/register" method="post">
+        <label for="username">ユーザー名</label>
+        <input type="text" id="username" name="username" required placeholder="ユーザー名">
+
+        <label for="password">パスワード</label>
+        <input type="password" id="password" name="password" required placeholder="パスワード" minlength="8">
+
+        <label for="confirm-password">パスワードの確認</label>
+        <input type="password" id="confirm-password" name="confirm-password" required placeholder="パスワードの確認" minlength="8">
+
+        <button type="submit">アカウントを作成する</button>
+    </form>
+
+</div>
+
+</body>
+</html>

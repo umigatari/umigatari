@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="account.css">
+    <title>ログイン</title>
+</head>
+<body>
+
+    <div class="container">
+        <h1>ログイン</h1>
+
+        <form action="/login" method="post">
+            <!-- ユーザー名 -->
+            <div class="form-group">
+                <label for="username">ユーザー名</label>
+                <input type="text" id="username" name="username" placeholder="ユーザー名" required>
+            </div>
+
+            <!-- パスワード -->
+            <div class="form-group">
+                <label for="password">パスワード</label>
+                <input type="password" id="password" name="password" placeholder="パスワード" required>
+            </div>
+
+            <!-- ログインボタン -->
+            <button type="submit">ログイン</button>
+        </form>
+
+        <!-- パスワードを忘れた場合のリンク -->
+        <div class="forgot-password">
+            <a href="file:///C:/Users/kai08/OneDrive/%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97/umigatari/umigatari/src/main/resources/templates/account/forgotpassone.html">パスワードを忘れた場合</a>
+        </div>
+    </div>
+
+</body>
+</html>
