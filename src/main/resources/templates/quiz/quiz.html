@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/quiz/quiz.css">
+    <link rel="stylesheet" href="quiz.css">
     <title>クイズ解答画面</title>
 </head>
 <body>
     <h1>クイズ: <span th:text="${quiz.question}"></span></h1>
-    <div>
-        <img src="" alt="クイズ画像" style="max-width: 100%; height: auto;">
+
     </div>
     <form th:action="@{/quiz/answer}" method="post">
         <!-- quiz.typeをhiddenフィールドとして送信 -->
         <input type="hidden" name="type" th:value="${quiz.type}"/>
         
         <ul>
-            <li th:each="choice : ${choices}">
+            <li th:each="choice : ${choices}" class="quiz-answer">
                 <button type="submit" name="choice" th:value="${choice}" th:text="${choice}">解答</button>
             </li>
         </ul>
