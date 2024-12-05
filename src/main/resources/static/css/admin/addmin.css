@@ -65,6 +65,6 @@ body {
     border-radius: 50%; /* 円形にする */
 }
  
-.notification-container[data-noticen=null] {
+.notification-container[data-noticen=0] {
     display: none; /* 通知が0のとき非表示 */
 }
