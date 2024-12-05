@@ -9,9 +9,6 @@ div {
     max-width: 600px;
     margin: 50px auto;
     padding: 20px;
-    background-color: aliceblue;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
 }
 
 h1 {
@@ -30,14 +27,13 @@ input[type="text"] {
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
-    border-radius: 4px;
     box-sizing: border-box;
 }
 
 input[type="submit"] {
     width: 100%;
     padding: 15px;
-    background-color: aliceblue;
+    background-color: white;
     color: white;
     border: none;
     border-radius: 4px;

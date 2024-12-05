@@ -8,7 +8,6 @@ body {
     min-height: 100vh;
     flex-direction: column;
     padding-top: 20px;
-
 }
 
 .header {
@@ -27,7 +26,7 @@ body {
 }
 
 button[type="submit"]{
-    background-color: #f5da53;
+    background-color: #e7ce53;
     color: white; /* テキストを白色に */
     padding: 10px 20px; /* 内側余白 */
     font-size: 16px; /* フォントサイズ */
@@ -35,14 +34,15 @@ button[type="submit"]{
     border-radius: 6px; /* 角を丸く */
     cursor: pointer; /* ホバー時にポインター */
     transition: background-color 0.3s ease; /* 背景色のアニメーション */
+    margin: 10px 0px;
 }
 
 button[type="submit"]:hover {
-    background-color: #dba80e
+    background-color: #cc9d0f
 }
 
 button.back-button {
-    background-color: #5ff76e; /* サンドカラー */
+    background-color: #4fbd5a; /* サンドカラー */
     color: white; /* テキストを白色に */
     padding: 10px 20px; /* 内側余白 */
     font-size: 16px; /* フォントサイズ */
@@ -53,7 +53,7 @@ button.back-button {
 }
 
 button.back-button:hover {
-    background-color: #30cd30; /* 濃いサンドカラーに変更 */
+    background-color: #1d781d; /* 濃いサンドカラーに変更 */
 }
 
 
@@ -77,16 +77,19 @@ li {
     gap: 10px;
 }
 
-.quiz-buttons {
-    display: flex;
-    gap: 15px; 
-    justify-content: flex-end; 
-}
-
 span {
     font-size: 16px;
     color: #333;
 }
+
+
+.quiz-buttons {
+    display: flex;
+    gap: 15px; 
+    justify-content: flex-end; 
+    align-items: center;
+}
+
 
 button {
     padding: 10px 20px;
@@ -99,8 +102,23 @@ button {
     border: none;
 }
 
+button.unpost-button,
+button.update-button, 
+button.delete-button {
+    min-width: 15px; /* 最小幅を設定してボタンの大きさを統一 */
+    height: 50px;
+    text-align: center; /* ボタン内のテキストを中央揃え */
+}
+
 button:hover {
     opacity: 0.8;  
+}
+
+button.unpost-button{
+    background-color: #c82e7b;
+}
+button.unpost-button:hover{
+    background-color: #923061;
 }
 
 button.update-button {
@@ -119,6 +137,7 @@ button.delete-button:hover {
     background-color: #c0392b;  
 }
 
+
 .popup {
     position: fixed;
     top: 50%;
@@ -129,9 +148,12 @@ button.delete-button:hover {
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1000;
+    text-align: center;
 }
 
 .popup button {
+    color: black;
+    background-color: #b6b3b3;
     margin: 5px;
 }
 

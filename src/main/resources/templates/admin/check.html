@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>クイズ管理画面</title>
-    <link rel="stylesheet" href="/css/admin/check.css">
+    <link rel="stylesheet" href="check.css">
 </head>
 <body>
     <div class="container">
@@ -10,7 +10,7 @@
             <h1>クイズ一覧</h1>
         </header>
         <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
-        <p th:text="${errorMessage}"></p>
+        <p th:text="${errorMessage}" class="error-message"> 問題ありません</p>
         <ul>
             <li th:each="quiz : ${quiz}">
                 <div class="quiz-details">
