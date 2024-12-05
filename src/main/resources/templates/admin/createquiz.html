@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>クイズ追加</title>
-    <link rel="stylesheet" href="/css/admin/addquiz.css">
+    <link rel="stylesheet" href="addquiz.css">
 </head>
 <body>
     <header class="header">
@@ -17,10 +17,11 @@
        <p th:text="${posting}"></p>
        <form th:action="@{/admin/update}" method="post">
            <input type="hidden" name="id" th:value="${id}" />
-           <button type="submit" class="update-button">llllllllllllll</button>
+           <button type="submit" class="update-button">このクイズを投稿する</button>
        </form>
    </div>
     <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
+    <button type="button" class="list-button" onclick="location.href='/admin/quizlist'">一覧に戻る</button>
     <form action="/admin/create" method="post">
         <label for="question">クイズ:</label>
         <input type="text" id="question" name="question" maxlength="100" required 

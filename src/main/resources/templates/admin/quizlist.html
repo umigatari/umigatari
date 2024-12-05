@@ -42,6 +42,7 @@
         <ul>
             <li th:each="quiz : ${quiz}">
                 <div class="quiz-details">
+                    <span th:text="'ID: ' + ${quiz.id} ">ID</span>
                     <span th:text="'問題: ' + ${quiz.question} ">問題</span>
                     <span th:text="'正解: ' + ${quiz.correct} ">正解</span>
                     <span th:text="'不正解の選択肢: ' + ${quiz.other_one}">不正解1</span>
@@ -49,6 +50,10 @@
                     <span th:text="'クイズのジャンル: ' + ${quiz.type}">ジャンル</span>
                     
                     <div class="quiz-buttons">
+                        <form th:action="@{/admin/unpost}" method="post">
+                            <input type="hidden" name="id" th:value="${quiz.id}" />
+                            <button type="submit" class="unpost-button">投稿解除</button>
+                        </form>
                         <form th:action="@{/editing}" method="post">
                             <input type="hidden" name="id" th:value="${quiz.id}" />
                             <button type="submit" class="update-button">編集</button>
@@ -90,21 +95,21 @@
     }
     let formIdToDelete = null; // 削除するフォームのIDを保持
 
-function confirmDeletion(formId) {
+    function confirmDeletion(formId) {
     formIdToDelete = `delete-form-${formId}`; // フォームのIDを保存
     const dialog = document.getElementById('confirmation-dialog');
     dialog.style.display = 'block'; // ポップアップを表示
 }
 
-function proceedDeletion() {
-    if (formIdToDelete) {
+    function proceedDeletion() {
+        if (formIdToDelete) {
         const form = document.getElementById(formIdToDelete);
         form.submit(); // 保存したフォームを送信
     }
     cancelDeletion(); // ポップアップを閉じる
 }
 
-function cancelDeletion() {
+    function cancelDeletion() {
     formIdToDelete = null; // フォームIDをリセット
     const dialog = document.getElementById('confirmation-dialog');
     dialog.style.display = 'none'; // ポップアップを非表示

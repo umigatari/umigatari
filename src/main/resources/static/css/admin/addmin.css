@@ -18,12 +18,12 @@ body {
     text-align: center;
     font-size: 30px;
     font-weight: bold;
-    margin-bottom: 10px; 
+    margin-bottom: 50px; 
     color: #4b5eaa;
 }
 
 .button-container {
-    margin: 10px 0; 
+    margin: 30px 0; 
     display: flex;
     flex-direction: column;
 }
@@ -33,20 +33,7 @@ body {
     background-color: #ffffe0;
     color: #4b5eaa;
     text-decoration: none;
-    padding: 12px 20px;
-    border-radius: 6px;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 8px;
-    height: 60px;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    box-sizing: border-box;
-    width: 250px;
-    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    position: relative; /* ボタン内にバッジを配置するために追加 */
+
 }
 
 .admin-button:hover {
@@ -63,15 +50,3 @@ body {
     font-size: 24px; /* アイコンのサイズ */
 }
 
-.notification-badge {
-    background-color: red; /* バッジの背景色 */
-    color: white; /* 数字の色 */
-    font-size: 18px; /* 数字のサイズ */
-    padding: 8px 12px; /* バッジの大きさ */
-    border-radius: 50%; /* 丸くする */
-    width: 30px; /* 丸の幅 */
-    height: 30px; /* 丸の高さ */
-    text-align: center;
-    line-height: 30px; /* 数字が中央に来るように調整 */
-    box-sizing: border-box;
-}
