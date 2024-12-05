@@ -1,0 +1,90 @@
+/* ページ全体のスタイル */
+body {
+    font-family: Arial, sans-serif; /* フォントをArialとSans-serifに設定 */
+    background-color: aliceblue; /* 淡い青色の背景 */
+    margin: 0; /* ページ全体の余白をなくす */
+    padding: 20px; /* ページの内側余白を20px追加 */
+}
+
+/* ページのタイトルスタイル */
+h1 {
+    text-align: center; /* タイトルを中央揃え */
+    color: #333; /* 文字色を濃い灰色に設定 */
+    font-size: 2em; /* フォントサイズを大きく設定 */
+    margin-bottom: 20px; /* 下部に20pxの余白を追加 */
+}
+
+/* 説明文コンテナのスタイル */
+div[style] {
+    background-color: #ffffff; /* 背景色を白に設定 */
+    border: 1px solid #ccc; /* グレーの枠線を追加 */
+    border-radius: 8px; /* 角を丸くする */
+    padding: 15px; /* 内側余白を15px追加 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 軽い影を追加して立体感を演出 */
+    margin-bottom: 30px; /* 下部に30pxの余白を追加 */
+}
+
+/* 報酬リストのスタイル */
+ul {
+    list-style: none; /* リストマーカー（番号や点）を非表示に */
+    padding: 0; /* リストの内側余白をなくす */
+    margin: 0 auto; /* 左右を中央揃え */
+    max-width: 600px; /* リストの最大幅を600pxに制限 */
+}
+
+li {
+    margin-bottom: 20px; /* 各リスト項目の間に20pxの余白を追加 */
+    text-align: center; /* テキストと要素を中央揃え */
+}
+
+/* ダウンロードリンクのスタイル */
+li a {
+    display: inline-block; /* インライン要素をブロック要素として扱う */
+    margin-bottom: 10px; /* 下部に10pxの余白を追加 */
+    padding: 10px 15px; /* 内側余白を10px (上下) と15px (左右) に設定 */
+    background-color: #465daa; /* 青色の背景を設定 */
+    color: #ffffff; /* テキスト色を白に設定 */
+    text-decoration: none; /* 下線を削除 */
+    border-radius: 4px; /* 角を丸くする */
+    font-size: 16px; /* フォントサイズを16px
+    transition: background-color 0.3s ease; /* 背景色変更のアニメーションを追加 */
+}
+
+li a:hover {
+    background-color: #09335f; /* マウスオーバー時に濃い青色に変更 */
+}
+
+/* 報酬画像のスタイル */
+li img {
+    display: block; /* 画像をブロック要素に設定（中央揃えしやすくするため） */
+    margin: 10px auto; /* 上下10pxの余白、左右を中央揃え */
+    border-radius: 8px; /* 角を丸くする */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 軽い影を追加して立体感を演出 */
+}
+
+/* 現在のポイントのスタイル */
+p[th\:text] {
+    text-align: center; /* テキストを中央揃え */
+    font-size: 1.2em; /* フォントサイズを大きめに設定 */
+    color: #555; /* 濃い灰色を設定 */
+    margin-bottom: 30px; /* 下部に30pxの余白を追加 */
+}
+
+/* ホームボタンのスタイル */
+button {
+    display: block; /* ボタンをブロック要素に設定（幅いっぱいに配置可能） */
+    margin: 30px auto; /* 上下30pxの余白、左右を中央揃え */
+    padding: 10px 20px; /* 内側余白を10px (上下) と20px (左右) に設定 */
+    font-size: 16px; /* フォントサイズを16pxに設定 */
+    background-color:  #4fbd5a; /* 緑色の背景を設定 */
+    color: white; /* テキスト色を白に設定 */
+    border: none; /* 枠線を削除 */
+    border-radius: 4px; /* 角を丸くする */
+    cursor: pointer; /* マウスオーバー時にポインターアイコンを表示 */
+    transition: background-color 0.3s ease; /* 背景色変更のアニメーションを追加 */
+}
+
+button:hover {
+    background-color: #1d781d; /* マウスオーバー時に濃い緑色に変更 */
+}
+

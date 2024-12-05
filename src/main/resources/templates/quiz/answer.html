@@ -7,56 +7,64 @@
     <title>正誤判定</title>
 </head>
 <body>
+    <div class="container">
+        <h1 th:text="${message}">正解</h1>
+        <h2 th:if="${message != null and message == '正解'}" class="stamp-message">スタンプゲット！！</h2>
 
-    <h1 th:text="${message}"></h1>
+        <div class="stamp-card">
+            <div class="stamp-grid">
+                <div class="stamp" id="stamp-1"></div>
+                <div class="stamp" id="stamp-2"></div>
+                <div class="stamp" id="stamp-3"></div>
+                <div class="stamp" id="stamp-4"></div>
+                <div class="stamp" id="stamp-5"></div>
+                <div class="stamp" id="stamp-6"></div>
+                <div class="stamp" id="stamp-7"></div>
+                <div class="stamp" id="stamp-8"></div>
+                <div class="stamp" id="stamp-9"></div>
+            </div>
+        </div>
 
-    <div class="stamp-card">
-        <!-- スタンプの円（3×3のグリッド）-->
-        <div class="stamp-grid">
-            <div class="stamp" id="stamp-1"></div>
-            <div class="stamp" id="stamp-2"></div>
-            <div class="stamp" id="stamp-3"></div>
-            <div class="stamp" id="stamp-4"></div>
-            <div class="stamp" id="stamp-5"></div>
-            <div class="stamp" id="stamp-6"></div>
-            <div class="stamp" id="stamp-7"></div>
-            <div class="stamp" id="stamp-8"></div>
-            <div class="stamp" id="stamp-9"></div>
+        <div class="button-container">
+            <form th:action="@{/quiz/createpage}" method="get">
+                <button th:if="${message != null and message == '正解!'}">クイズを作成する</button>
+            </form>
+            <form action="/stamp" method="get">
+                <button type="submit">スタンプ一覧へ戻る</button>
+            </form>
         </div>
     </div>
 
-    <form th:action="@{/quiz/createpage}" method="get">
-        <button th:if="${message != null and message == '正解'}" id="createQuizButton">クイズを作成する</button>
-    </form>
+    <!-- ここに続けて文章などを追加 -->
+    <div>
+        <p th:text="${str}">今までの累計正解数は９９問です</p>
+    </div>
 
-    <a href="/stamp" class="admin-button">スタンプ一覧へ戻る</a>
-
+    <img src="/img/ペンギン.jpg" alt="クイズ画像" style="max-width: 100%; height: auto;">
 
     <script th:inline="javascript">
         window.onload = function() {
-            // サーバーから渡されたcorrectの値を受け取る
             var correct = /*[[${correct}]]*/ [];
-    
-            // IDと画像パスのマッピングを定義
             var images = {
-                1: 'url1.png',
-                2: 'url2.png',
-                3: 'url3.png',
-                // 必要に応じて他のIDと画像パスを追加
+                1: '/img/1.jpg',
+                2: '/img/2.jpg',
+                3: '/img/3.jpg',
+                4: '/img/4.jpg',
+                5: '/img/5.jpg',
+                6: '/img/6.jpg',
+                7: '/img/7.jpg',
+                8: '/img/8.jpg',
+                9: '/img/9.jpg'
             };
-    
-            // 画像をセットするための処理
             for (var i = 0; i < correct.length; i++) {
-                var stampId = "stamp-" + correct[i];  // 例: "stamp-1"、"stamp-2"など
+                var stampId = "stamp-" + correct[i];
                 var stampElement = document.getElementById(stampId);
                 if (stampElement && images[correct[i]]) {
-                    // スタンプ画像のパスを指定
-                    stampElement.style.backgroundImage = "url('" + images[correct[i]] + "')"; 
-                    stampElement.style.backgroundSize = "cover";  // 画像がスタンプに合うように調整
+                    stampElement.style.backgroundImage = "url('" + images[correct[i]] + "')";
+                    stampElement.style.backgroundSize = "cover";
                 }
             }
         };
     </script>
-
 </body>
 </html>

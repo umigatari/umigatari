@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>クイズ管理画面</title>
-    <link rel="stylesheet" href="/css/admin/check.css">
+    <link rel="stylesheet" href="check.css">
 </head>
 <body>
     <div class="container">
@@ -10,7 +10,7 @@
             <h1>クイズ一覧</h1>
         </header>
         <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
-        <p th:text="${errorMessage}"></p>
+        <p th:text="${errorMessage}" class="error-message"> 問題ありません</p>
         <ul>
             <li th:each="quiz : ${quiz}">
                 <div class="quiz-details">
@@ -30,16 +30,43 @@
                             <input type="hidden" name="id" th:value="${quiz.id}" />
                             <button type="submit" class="update-button">更新</button>
                         </form>
-                        <form th:action="@{/admin/delete}" method="post">
+                        <form id="delete-form-${quiz.id}" th:action="@{/admin/delete}" method="post">
                             <input type="hidden" name="id" th:value="${quiz.id}" />
-                            <button type="submit" class="delete-button">削除</button>
+                            <button type="submit" class="delete-button" onclick="confirmDeletion('${quiz.id}', event)">削除</button>
                         </form>
                     </div>
                 </div>
             </li>
         </ul>
     </div>
-
-
+    <div id="confirmation-dialog" class="popup" style="display: none;">
+        <p>本当に削除してもよろしいですか？</p>
+        <button type="button" onclick="proceedDeletion()">はい</button>
+        <button type="button" onclick="cancelDeletion()">いいえ</button>
+    </div>
 </body>
+<script>
+    let formIdToDelete = null; // 削除するフォームのIDを保持
+
+    function confirmDeletion(formId, event) {
+        event.preventDefault();
+        formIdToDelete = `delete-form-${formId}`; // フォームのIDを保存
+        const dialog = document.getElementById('confirmation-dialog');
+        dialog.style.display = 'block'; // ポップアップを表示
+}
+
+    function proceedDeletion() {
+        if (formIdToDelete) {
+        const form = document.getElementById(formIdToDelete);
+        form.submit(); // 保存したフォームを送信
+    }
+    cancelDeletion(); // ポップアップを閉じる
+}
+
+    function cancelDeletion() {
+    formIdToDelete = null; // フォームIDをリセット
+    const dialog = document.getElementById('confirmation-dialog');
+    dialog.style.display = 'none'; // ポップアップを非表示
+}
+</script>
 </html>

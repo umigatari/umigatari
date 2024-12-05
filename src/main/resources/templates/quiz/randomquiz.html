@@ -12,19 +12,33 @@
     
     <!-- すでに問題を解いている場合のメッセージ -->
     <p th:text="${soved}"></p>
-    
-    <div>
-        <ol>
-            <!-- クイズを表示する -->
+        <div class="quiz-container">
             <th:block th:each="quiz : ${quiz}">
-                <li>
-                    <form th:action="@{/quiz/{id}(id=${quiz.id})}" method="post">
-                        <button type="submit">選択: <span th:text="${quiz.question}"></span></button>
-                    </form>
-                </li>
+                <form th:action="@{/quiz/{id}(id=${quiz.id})}" method="post">
+
+
+                    <div class="quiz-item">
+                        <button type="submit" class="quiz-button">
+                            <span th:text="${quiz.question}"></span>
+                        </button>
+                    </div>
+                </form> 
             </th:block>
-        </ol>
+        </div>
+
+    <div class="image-container">
+        <img src="/img/魚1.jpg" alt="クイズ画像1">
+        <img src="/img/魚2.jpg" alt="クイズ画像2">
     </div>
- 
+    <div class="rules-container">
+        <h2>クイズのルール</h2>
+        <ul>
+            <li>この中から一問を選んでクイズに答えよう！</li>
+            <li>正解するとスタンプをプレゼント！</li>
+            <li>正解を積み重ねると、可愛い動物たちの画像がもらえるよ。</li>
+            <li>一度回答したチェックポイントでは、その日のうちは問題に答えられないよ！</li>
+            <li>慎重に問題に答えよう！</li>
+        </ul>
+    </div>
 </body>
 </html>
