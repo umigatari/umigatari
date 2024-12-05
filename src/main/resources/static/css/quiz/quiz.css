@@ -1,61 +1,39 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: aliceblue;
-    margin: 0;
-    padding: 0;
+.quiz-question {
+    background-color: #e0f7fa; /* 問題欄の背景色を薄い青にする */
+    
+    width: 300px; /* 幅を300pxに設定 */
+    height: 100px; /* 高さを100pxに設定 */
+    object-fit: cover; /* 画像を枠に合わせてトリミング */
+    border: 2px solid #0000ff; /* 問題欄の枠の色を濃いにする */
+    color: #ffffff; /* 文字色を白にする */
+    padding: 10px; /* 内側の余白を設定 */
+    margin-bottom: 10px; /* 下部の余白を設定 */
+    margin-left: 30px; /* 左部の余白を設定 */
+    margin-right: 30px; /* 右部の余白を設定 */
 }
 
-h1 {
-    text-align: center;
-    color: #333;
-    margin-top: 50px;
+.quiz-answer {
+    background-color: #ffffff; /* 解答欄の背景色を白にする */
+    width: 100px; /* 幅を100pxに設定 */
+    height: 70px; /* 高さを70pxに設定 */
+    object-fit: cover; /* 画像を枠に合わせてトリミング */
+    border: 2px solid #ff1; /* 解答欄の枠の色を黄色にする */
+    color: #0000; /* 文字色を黒にする */
+    padding: 10px; /* 内側の余白を設定 */
+    margin-bottom: 10px; /* 下部の余白を設定 */
+    margin-left: 80px; /* 左部の余白を設定*/
+    margin-right: 80px; /* 右部の余白を設定*/
 }
 
-div {
-    text-align: center;
-    margin: 20px auto;
+.square-image {
+    width: 100px; /* 幅を100pxに設定 */
+    height: 70px; /* 高さを70pxに設定 */
+    object-fit: cover; /* 画像を枠に合わせてトリミング */
+    border: 5px solid #ffffff; /* 枠の太さを5px、色を黒に設定 */
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
-form {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: aliceblue;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    margin-bottom: 10px;
-}
-
-input[type="radio"] {
-    margin-right: 10px;
-}
-
-button {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    background-color: aliceblue;
-    color: aliceblue;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button:hover {
-    background-color: aliceblue;
+.center-image {
+    display: block; /* 画像をブロック要素にする */
+    margin: 0 auto; /* 自動的に左右のマージンを設定して中央に配置する */
+    width: 400px; /*幅を400pxに設定 */
 }
