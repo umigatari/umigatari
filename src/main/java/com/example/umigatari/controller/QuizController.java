@@ -2,6 +2,7 @@ package com.example.umigatari.controller;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,6 +20,7 @@ import com.example.umigatari.NotFoundException;
 import com.example.umigatari.model.quiz;
 import com.example.umigatari.service.QuizService;
 
+
 import jakarta.servlet.http.HttpSession;
 
 
@@ -29,9 +31,13 @@ public class QuizController {
     @Autowired
     private QuizService quizService;
 
+    /*/*@Autowired
+    private UserService userService;
+
     /*セッションは二つあって解いたtypeを保管するのsolvedQuizzesと、正解したtypeを保管するのcorrectがある。
      * スタンプに表示するのはcorrect
      * クイズを２かい解けなくさせるのはsolvedQuizzes
+     * ログインしてないとページを表示できない機能を追加
      */
 
     //typeごとのクイズを表示する
@@ -57,9 +63,13 @@ public class QuizController {
 
     //ひとつ選ばれたクイズを表示する
     @PostMapping("quiz/{id}")
-    public String showOneQuiz(@PathVariable("id") Long id, Model model) {
+    public String showOneQuiz(@PathVariable("id") Long id, Model model,HttpSession session) {
         quiz quiz = quizService.selectOneById(id);
+        List<String> choices = new ArrayList<>(List.of(quiz.getCorrect(), quiz.getOther_one(), quiz.getOther_two()));
+        Collections.shuffle(choices);
         model.addAttribute("quiz", quiz);
+        model.addAttribute("choices", choices);
+        session.setAttribute("answer", quiz.getCorrect());
         return "quiz/quiz";
     }
 
@@ -68,17 +78,31 @@ public class QuizController {
     @PostMapping("quiz/answer")
     public String check(@RequestParam String choice,@RequestParam int type, Model model,HttpSession session) {
         //正解なら正解を表示して、せっしょんにあってるよってるのを付与する。
-        if ("correct".equals(choice)) {
-            model.addAttribute("message", "正解");
+        Object answerobj =session.getAttribute("answer");
+        String answer = (String) answerobj;
+       /*  Object obj = session.getAttribute("id");
+       Long id = (Long)obj;
+        int count = userService.getCount(id);
+        String str = "今までの累計正解数は、" + count + "回です";*/
+        if (answer.equals(choice)) {
+            //model.addAttribute("count", str);
+            //userService.countUp(id);
+            model.addAttribute("message", "正解!");
             Set<Integer> correct = (Set<Integer>) session.getAttribute("carrect");
             if (correct == null) {
                 correct = new LinkedHashSet<>();
             }
             correct.add(type);
             session.setAttribute("correct", correct);
+            model.addAttribute("correct",correct);
         //不正解なら不正解と表示
         } else {
+            //model.addAttribute("count", str);
             model.addAttribute("message", "不正解");
+            model.addAttribute("message", "正解!");
+            Set<Integer> correct = (Set<Integer>) session.getAttribute("carrect");
+            session.setAttribute("correct", correct);
+            model.addAttribute("correct",correct);
         }
         return "quiz/answer";
     }
@@ -161,7 +185,7 @@ public class QuizController {
         try {
             List<quiz> quizzes = quizService.checkListQuiz();
             model.addAttribute("quiz", quizzes);
-            return "admincheck";
+            return "admin/check";
         } catch (NotFoundException e) {
             model.addAttribute("errorMessage", "問題はありません");
             return "admin/check";
@@ -242,5 +266,11 @@ public class QuizController {
         session.setAttribute("quizid", id);
         return "redirect:/admin/create";
     }
+
+    @GetMapping("rule")
+    public String getMethodName() {
+        return "rule";
+    }
+    
 
 }

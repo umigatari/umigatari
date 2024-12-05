@@ -16,12 +16,14 @@
     <div class="button-container">
         <a href="/admin/quizlist" class="admin-button">更新削除</a>
     </div>
-    <div class="notification-container" th:attr="data-notice=${notice}">
 
-        <span class="notification-badge" th:text="${notice}">1</span>
-    </div>
     <div class="button-container">
-        <a href="/admin/check" class="admin-button">問題チェック</a>
-    </div>  
+        <a href="/admin/check" class="admin-button">
+            問題チェック
+            <div class="notification-container">
+                <span class="notification-badge" th:text="${notice}">1</span>
+            </div>
+        </a>
+    </div>
 </body>
 </html>

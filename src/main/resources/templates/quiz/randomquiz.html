@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="randomquiz.css">
+    <link rel="stylesheet" href="/css/quiz/randomquiz.css">
     <title>クイズ選択画面</title>
 </head>
 <body>
@@ -14,7 +14,9 @@
     <p th:text="${soved}"></p>
         <div class="quiz-container">
             <th:block th:each="quiz : ${quiz}">
-                <form action="@{/quiz/{id}(id=${quiz.id})}" method="post">
+                <form th:action="@{/quiz/{id}(id=${quiz.id})}" method="post">
+
+
                     <div class="quiz-item">
                         <button type="submit" class="quiz-button">
                             <span th:text="${quiz.question}"></span>
@@ -25,8 +27,8 @@
         </div>
 
     <div class="image-container">
-        <img src="OIP (1).jpg" alt="クイズ画像1">
-        <img src="OIP.jpg" alt="クイズ画像2">
+        <img src="/img/魚1.jpg" alt="クイズ画像1">
+        <img src="/img/魚2.jpg" alt="クイズ画像2">
     </div>
 </body>
 </html>

@@ -18,12 +18,14 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    //アカウント作成
     public void createAccount(account account){
         String hashedPassword = passwordEncoder.encode(account.getPassword());
         account.setPassword(hashedPassword);
         userRepository.createAccount(account);
     }
 
+    //ランキングを表示
     public Map<String,Object> ranking(int limit,Long id){
         List<account> rankingList = userRepository.rankingAccount(limit);
         int myRanking = userRepository.myRanking(id);
@@ -33,26 +35,32 @@ public class UserService {
         return result;
     }
 
+    //パスワードを返す
     public String loginAccount(String name){
         return userRepository.readPassword(name);
     }
 
+    //パスワードを変更
     public void changePassword(String name,String password){
         userRepository.updatePassword(name,password);
     }
 
+    //アカウント完全削除
     public void deleteAccount(Long id){
         userRepository.deleteAccount(id);
     }
 
+    //メールアドレスを表示
     public String readMail(String name){
         return userRepository.readMail(name);
     }
 
+    //正答数を増やす
     public void countUp(Long id){
         userRepository.countUp(id);
     }
 
+    //ログイン全般
     public Map<String, Object> readPassword(String name, String password) {
         Map<String, Object> result = new HashMap<>();
         try {
@@ -73,6 +81,7 @@ public class UserService {
         }
     }
 
+    //正答数を表示
     public int getCount(Long id){
         return userRepository.getCount(id);
     }

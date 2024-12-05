@@ -1,38 +1,163 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: aliceblue;
-    margin: 0;
-    padding: 0;
+.stamp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 100px); /* 3列のスタンプ */
+    grid-gap: 20px; /* スタンプ間の余白 */
 }
 
-div {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 50px;
-    background-color: aliceblue;
-    border: 1px solid #ff69b4;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 100%;
+.stamp {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;body {
+        background-color: #F0F8FF; /* アリスブルー */
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* 水平方向に中央寄せ */
+        margin: 0;
+        padding: 20px 0; /* 上下に余白を追加 */
+    }
+    
+    h1 {
+        font-size: 50px;
+        font-weight: bold;
+        color: #133463;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        letter-spacing: 2px;
+        text-align: center;
+        margin-bottom: 30px; /* タイトルとスタンプ間に余白を作る */
+    }
+    
+    .stamp-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 100px); /* 3列のスタンプ */
+        grid-gap: 20px; /* スタンプ間の余白 */
+        justify-content: center; /* スタンプを中央寄せ */
+        margin-bottom: 30px; /* スタンプとボタンの間にスペース */
+    }
+    
+    .stamp {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: #d3d3d3;
+        border: 2px solid #4682b4;
+    }
+    
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px; /* ボタン間に余白 */
+        margin-bottom: 20px; /* ボタンと次の要素の間に余白 */
+    }
+    
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #FAC61E;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    
+    button:hover {
+        background-color: #f7a800; /* ホバー時に少し濃くなる */
+    }
+    
+    .container {
+        max-width: 800px;
+        width: 100%;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+    /* 中央配置と太字設定 */
+    h1, h2 {
+        text-align: center; /* 中央寄せ */
+        font-weight: bold; /* 太字にする */
+        margin: 10px 0; /* 上下の余白を調整 */
+    }
+    
+    /* "スタンプゲット！！" 用のスタイルを追加 */
+    .stamp-message {
+        text-align: center; /* 水平方向中央寄せ */
+        font-weight: bold; /* 太字にする */
+        font-size: 24px; /* フォントサイズを大きく */
+        color: #4682b4; /* 文字の色を緑色に変更 (好みに応じて) */
+        margin-bottom: 20px; /* 下の余白を確保 */
+    }
+    p {
+        font-size: 24px; /* フォントサイズを大きく */
+        font-weight: bold; /* 文字を太く */
+        color: #4e67b0; 
+        background-color: #FFFFE0; /* 背景を淡い黄色に */
+        padding: 10px 20px; /* 内側の余白を追加 */
+        border-radius: 5px; /* 角を丸くする */
+        text-align: center; /* 中央寄せ */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* 影をつけて浮き上がらせる */
+        margin: 20px 0; /* 上下の余白 */
+        transition: transform 0.3s, background-color 0.3s; /* ホバー時のアニメーション */
+    }
+    
+    p:hover {
+        transform: scale(1.05); /* ホバー時に少し大きくする */
+        background-color: #FFD700; /* ホバー時に背景色を変える */
+    }
+    img {
+        max-width: 80%; /* 最大幅を画面幅の80%に設定 */
+        height: auto;   /* アスペクト比を保つ */
+        display: block; /* インライン要素のような隙間をなくす */
+        margin: 0 auto; /* 左右の余白を自動で調整し、中央に配置 */
+        border-radius: 10px; /* 角を丸くする */
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* 画像に影をつけて立体感を出す */
+    }
+    
+    background-color: #d3d3d3;
+    border: 2px solid #4682b4;
 }
 
-p {
-    color: #333;
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 中央寄せ */
+}
+
+/* ボタンを横並びに配置 */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* ボタン間に隙間を作る */
+    margin-top: 20px; /* 台紙とボタンの間にスペースを作る */
 }
 
 button {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    margin-top: 20px;
-    background-color: aliceblue;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #FAC61E; /* ボタンの背景色 */
     color: white;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: aliceblue;
+    background-color: #f7a800; /* ホバー時に少し濃くなる */
 }
+body {
+    background-color: #F0F8FF; /* アリスブルー */
+}
+h1 {
+    font-size: 50px; /* フォントサイズを大きく */
+    font-weight: bold; /* 文字を太く */
+    color: #133463; /* 文字色を派手な色に */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* 文字に影をつけて立体感を出す */
+    letter-spacing: 2px; /* 文字間隔を広げて、文字を際立たせる */
+    text-align: center; /* 中央寄せ */
+    margin-top: 20px; /* 上部の余白 */
+}
+/*fujimoto*/

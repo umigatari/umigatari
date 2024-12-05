@@ -3,24 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/quiz/answer.css">
+    <link rel="stylesheet" href="answer.css">
     <title>正誤判定</title>
 </head>
 <body>
+    <div class="container">
+        <h1 th:text="${message}">正解</h1>
+        <h2 th:if="${message != null and message == '正解'}" class="stamp-message">スタンプゲット！！</h2>
 
-    <!-- メッセージを表示 -->
-    <div style="border: #ff69b4 solid 1px; font-size: 100%; padding: 50px;">
-        <p th:text="${message}"></p> <!-- ここで正誤メッセージを表示 -->
+        <div class="stamp-card">
+            <div class="stamp-grid">
+                <div class="stamp" id="stamp-1"></div>
+                <div class="stamp" id="stamp-2"></div>
+                <div class="stamp" id="stamp-3"></div>
+                <div class="stamp" id="stamp-4"></div>
+                <div class="stamp" id="stamp-5"></div>
+                <div class="stamp" id="stamp-6"></div>
+                <div class="stamp" id="stamp-7"></div>
+                <div class="stamp" id="stamp-8"></div>
+                <div class="stamp" id="stamp-9"></div>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <form th:action="@{/quiz/createpage}" method="get">
+                <button th:if="${message != null and message == '正解'}">クイズを作成する</button>
+            </form>
+            <form action="/stamp" method="get">
+                <button type="submit">スタンプ一覧へ戻る</button>
+            </form>
+        </div>
     </div>
 
-    <!-- クイズが正解なら「クイズを作成する」ボタンを表示 -->
-     <form th:action="@{/quiz/createpage}" method="get">
-        <button th:if="${message != null and message == '正解'}" id="createQuizButton">クイズを作成する</button>
-            </form>
+    <!-- ここに続けて文章などを追加 -->
+    <div>
+        <p th:text="${str}">今までの累計正解数は９９問です</p>
+    </div>
 
+    <img src="/img/ペンギン.jpg" alt="クイズ画像" style="max-width: 100%; height: auto;">
 
-    <!-- 正解・不正解に関係なく表示されるトップページへ戻るボタン -->
-    <button onclick="location.href='/'">トップページへ戻る</button>
-
+    <script th:inline="javascript">
+        window.onload = function() {
+            var correct = /*[[${correct}]]*/ [];
+            var images = {
+                1: '/img/1.jpg',
+                2: '/img/2.jpg',
+                3: '/img/3.jpg',
+                4: '/img/4.jpg',
+                5: '/img/5.jpg',
+                6: '/img/6.jpg',
+                7: '/img/7.jpg',
+                8: '/img/8.jpg',
+                9: '/img/9.jpg'
+            };
+            for (var i = 0; i < correct.length; i++) {
+                var stampId = "stamp-" + correct[i];
+                var stampElement = document.getElementById(stampId);
+                if (stampElement && images[correct[i]]) {
+                    stampElement.style.backgroundImage = "url('" + images[correct[i]] + "')";
+                    stampElement.style.backgroundSize = "cover";
+                }
+            }
+        };
+    </script>
 </body>
 </html>
