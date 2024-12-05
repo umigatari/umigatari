@@ -77,18 +77,21 @@ public class QuizController {
     @SuppressWarnings("unchecked")
     @PostMapping("quiz/answer")
     public String check(@RequestParam String choice,@RequestParam int type, Model model,HttpSession session) {
-        //正解なら正解を表示して、せっしょんにあってるよってるのを付与する。
+        //正解を取得
         Object answerobj =session.getAttribute("answer");
         String answer = (String) answerobj;
+        //正解数を取得
        /*  Object obj = session.getAttribute("id");
        Long id = (Long)obj;
         int count = userService.getCount(id);
         String str = "今までの累計正解数は、" + count + "回です";*/
+        //正解かどうかを判断
         if (answer.equals(choice)) {
+            //カウントアップ
             //model.addAttribute("count", str);
             //userService.countUp(id);
             model.addAttribute("message", "正解!");
-            Set<Integer> correct = (Set<Integer>) session.getAttribute("carrect");
+            Set<Integer> correct = (Set<Integer>) session.getAttribute("correct");
             if (correct == null) {
                 correct = new LinkedHashSet<>();
             }
@@ -99,7 +102,6 @@ public class QuizController {
         } else {
             //model.addAttribute("count", str);
             model.addAttribute("message", "不正解");
-            model.addAttribute("message", "正解!");
             Set<Integer> correct = (Set<Integer>) session.getAttribute("carrect");
             session.setAttribute("correct", correct);
             model.addAttribute("correct",correct);
