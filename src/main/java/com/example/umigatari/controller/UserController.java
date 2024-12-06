@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.umigatari.NotFoundException;
 import com.example.umigatari.model.account;
 import com.example.umigatari.service.UserService;
 
@@ -30,32 +31,33 @@ public class UserController {
     }
 
     //メールを実際に送る処理
-    @PostMapping("sendmail/mail")
-    public String sendMail(@RequestParam String mail){
-        //メールを送る処理　実装不可
+    @PostMapping("sendmail")
+    public String sendMail(@RequestParam String mail,Model model){
+        //メールを送る処理　
+        model.addAttribute("send", "メールを送信しました");
         return "account/createaccountone";
     }
 
     //アカウント作成するページを表示
     @GetMapping("createaccount/create")
-    public String account(@RequestParam("email") String email, Model model){
+    public String account(@RequestParam("mail") String mail, Model model){
         //クエリパラメタでメールアドレスを受けとる予定
-        model.addAttribute("email", email);
+        model.addAttribute("mail", mail);
         return "account/createaccounttwo";
     }
 
     //アカウント登録機能
-    @PostMapping("createaccount/create")
-    public String createAccount(@ModelAttribute account account,@RequestParam String password,Model model){
-        //パスワードが一致しない
-        if(!account.getPassword().equals(password)){
-            model.addAttribute("not", "パスワードが一致しません");
-            return "account/createaccounttwo";
-        }
+    @PostMapping("create")
+    public String createAccount(@ModelAttribute account account, @RequestParam String password, Model model) {
+    try {
         userService.createAccount(account);
-        model.addAttribute("clear","登録しました");
-        return "account/createaccounttwo";
+        model.addAttribute("clear", "登録しました");
+    } catch (NotFoundException e) {
+        model.addAttribute("error", e.getMessage());
     }
+    return "account/createaccounttwo";
+    }
+
 
     //ログインページを表示
     @GetMapping("login")
@@ -64,7 +66,7 @@ public class UserController {
     }
 
     //ログインパスワードを比較
-    @PostMapping("login/password")
+    @PostMapping("password")
     public String loginPassword(@RequestParam String name,@RequestParam String password,HttpSession session, Model model){
         Map<String, Object> result = userService.readPassword(name, password);
 
@@ -73,8 +75,8 @@ public class UserController {
 
         if(checkpassword&&id!=null){
             session.setAttribute("id", id);
-            model.addAttribute("logi", "ログイン成功しました");
-            return "redirect:quiz/stamp";//普通に再度ページを表示のほうがいいかな？
+            model.addAttribute("login", "ログイン成功しました");
+            return "redirect:stamp";//普通に再度ページを表示のほうがいいかな？
         }else{
             model.addAttribute("failure", "パスワードもしくはユーザーネームが間違っています");
             return "account/login";
@@ -89,23 +91,30 @@ public class UserController {
     }
 
     //パスワードを変更するためのメールを送る
-    @PostMapping("login/forgotpassword")
-    public String readmail(){
+    @PostMapping("forgotpassword")
+    public String readmail(@RequestParam String mail,Model model){
         //メールを送る処理。上と同様
-        return "account/forgotpasswordone";
+        model.addAttribute("send", "メールを送信しました");
+        return "account/forgotpassone";
     }
 
     //パスワードを変更するクエリパラメタでメールアドレスを受け取る予定
-    @GetMapping("login/password")
-    public String password(){
-        return "account/forgotpasstwo";
+    @GetMapping("changepassword")
+    public String password(@RequestParam(value = "mail", required = true) String mail, Model model) {
+    if (mail == null || mail.isBlank()) {
+        model.addAttribute("error", "メールアドレスが指定されていません。");
+        return "account/error"; // 適切なエラーページに遷移
     }
 
-    /*@PostMapping
+    model.addAttribute("mail", mail);
+    return "account/forgotpasstwo";
+}
+
+
+   /*  @PostMapping("change")
     public String changePassword(){
-        //userService.updatePassword();
-        return "nopage";
-        //同じか判定
+        userService.updatePassword();
+        return "redirect:login";
     }*/
 
     //アカウント完全削除 確認まだ
@@ -131,6 +140,7 @@ public class UserController {
         model.addAttribute("count", count);
         Set<Integer> correct = (Set<Integer>) session.getAttribute("correct");
         model.addAttribute("correct", correct);
+        model.addAttribute("account", userService.getName(id));
         return "stamp";
     }
 

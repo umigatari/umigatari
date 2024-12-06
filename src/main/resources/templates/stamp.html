@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>スタンプラリー</title>
-    <link rel="stylesheet" href="stamp.css"> <!-- CSSファイルの読み込み -->
+    <link rel="stylesheet" href="/css/stamp.css"> <!-- CSSファイルの読み込み -->
     
 </head>
 <body>
@@ -22,7 +22,7 @@
             <button id="logout-btn">ログアウト</button>
             <button id="delete-btn">アカウント削除</button>
         </div>
-　　</header>
+    </header>
 
     <!-- 累計正解数表示 -->
     <div class="score-box">
@@ -46,7 +46,9 @@
     </div>
 
     <div class="ranking-button-container">
+        <form action="/ranking" method="get">
         <button id="ranking-btn" class="ranking-btn">ランキングへ</button>
+    </form>
     </div>
 </div>
 

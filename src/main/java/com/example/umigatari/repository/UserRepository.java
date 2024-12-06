@@ -15,7 +15,7 @@ public class UserRepository {
 
     //アカウントをつくる
     public void createAccount(account account){
-        String sql = "INSERT INTO accounts (name, password, mail) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO account (name, password, mail) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql, account.getName(), account.getPassword(), account.getMail());
     }
 
@@ -37,9 +37,15 @@ public class UserRepository {
     }
     
     //名前に対応するパスワードを表示する
-    public String readPassword(String name){
-        String sql ="SELECT password FROM account WHERE name = ?";
-        return jdbcTemplate.queryForObject(sql,String.class,name);
+    public String readPassword(String name) {
+        String sql = "SELECT password FROM account WHERE name = ?";
+        List<String> passwords = jdbcTemplate.queryForList(sql, String.class, name);
+        
+        if (passwords.isEmpty()) {
+            return null; // パスワードが見つからなかった場合
+        }
+        
+        return passwords.get(0); // 見つかった場合、最初のパスワードを返す
     }
 
     //名前に対応するパスワードを変更する
@@ -67,13 +73,25 @@ public class UserRepository {
     }
 
     //nameに対するIdを表示する
-    public Long redId(String name){
-        String sql ="select id from account where name = ?";
-        return jdbcTemplate.queryForObject(sql,Long.class,name);
+    public Long redId(String name) {
+    String sql = "SELECT id FROM account WHERE name = ?";
+    List<Long> ids = jdbcTemplate.queryForList(sql, Long.class, name);
+    
+    if (ids.isEmpty()) {
+        return null; // IDが見つからなかった場合
+    }
+    
+    return ids.get(0); // 見つかった場合、最初のIDを返す
     }
 
+    //IDをもとに正答数を表示する
     public int getCount(Long id){
         String sql = "select count from account where id = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class,id);
+    }
+    //IDをもとに名前を表示する
+    public String getName(Long id){
+        String sql = "select name from account where id = ?";
+        return jdbcTemplate.queryForObject(sql, String.class,id);
     }
 }

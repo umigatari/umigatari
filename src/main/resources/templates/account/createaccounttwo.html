@@ -3,30 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="account.css">
+    <link rel="stylesheet" href="/css/account/account.css">
     <title>アカウント作成 情報入力</title>
-
+    <!-- 外部JSファイルを読み込む -->
+    <script src="/js/validateForm.js" defer></script>
 </head>
 <body>
+    <!-- エラーメッセージ -->
+    <div style="color: red;">
+        <p th:text="${error}">そのユーザーネームは既に登録されています。別のユーザーネームを使用してください。</p>
+    </div>
 
-<div class="container">
-    <h1>アカウント作成</h1>
-    <p>新しいアカウントを作成するために、以下の情報を入力してください。</p>
+    <div class="container">
+        <h1>アカウント作成</h1>
+        <p>以下の情報を入力してアカウントを作成してください。</p>
 
-    <form action="/register" method="post">
-        <label for="username">ユーザー名</label>
-        <input type="text" id="username" name="username" required placeholder="ユーザー名">
+        <!-- clearが設定されている場合は入力フォームを非表示にし、ログインボタンを表示 -->
+        <div th:if="${clear == null}">
+            <form action="/create" method="post" onsubmit="validateForm(event)">
+                <!-- 受け取ったメールを隠しフィールドに設定 -->
+                <input type="hidden" name="mail" value="${mail}">
 
-        <label for="password">パスワード</label>
-        <input type="password" id="password" name="password" required placeholder="パスワード" minlength="8">
+                <label for="username">ユーザー名</label>
+                <input type="text" id="name" name="name" required placeholder="ユーザー名">
 
-        <label for="confirm-password">パスワードの確認</label>
-        <input type="password" id="confirm-password" name="confirm-password" required placeholder="パスワードの確認" minlength="8">
+                <label for="password">パスワード</label>
+                <input type="password" id="password" name="password" required placeholder="パスワード" minlength="8">
 
-        <button type="submit">アカウントを作成する</button>
-    </form>
+                <label for="confirm-password">パスワードの確認</label>
+                <input type="password" id="confirm-password" name="confirm-password" required placeholder="パスワードの確認" minlength="8">
 
-</div>
+                <button type="submit">アカウントを作成する</button>
+            </form>
+        </div>
+
+        <!-- clearが設定されている場合は入力フォームを非表示にし、ログインボタンを表示 -->
+        <div th:if="${clear != null}">
+            <p>アカウントが作成されました。</p>
+            <a href="/login">
+                <button>ログイン画面へ</button>
+            </a>
+        </div>
+    </div>
 
 </body>
 </html>
