@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="account.css">
+    <link rel="stylesheet" href="/css/account/account.css">
     <title>ログイン</title>
 </head>
 <body>
 
     <div class="container">
         <h1>ログイン</h1>
+        <div style="color: red;">
+            <p th:text="${failure}">そのユーザーネームは既に登録されています。別のユーザーネームを使用してください。</p>
+        </div>
 
-        <form action="/login" method="post">
+        <form action="/password" method="post">
             <!-- ユーザー名 -->
             <div class="form-group">
-                <label for="username">ユーザー名</label>
-                <input type="text" id="username" name="username" placeholder="ユーザー名" required>
+                <label for="name">ユーザー名</label>
+                <input type="text" id="name" name="name" placeholder="ユーザー名" required>
             </div>
 
             <!-- パスワード -->
