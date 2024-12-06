@@ -48,10 +48,10 @@ public class UserRepository {
         return passwords.get(0); // 見つかった場合、最初のパスワードを返す
     }
 
-    //名前に対応するパスワードを変更する
-    public void updatePassword(String name,String password){
-        String sql = "UPDATE account SET password = ? WHERE name = ?";
-        jdbcTemplate.update(sql,password, name);
+    //メールアドレスに対応するパスワードを変更する
+    public void updatePassword(String mail,String password){
+        String sql = "UPDATE account SET password = ? WHERE mail = ?";
+        jdbcTemplate.update(sql,password, mail);
     }
 
     //idに対応するアカウントを削除する

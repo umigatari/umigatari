@@ -74,6 +74,9 @@ public class UserController {
         Long id = result != null ? (Long) result.get("id") : null;
 
         if(checkpassword&&id!=null){
+            if(name.equals("admin")){
+                return "redirect:admin";
+            }
             session.setAttribute("id", id);
             model.addAttribute("login", "ログイン成功しました");
             return "redirect:stamp";//普通に再度ページを表示のほうがいいかな？
@@ -82,7 +85,13 @@ public class UserController {
             return "account/login";
         }      
     }
+
     //ログアウト
+    @PostMapping("logout")
+    public void getMethodName(HttpSession session) {
+        session.invalidate(); 
+    }
+    
 
     //パスワードを忘れたページを表示
     @GetMapping("login/forgotpassword")
@@ -98,24 +107,24 @@ public class UserController {
         return "account/forgotpassone";
     }
 
-    //パスワードを変更するクエリパラメタでメールアドレスを受け取る予定
+    //パスワードを変更画面を表示
     @GetMapping("changepassword")
     public String password(@RequestParam(value = "mail", required = true) String mail, Model model) {
     if (mail == null || mail.isBlank()) {
         model.addAttribute("error", "メールアドレスが指定されていません。");
         return "account/error"; // 適切なエラーページに遷移
     }
-
     model.addAttribute("mail", mail);
     return "account/forgotpasstwo";
-}
+    }
 
 
-   /*  @PostMapping("change")
-    public String changePassword(){
-        userService.updatePassword();
+    //パスワード変更
+    @PostMapping("change")
+    public String changePassword(@RequestParam String password,@RequestParam String mail ){
+        userService.changePassword(mail, password);
         return "redirect:login";
-    }*/
+    }
 
     //アカウント完全削除 確認まだ
     @PostMapping("deleteaccount")
