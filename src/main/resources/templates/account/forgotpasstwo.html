@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/account/account.css">
     <title>パスワード再設定</title>
+    <script src="/js/validateForm.js" defer></script>
 </head>
 <body>
 
@@ -12,12 +13,15 @@
     <h1>パスワード再設定</h1>
     <p>新しいパスワードを入力してください。</p>
 
-    <form action="/password-reset-confirm" method="post">
-        <label for="new-password">新しいパスワード</label>
-        <input type="password" id="new-password" name="new-password" required placeholder="新しいパスワード" minlength="8">
+    <form action="/change" method="post" onsubmit="validateForm(event)">
 
-        <label for="confirm-password">新しいパスワードの確認</label>
-        <input type="password" id="confirm-password" name="confirm-password" required placeholder="新しいパスワードの確認" minlength="8">
+        <input type="hidden" name="mail" th:value="${mail}">
+
+        <label for="password">新しいパスワード</label>
+                <input type="password" id="password" name="password" required placeholder="パスワード" minlength="8">
+
+                <label for="confirm-password">パスワードの確認</label>
+                <input type="password" id="confirm-password" name="confirm-password" required placeholder="パスワードの確認" minlength="8">
 
         <button type="submit">パスワードを再設定する</button>
     </form>

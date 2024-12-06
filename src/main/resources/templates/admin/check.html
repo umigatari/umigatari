@@ -9,6 +9,35 @@
         <header class="header">
             <h1>クイズ一覧</h1>
         </header>
+        <form action="/admin/quizlist" method="get" onsubmit="removeEmptyParams()">
+            <!-- 1から9の選択肢 -->
+            <label for="p_cocid">クイズジャンルごとに絞り込む:</label>
+            <select id="p_cocid" name="p_cocid">
+                <option value="">すべて表示する</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+            <br><br>
+            
+            <!-- 昇順・降順の選択肢 -->
+            <label for="dord">問題作成日で並び替える:</label>
+            <select id="dord" name="dord">
+                <option value="">選択しない</option>
+                <option value="asc">昇順</option>
+                <option value="desc">降順</option>
+            </select>
+            <br><br>
+            
+            <!-- フォーム送信ボタン -->
+            <button type="submit">並び替え</button>
+        </form>
         <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
         <p th:text="${errorMessage}" class="error-message"> 問題ありません</p>
         <ul>
@@ -44,29 +73,6 @@
         <button type="button" onclick="proceedDeletion()">はい</button>
         <button type="button" onclick="cancelDeletion()">いいえ</button>
     </div>
+    <script src="js/check.js"></script>
 </body>
-<script>
-    let formIdToDelete = null; // 削除するフォームのIDを保持
-
-    function confirmDeletion(formId, event) {
-        event.preventDefault();
-        formIdToDelete = `delete-form-${formId}`; // フォームのIDを保存
-        const dialog = document.getElementById('confirmation-dialog');
-        dialog.style.display = 'block'; // ポップアップを表示
-}
-
-    function proceedDeletion() {
-        if (formIdToDelete) {
-        const form = document.getElementById(formIdToDelete);
-        form.submit(); // 保存したフォームを送信
-    }
-    cancelDeletion(); // ポップアップを閉じる
-}
-
-    function cancelDeletion() {
-    formIdToDelete = null; // フォームIDをリセット
-    const dialog = document.getElementById('confirmation-dialog');
-    dialog.style.display = 'none'; // ポップアップを非表示
-}
-</script>
 </html>

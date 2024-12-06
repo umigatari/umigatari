@@ -19,20 +19,22 @@ public class QuizService {
         return quizRepository.readQuiz(id);
     }
 
-    //typeをもとにクイズを表示
+    //type
     public List<quiz> selectByType(int type){
         return quizRepository.readTypeQuiz(type);
     }
 
-    //並び替え
+    //type check
+    public List<quiz> selectByTypeCheck(int type){
+        return quizRepository.readTypeQuizCheck(type);
+    }
+
+    //order
     public List<quiz> selectByOrder(String order){
-        System.out.println(order);
+        //System.out.println(order);
         if("asc".equals(order)){
             List<quiz> quiz =quizRepository.readOrderAscQuiz();
-            System.out.println("取得したクイズデータ:");
-            for (quiz q : quiz) {
-                System.out.println(q);
-            return quiz;}
+            return quiz;
         }else if("desc".equals(order)){
         return quizRepository.readOrderDescQuiz();}
         List<quiz> quiz =null;
@@ -40,12 +42,35 @@ public class QuizService {
         
     }
 
-    //並び替えタイプで選ぶ
+    //order check
+    public List<quiz> selectByOrderCheck(String order){
+        //System.out.println(order);
+        if("asc".equals(order)){
+            List<quiz> quiz =quizRepository.readOrderAscQuizCheck();        
+            return quiz;
+        }else if("desc".equals(order)){
+        return quizRepository.readOrderDescQuizCheck();}
+        List<quiz> quiz =null;
+        return quiz;
+        
+    }
+
+    //order type
     public List<quiz> readOrderTypeQuiz(String order,int type){
         if("asc".equals(order)){
             return quizRepository.readAsc(type);
         }else if("desc".equals(order)){
         return quizRepository.readDesc(type);}
+        List<quiz> quiz =quizRepository.listQuiz();
+        return quiz;
+    }
+
+    //order type check
+    public List<quiz> readOrderTypeQuizCheck(String order,int type){
+        if("asc".equals(order)){
+            return quizRepository.readAscCheck(type);
+        }else if("desc".equals(order)){
+        return quizRepository.readDescCheck(type);}
         List<quiz> quiz =quizRepository.listQuiz();
         return quiz;
     }

@@ -58,9 +58,21 @@ public class QuizRepository {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class),type);
     }
 
+    //問題チェック一覧を表示するtype
+    public List<quiz> readTypeQuizCheck(int type){
+        String sql = "SELECT * FROM quiz where type = ? AND check = true";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class),type);
+    }
+
     //一覧を表示するASC
     public List<quiz> readOrderAscQuiz(){
         String sql = "SELECT * FROM quiz order by creationday ASC";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
+    }
+
+    //問題チェック一覧を表示するASC 
+    public List<quiz> readOrderAscQuizCheck(){
+        String sql = "SELECT * FROM quiz WHERE check = true ORDER BY creationday ASC";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
     }
     
@@ -70,15 +82,33 @@ public class QuizRepository {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
     }
 
+    //問題チェック一覧を表示するdesc
+    public List<quiz> readOrderDescQuizCheck(){
+        String sql = "SELECT * FROM quiz WHERE check = true order by creationday Desc";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
+    }
+
     //一覧を表示するdesc type order
     public List<quiz> readDesc(int type){
         String sql = "SELECT * FROM quiz WHERE type = ? ORDER BY creationday DESC;";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class),type);
     }
 
+    //問題チェック一覧を表示するdesc type order
+    public List<quiz> readDescCheck(int type){
+        String sql = "SELECT * FROM quiz WHERE type = ? AND check = true ORDER BY creationday DESC;";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class),type);
+    }
+
     //一覧を表示するasc type order
     public List<quiz> readAsc(int type){
         String sql = "SELECT * FROM quiz WHERE type = ? ORDER BY creationday ASC";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class),type);
+    }
+
+    //問題チェック一覧を表示するasc type order
+    public List<quiz> readAscCheck(int type){
+        String sql = "SELECT * FROM quiz WHERE type = ? AND check = true ORDER BY creationday ASC";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class),type);
     }
 

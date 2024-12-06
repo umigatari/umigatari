@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.umigatari.NotFoundException;
 import com.example.umigatari.model.quiz;
 import com.example.umigatari.service.QuizService;
-
+import com.example.umigatari.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -31,7 +31,7 @@ public class QuizController {
     @Autowired
     private QuizService quizService;
 
-    /*/*@Autowired
+    @Autowired
     private UserService userService;
 
     /*セッションは二つあって解いたtypeを保管するのsolvedQuizzesと、正解したtypeを保管するのcorrectがある。
@@ -44,6 +44,9 @@ public class QuizController {
     @SuppressWarnings("unchecked")
     @GetMapping("quiz/{type}")
     public String randomThreeQuiz(@PathVariable("type") int type, Model model, HttpSession session) {
+        if(session.getAttribute("id")==null){
+            return "nopage";
+        }
         Set<Integer> solvedQuizzes = (Set<Integer>) session.getAttribute("solvedQuizzes");
         //リスト作成
         if (solvedQuizzes == null) {
@@ -64,6 +67,9 @@ public class QuizController {
     //ひとつ選ばれたクイズを表示する
     @PostMapping("quiz/{id}")
     public String showOneQuiz(@PathVariable("id") Long id, Model model,HttpSession session) {
+        if(session.getAttribute("id")==null){
+            return "nopage";
+        }
         quiz quiz = quizService.selectOneById(id);
         List<String> choices = new ArrayList<>(List.of(quiz.getCorrect(), quiz.getOther_one(), quiz.getOther_two()));
         Collections.shuffle(choices);
@@ -77,19 +83,22 @@ public class QuizController {
     @SuppressWarnings("unchecked")
     @PostMapping("quiz/answer")
     public String check(@RequestParam String choice,@RequestParam int type, Model model,HttpSession session) {
+        if(session.getAttribute("id")==null){
+            return "nopage";
+        }
         //正解を取得
         Object answerobj =session.getAttribute("answer");
         String answer = (String) answerobj;
         //正解数を取得
-       /*  Object obj = session.getAttribute("id");
+       Object obj = session.getAttribute("id");
        Long id = (Long)obj;
         int count = userService.getCount(id);
-        String str = "今までの累計正解数は、" + count + "回です";*/
+        String str = "今までの累計正解数は、" + count + "回です";
         //正解かどうかを判断
         if (answer.equals(choice)) {
             //カウントアップ
-            //model.addAttribute("count", str);
-            //userService.countUp(id);
+            model.addAttribute("count", str);
+            userService.countUp(id);
             model.addAttribute("message", "正解!");
             Set<Integer> correct = (Set<Integer>) session.getAttribute("correct");
             if (correct == null) {
@@ -111,7 +120,10 @@ public class QuizController {
 
     //クイズ作成のページを表示
     @GetMapping("quiz/createpage")
-    public String createQuizPage() {
+    public String createQuizPage(HttpSession session) {
+        if(session.getAttribute("id")==null){
+            return "nopage";
+        }
         return "quiz/adduserquiz";
     }
 
@@ -182,12 +194,32 @@ public class QuizController {
 
     //問題チェック画面表示 ok
     @GetMapping("admin/check")
-    public String checkQuizPage(Model model){
+    public String checkQuizPage(Model model,@RequestParam(value = "p_cocid", required = false) Integer pCocid,
+    @RequestParam(value = "dord", required = false) String dord){
         //チェックが必要なクイズを表示。なければな”問題はありません”と表示
         try {
-            List<quiz> quizzes = quizService.checkListQuiz();
+            if (pCocid != null && dord != null) {
+                // ok
+                List<quiz> quiz= quizService.readOrderTypeQuizCheck(dord,pCocid);
+                model.addAttribute("quiz",quiz);
+                return "admin/quizlist";
+            } else if (pCocid != null) {
+                //ok
+                List<quiz> quiz= quizService.selectByTypeCheck(pCocid);
+                model.addAttribute("quiz",quiz);
+                return "admin/quizlist";
+            } else if (dord != null) {
+                // ok
+                List<quiz> quiz= quizService.selectByOrderCheck(dord);
+                model.addAttribute("quiz",quiz);
+                return "admin/quizlist";
+            } else {
+                // ok
+                List<quiz> quizzes = quizService.checkListQuiz();
             model.addAttribute("quiz", quizzes);
             return "admin/check";
+            }
+            
         } catch (NotFoundException e) {
             model.addAttribute("errorMessage", "問題はありません");
             return "admin/check";

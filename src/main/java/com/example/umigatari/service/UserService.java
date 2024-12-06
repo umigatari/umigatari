@@ -48,8 +48,9 @@ public class UserService {
     }
 
     //パスワードを変更
-    public void changePassword(String name,String password){
-        userRepository.updatePassword(name,password);
+    public void changePassword(String mail,String password){
+        String hashedPasseord = passwordEncoder.encode(password);
+        userRepository.updatePassword(mail,hashedPasseord);
     }
 
     //アカウント完全削除
@@ -104,6 +105,7 @@ public class UserService {
         return userRepository.getCount(id);
     }
 
+    //IDに対するユーザーネームの表示
     public String getName(Long id){
         return userRepository.getName(id);
     }
