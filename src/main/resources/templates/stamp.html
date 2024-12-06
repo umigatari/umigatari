@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>スタンプラリー</title>
-    <link rel="stylesheet" href="/css/stamp.css"> <!-- CSSファイルの読み込み -->
+    <link rel="stylesheet" href="stamp.css"> <!-- CSSファイルの読み込み -->
     
 </head>
 <body>
@@ -107,6 +107,57 @@
             }
         }
     };
+
+    // ポップアップの要素を取得
+    const logoutPopup = document.getElementById('logout-popup');
+    const deletePopup = document.getElementById('delete-popup');
+    const finalDeletePopup = document.getElementById('final-delete-popup');
+
+   // 各ボタンにイベントリスナーを設定
+
+   // ログアウトボタンが押されたとき、ログアウト確認ポップアップを表示
+    document.getElementById('logout-btn').addEventListener('click', function() {
+    logoutPopup.style.display = 'block'; // ログアウト確認ポップアップを表示
+    });
+
+   // アカウント削除ボタンが押されたとき、アカウント削除確認ポップアップを表示
+    document.getElementById('delete-btn').addEventListener('click', function() {
+        deletePopup.style.display = 'block'; // アカウント削除確認ポップアップを表示
+    });
+
+   // ログアウトの「はい」ボタンが押されたとき
+    document.getElementById('confirm-logout-yes').addEventListener('click', function() {
+        // ログアウト処理を書く（例：サーバーとの通信など）
+        logoutPopup.style.display = 'none'; // ポップアップを非表示
+    });
+    
+    // ログアウトの「いいえ」ボタンが押されたとき
+    document.getElementById('confirm-logout-no').addEventListener('click', function() {
+        logoutPopup.style.display = 'none'; // ポップアップを非表示
+    });
+        
+    // アカウント削除の「はい」ボタンが押されたとき
+    document.getElementById('confirm-delete-yes').addEventListener('click', function() {
+        finalDeletePopup.style.display = 'block'; // 最終確認ポップアップを表示
+        deletePopup.style.display = 'none'; // アカウント削除確認ポップアップを非表示
+    });
+            
+    // アカウント削除の「いいえ」ボタンが押されたとき
+    document.getElementById('confirm-delete-no').addEventListener('click', function() {
+        deletePopup.style.display = 'none'; // ポップアップを非表示
+    });
+                
+    // 最終確認の「はい」ボタンが押されたとき
+    document.getElementById('confirm-final-delete-yes').addEventListener('click', function() {
+        // アカウント削除処理を書く（例：サーバーとの通信など）
+        finalDeletePopup.style.display = 'none'; // 最終確認ポップアップを非表示
+    });
+                
+    // 最終確認の「いいえ」ボタンが押されたとき
+    document.getElementById('confirm-final-delete-no').addEventListener('click', function() {
+        finalDeletePopup.style.display = 'none'; // ポップアップを非表示
+    });
+
 </script>
 
 
