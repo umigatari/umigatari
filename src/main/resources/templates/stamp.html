@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>スタンプラリー</title>
-    <link rel="stylesheet" href="stamp.css"> <!-- CSSファイルの読み込み -->
+    <link rel="stylesheet" href="/css/stamp.css"> <!-- CSSファイルの読み込み -->
     
 </head>
 <body>
@@ -126,9 +126,9 @@
     });
 
    // ログアウトの「はい」ボタンが押されたとき
-    document.getElementById('confirm-logout-yes').addEventListener('click', function() {
-        // ログアウト処理を書く（例：サーバーとの通信など）
-        logoutPopup.style.display = 'none'; // ポップアップを非表示
+   document.getElementById('confirm-logout-yes').addEventListener('click', function() {
+    fetch('/logout', { method: 'POST' });
+    window.location.href = '/login'; // ログアウト後、ログイン画面にリダイレクト
     });
     
     // ログアウトの「いいえ」ボタンが押されたとき
@@ -149,8 +149,8 @@
                 
     // 最終確認の「はい」ボタンが押されたとき
     document.getElementById('confirm-final-delete-yes').addEventListener('click', function() {
-        // アカウント削除処理を書く（例：サーバーとの通信など）
-        finalDeletePopup.style.display = 'none'; // 最終確認ポップアップを非表示
+        fetch('/deleteaccount', { method: 'POST' });
+    window.location.href = '/deleteaccount'; 
     });
                 
     // 最終確認の「いいえ」ボタンが押されたとき

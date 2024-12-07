@@ -38,7 +38,7 @@ public class UserService {
         int myRanking = userRepository.myRanking(id);
         Map<String,Object> result = new HashMap<>();
         result.put("rankingList",rankingList);
-        result.put("myRankig",myRanking);
+        result.put("myRanking", myRanking);
         return result;
     }
 

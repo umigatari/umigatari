@@ -60,7 +60,7 @@ public class QuizRepository {
 
     //問題チェック一覧を表示するtype
     public List<quiz> readTypeQuizCheck(int type){
-        String sql = "SELECT * FROM quiz where type = ? AND check = true";
+        String sql = "SELECT * FROM quiz where type = ? AND confirmation = true";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class),type);
     }
 
@@ -72,7 +72,7 @@ public class QuizRepository {
 
     //問題チェック一覧を表示するASC 
     public List<quiz> readOrderAscQuizCheck(){
-        String sql = "SELECT * FROM quiz WHERE check = true ORDER BY creationday ASC";
+        String sql = "SELECT * FROM quiz WHERE confirmation = true ORDER BY creationday ASC";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
     }
     
@@ -84,7 +84,7 @@ public class QuizRepository {
 
     //問題チェック一覧を表示するdesc
     public List<quiz> readOrderDescQuizCheck(){
-        String sql = "SELECT * FROM quiz WHERE check = true order by creationday Desc";
+        String sql = "SELECT * FROM quiz WHERE confirmation = true order by creationday Desc";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
     }
 
@@ -96,7 +96,7 @@ public class QuizRepository {
 
     //問題チェック一覧を表示するdesc type order
     public List<quiz> readDescCheck(int type){
-        String sql = "SELECT * FROM quiz WHERE type = ? AND check = true ORDER BY creationday DESC;";
+        String sql = "SELECT * FROM quiz WHERE type = ? AND confirmation = true ORDER BY creationday DESC;";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class),type);
     }
 
@@ -108,7 +108,7 @@ public class QuizRepository {
 
     //問題チェック一覧を表示するasc type order
     public List<quiz> readAscCheck(int type){
-        String sql = "SELECT * FROM quiz WHERE type = ? AND check = true ORDER BY creationday ASC";
+        String sql = "SELECT * FROM quiz WHERE type = ? AND confirmation = true ORDER BY creationday ASC";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class),type);
     }
 

@@ -3,13 +3,14 @@
 <head>
     <title>クイズ管理画面</title>
     <link rel="stylesheet" href="/css/admin/check.css">
+    <script src="/js/check.js"></script>
 </head>
 <body>
     <div class="container">
         <header class="header">
             <h1>クイズ一覧</h1>
-        </header>
-        <form action="/admin/quizlist" method="get" onsubmit="removeEmptyParams()">
+        </header>  
+        <form action="/admin/check" method="get" onsubmit="removeEmptyParams()">
             <!-- 1から9の選択肢 -->
             <label for="p_cocid">クイズジャンルごとに絞り込む:</label>
             <select id="p_cocid" name="p_cocid">
@@ -24,8 +25,7 @@
                 <option value="8">8</option>
                 <option value="9">9</option>
             </select>
-            <br><br>
-            
+            <br><br>      
             <!-- 昇順・降順の選択肢 -->
             <label for="dord">問題作成日で並び替える:</label>
             <select id="dord" name="dord">
@@ -33,8 +33,7 @@
                 <option value="asc">昇順</option>
                 <option value="desc">降順</option>
             </select>
-            <br><br>
-            
+            <br><br>      
             <!-- フォーム送信ボタン -->
             <button type="submit">並び替え</button>
         </form>
@@ -73,6 +72,5 @@
         <button type="button" onclick="proceedDeletion()">はい</button>
         <button type="button" onclick="cancelDeletion()">いいえ</button>
     </div>
-    <script src="js/check.js"></script>
 </body>
 </html>
