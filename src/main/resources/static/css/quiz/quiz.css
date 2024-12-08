@@ -1,39 +1,114 @@
-.quiz-question {
-    background-color: #e0f7fa; /* 問題欄の背景色を薄い青にする */
-    
-    width: 300px; /* 幅を300pxに設定 */
-    height: 100px; /* 高さを100pxに設定 */
-    object-fit: cover; /* 画像を枠に合わせてトリミング */
-    border: 2px solid #0000ff; /* 問題欄の枠の色を濃いにする */
-    color: #ffffff; /* 文字色を白にする */
-    padding: 10px; /* 内側の余白を設定 */
-    margin-bottom: 10px; /* 下部の余白を設定 */
-    margin-left: 30px; /* 左部の余白を設定 */
-    margin-right: 30px; /* 右部の余白を設定 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: aliceblue;
+    margin: 0;
+    padding: 0;
+}
+.header {
+    background-color: #92d5dc;
+    padding: 20px;
+    text-align: center;
+    color: #4e493f;
+}
+.header h1 {
+    font-size: 24px;
+    margin: 0;
+}
+#quiz-form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+}
+h1 {
+    color: #4e493f;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+}
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
 }
 
-.quiz-answer {
-    background-color: #ffffff; /* 解答欄の背景色を白にする */
-    width: 100px; /* 幅を100pxに設定 */
-    height: 70px; /* 高さを70pxに設定 */
-    object-fit: cover; /* 画像を枠に合わせてトリミング */
-    border: 2px solid #ff1; /* 解答欄の枠の色を黄色にする */
-    color: #0000; /* 文字色を黒にする */
-    padding: 10px; /* 内側の余白を設定 */
-    margin-bottom: 10px; /* 下部の余白を設定 */
-    margin-left: 80px; /* 左部の余白を設定*/
-    margin-right: 80px; /* 右部の余白を設定*/
+input[type="text"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
+input[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background-color: white;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: aliceblue;
+}
+
+#message {
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+}
+/* クイズのリスト (番号付きリスト) のスタイル */
+.quiz-container ol {
+    padding-left: 20px;
+}
+
+/* 各クイズ項目のスタイル */
+.quiz-item {
+    margin-bottom: 10px;
+}
+
+.quiz-button {
+    display: block;
+    width: 90%;
+    max-width: 400px;
+    height: 70px;
+    margin: 10px auto;
+    color: black;
+    border: 2px solid rgb(73, 110, 148); 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 14px;
+    background-color: white;
+    text-align: center;
+    line-height: 70px;
+}
+
+/* ボタンのホバー時のスタイル */
+.quiz-button:hover {
+    background-color: #e0f7ff; 
+}
+/* 画像コンテナのスタイル */
+.image-container {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    max-width: 600px; 
+    margin: 20px auto; 
+    gap: 20px;
+}
+
+/* コンテナ内の画像のスタイル */
+.image-container img {
+    max-width: 45%; 
+    height: auto; 
+    border-radius: 50%; 
+    border: none; 
+}
 .square-image {
-    width: 100px; /* 幅を100pxに設定 */
-    height: 70px; /* 高さを70pxに設定 */
-    object-fit: cover; /* 画像を枠に合わせてトリミング */
-    border: 5px solid #ffffff; /* 枠の太さを5px、色を黒に設定 */
-}
-
-.center-image {
-    display: block; /* 画像をブロック要素にする */
-    margin: 0 auto; /* 自動的に左右のマージンを設定して中央に配置する */
-    width: 400px; /*幅を400pxに設定 */
+    width: 100px;
+    height: 20px;
+    object-fit: cover;
+    border: 5px solid #ffffff; 
 }

@@ -146,7 +146,7 @@ public class UserController {
     public String getStamp(HttpSession session,Model model){
         
         if(session.getAttribute("id")==null){
-            return "nopage";
+            return "userpage/nopage";
         }
         Object obj = session.getAttribute("id");
        Long id = (Long)obj;
@@ -155,7 +155,7 @@ public class UserController {
         Set<Integer> correct = (Set<Integer>) session.getAttribute("correct");
         model.addAttribute("correct", correct);
         model.addAttribute("account", userService.getName(id));
-        return "stamp";
+        return "userpage/stamp";
     }
 
     //テスト用 必要ない消して
@@ -169,12 +169,12 @@ public class UserController {
     @GetMapping("reward")
     public String reward(Model model,HttpSession session){
         if(session.getAttribute("id")==null){
-            return "nopage";
+            return "userpage/nopage";
         }
         Object obj = session.getAttribute("id");
        Long id = (Long)obj;
         model.addAttribute("count",userService.getCount(id) ); 
-        return "reward";
+        return "userpage/reward";
 
     }
 
@@ -183,7 +183,7 @@ public class UserController {
     @GetMapping("ranking")
     public String ranking(HttpSession session, Model model){
         if(session.getAttribute("id")==null){
-            return "nopage";
+            return "userpage/nopage";
         }
         int limit = 5;
         Object obj = session.getAttribute("id");
@@ -193,7 +193,7 @@ public class UserController {
         int myRanking= (int) result.get("myRanking");
         model.addAttribute("ranking", ranking);
         model.addAttribute("myranking", myRanking);
-        return "ranking";
+        return "userpage/ranking";
     }
     
     

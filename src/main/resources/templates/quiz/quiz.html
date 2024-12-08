@@ -7,18 +7,24 @@
     <title>クイズ解答画面</title>
 </head>
 <body>
-    <h1>クイズ: <span th:text="${quiz.question}"></span></h1>
-
+    <div class="header">
+        <h1>うみがたり クイズスタンプラリー</h1>
     </div>
-    <form th:action="@{/quiz/answer}" method="post">
-        <!-- quiz.typeをhiddenフィールドとして送信 -->
-        <input type="hidden" name="type" th:value="${quiz.type}"/>
-        
-        <ul>
-            <li th:each="choice : ${choices}" class="quiz-answer">
-                <button type="submit" name="choice" th:value="${choice}" th:text="${choice}">解答</button>
-            </li>
-        </ul>
-    </form>
+    <div>
+        <img src="ning.png" alt="正方形の画像" class="square-image">
+    </div>
+    <h1>Q: <span th:text="${quiz.question}"></span></h1>
+    <div class="quiz-container">
+        <th:block th:each="choice : ${choices}">
+            <form th:action="@{/quiz/answer}" method="post">
+                <input type="hidden" name="type" th:value="${quiz.type != null ? quiz.type : ''}"/>
+                <div class="quiz-item">
+                    <button type="submit" class="quiz-button" name="choice" th:value="${choice}">
+                        <span th:text="${choice}"></span>
+                    </button>
+                </div>
+            </form> 
+        </th:block>
+    </div>
 </body>
 </html>

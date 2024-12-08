@@ -3,39 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/quiz/randomquiz.css">
+    <link rel="stylesheet" href="/css/quiz/quiz.css">
     <title>クイズ選択画面</title>
 </head>
 <body>
-
-    <header class="header">
-        <div class="title">
-            <img src="umigatari.png" class="header-image">
-        </div>
-        <div class="account-info">
-            <div class="account-icon">
-                <div class="head"></div>
-                <div class="body"></div>
-            </div>
-            <div class="account-text">
-                <span>アカウント</span>
-                <div class="account-dropdown">
-                    <span th:text="'アカウント名: ' + ${account} ">アカウント名</span>
-                    <button>ログアウト</button>
-                    <button>アカウント削除</button>
-                </div>
-            </div>
-        </div>
-    </header>
+    <div class="header">
+        <h1>うみがたり クイズスタンプラリー</h1>
+    </div>   
     <h1>３つの中から１つクイズを選んでね！</h1>
-    
-    <!-- すでに問題を解いている場合のメッセージ -->
-    <p th:text="${soved}"></p>
+    <h1 th:text="${soved}">素手の問題をといています</h1>
         <div class="quiz-container">
             <th:block th:each="quiz : ${quiz}">
                 <form th:action="@{/quiz/{id}(id=${quiz.id})}" method="post">
-
-
                     <div class="quiz-item">
                         <button type="submit" class="quiz-button">
                             <span th:text="${quiz.question}"></span>
@@ -46,104 +25,8 @@
         </div>
 
     <div class="image-container">
-        <img src="/img/魚1.jpg" alt="クイズ画像1">
-        <img src="/img/魚2.jpg" alt="クイズ画像2">
+        <img src="/img/fish1.jpg" alt="クイズ画像1">
+        <img src="/img/fish2.jpg" alt="クイズ画像2">
     </div>
-    <div class="rules-container">
-        <h2>クイズのルール</h2>
-        <ul>
-            <li>この中から一問を選んでクイズに答えよう！</li>
-            <li>正解するとスタンプをプレゼント！</li>
-            <li>正解を積み重ねると、可愛い動物たちの画像がもらえるよ。</li>
-            <li>一度回答したチェックポイントでは、その日のうちは問題に答えられないよ！</li>
-            <li>慎重に問題に答えよう！</li>
-        </ul>
-    </div>
-    <footer class="footer">
-        <div class="logo">
-            <img src="JJC.png" class="header-image">
-            <span class="header-divider">✖</span>
-            <img src="umigatari-logo.svg" class="header-image">
-        </div>
-    </footer>
-
-    <!-- ログアウト確認ポップアップ -->
-<div id="logout-popup" class="popup">
-    <div class="popup-content">
-        <p>ログアウトしますか？</p>
-        <button id="confirm-logout-yes">はい</button>
-        <button id="confirm-logout-no">いいえ</button>
-    </div>
-</div>
-
-<!-- アカウント削除確認ポップアップ -->
-<div id="delete-popup" class="popup">
-    <div class="popup-content">
-        <p>アカウントは完全に削除されますがよろしいですか？</p>
-        <button id="confirm-delete-yes">はい</button>
-        <button id="confirm-delete-no">いいえ</button>
-    </div>
-</div>
-
-<!-- 最終確認ポップアップ（アカウント削除） -->
-<div id="final-delete-popup" class="popup">
-    <div class="popup-content">
-        <p>本当に削除しますか？</p>
-        <button id="confirm-final-delete-yes">はい</button>
-        <button id="confirm-final-delete-no">いいえ</button>
-    </div>
-
-    <script>
-        // ポップアップの要素を取得
-    const logoutPopup = document.getElementById('logout-popup');
-    const deletePopup = document.getElementById('delete-popup');
-    const finalDeletePopup = document.getElementById('final-delete-popup');
-
-   // 各ボタンにイベントリスナーを設定
-
-   // ログアウトボタンが押されたとき、ログアウト確認ポップアップを表示
-    document.getElementById('logout-btn').addEventListener('click', function() {
-    logoutPopup.style.display = 'block'; // ログアウト確認ポップアップを表示
-    });
-
-   // アカウント削除ボタンが押されたとき、アカウント削除確認ポップアップを表示
-    document.getElementById('delete-btn').addEventListener('click', function() {
-        deletePopup.style.display = 'block'; // アカウント削除確認ポップアップを表示
-    });
-
-   // ログアウトの「はい」ボタンが押されたとき
-    document.getElementById('confirm-logout-yes').addEventListener('click', function() {
-        // ログアウト処理を書く（例：サーバーとの通信など）
-        logoutPopup.style.display = 'none'; // ポップアップを非表示
-    });
-    
-    // ログアウトの「いいえ」ボタンが押されたとき
-    document.getElementById('confirm-logout-no').addEventListener('click', function() {
-        logoutPopup.style.display = 'none'; // ポップアップを非表示
-        });
-        
-    // アカウント削除の「はい」ボタンが押されたとき
-    document.getElementById('confirm-delete-yes').addEventListener('click', function() {
-        finalDeletePopup.style.display = 'block'; // 最終確認ポップアップを表示
-        deletePopup.style.display = 'none'; // アカウント削除確認ポップアップを非表示
-        });
-            
-    // アカウント削除の「いいえ」ボタンが押されたとき
-    document.getElementById('confirm-delete-no').addEventListener('click', function() {
-        deletePopup.style.display = 'none'; // ポップアップを非表示
-        });
-                
-    // 最終確認の「はい」ボタンが押されたとき
-    document.getElementById('confirm-final-delete-yes').addEventListener('click', function() {
-        // アカウント削除処理を書く（例：サーバーとの通信など）
-        finalDeletePopup.style.display = 'none'; // 最終確認ポップアップを非表示
-        });
-                
-    // 最終確認の「いいえ」ボタンが押されたとき
-    document.getElementById('confirm-final-delete-no').addEventListener('click', function() {
-        finalDeletePopup.style.display = 'none'; // ポップアップを非表示
-        });
-
-    </script>
 </body>
 </html>

@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/quiz/adduserquiz.css">
+    <link rel="stylesheet" href="/css/quiz/quiz.css">
     <title>問題作成フォーム</title>
 </head>
 <body>
-
+    <div class="header">
+        <h1>うみがたり クイズスタンプラリー</h1>
+    </div>
     <div>
         <h1>問題作成</h1>
         <div th:if="${create}">
@@ -17,32 +19,27 @@
             </form>
         </div>
 
-        <div th:unless="${create}">
+        <div id="quiz-form-container" th:unless="${create}">
             <form action="/quiz/create" method="post">
                 <label for="question">クイズ:</label>
-                <input type="text" id="question" name="question" maxlength="100" required 
-                       th:value="${quiz != null ? quiz.question : ''}">
-            
+                <input type="text" id="question" name="question" maxlength="100" required>
+        
                 <label for="correct">正解の回答:</label>
-                <input type="text" id="correct" name="correct" maxlength="100" required 
-                       th:value="${quiz != null ? quiz.correct : ''}">
-            
+                <input type="text" id="correct" name="correct" maxlength="100" required>
+        
                 <label for="otherone">不正解の回答1:</label>
-                <input type="text" id="other_one" name="other_one" maxlength="100" required 
-                       th:value="${quiz != null ? quiz.other_one : ''}">
-            
+                <input type="text" id="other_one" name="other_one" maxlength="100" required>
+        
                 <label for="othertwo">不正解の回答2:</label>
-                <input type="text" id="other_two" name="other_two" maxlength="100" required 
-                       th:value="${quiz != null ? quiz.other_two : ''}">
-               
-                <input type="hidden" name="confirmation" 
-                       th:value="${quiz != null && quiz.confirmation != null ? quiz.confirmation : true}">
-            
+                <input type="text" id="other_two" name="other_two" maxlength="100" required>
+        
+                <input type="hidden" name="confirmation" value="true">
+        
                 <button type="submit">送信</button>
             </form>
         </div>
-
-        <div id="message" style="margin-top: 20px;"></div>
+        
+        <div id="message"></div>
     </div>
 
 </body>
