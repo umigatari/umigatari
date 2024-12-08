@@ -45,7 +45,7 @@ public class QuizController {
     @GetMapping("quiz/{type}")
     public String randomThreeQuiz(@PathVariable("type") int type, Model model, HttpSession session) {
         if(session.getAttribute("id")==null){
-            return "nopage";
+            return "userpage/nopage";
         }
         Set<Integer> solvedQuizzes = (Set<Integer>) session.getAttribute("solvedQuizzes");
         //リスト作成
@@ -68,7 +68,7 @@ public class QuizController {
     @PostMapping("quiz/{id}")
     public String showOneQuiz(@PathVariable("id") Long id, Model model,HttpSession session) {
         if(session.getAttribute("id")==null){
-            return "nopage";
+            return "userpage/nopage";
         }
         quiz quiz = quizService.selectOneById(id);
         List<String> choices = new ArrayList<>(List.of(quiz.getCorrect(), quiz.getOther_one(), quiz.getOther_two()));
@@ -84,7 +84,7 @@ public class QuizController {
     @PostMapping("quiz/answer")
     public String check(@RequestParam String choice,@RequestParam int type, Model model,HttpSession session) {
         if(session.getAttribute("id")==null){
-            return "nopage";
+            return "userpage/nopage";
         }
         //正解を取得
         Object answerobj =session.getAttribute("answer");
@@ -124,7 +124,7 @@ public class QuizController {
     @GetMapping("quiz/createpage")
     public String createQuizPage(HttpSession session) {
         if(session.getAttribute("id")==null){
-            return "nopage";
+            return "userpage/nopage";
         }
         return "quiz/adduserquiz";
     }
@@ -305,7 +305,7 @@ public class QuizController {
 
     @GetMapping("rule")
     public String getMethodName() {
-        return "rule";
+        return "userpage/rule";
     }
     
 
