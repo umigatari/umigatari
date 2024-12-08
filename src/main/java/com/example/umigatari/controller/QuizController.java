@@ -106,6 +106,7 @@ public class QuizController {
             }
             correct.add(type);
             session.setAttribute("correct", correct);
+            model.addAttribute("str",str);
             model.addAttribute("correct",correct);
         //不正解なら不正解と表示
         } else {
@@ -113,6 +114,7 @@ public class QuizController {
             model.addAttribute("message", "不正解");
             Set<Integer> correct = (Set<Integer>) session.getAttribute("carrect");
             session.setAttribute("correct", correct);
+            model.addAttribute("str",str);
             model.addAttribute("correct",correct);
         }
         return "quiz/answer";
@@ -202,17 +204,17 @@ public class QuizController {
                 // ok
                 List<quiz> quiz= quizService.readOrderTypeQuizCheck(dord,pCocid);
                 model.addAttribute("quiz",quiz);
-                return "admin/quizlist";
+                return "admin/check";
             } else if (pCocid != null) {
                 //ok
                 List<quiz> quiz= quizService.selectByTypeCheck(pCocid);
                 model.addAttribute("quiz",quiz);
-                return "admin/quizlist";
+                return "admin/check";
             } else if (dord != null) {
                 // ok
                 List<quiz> quiz= quizService.selectByOrderCheck(dord);
                 model.addAttribute("quiz",quiz);
-                return "admin/quizlist";
+                return "admin/check";
             } else {
                 // ok
                 List<quiz> quizzes = quizService.checkListQuiz();

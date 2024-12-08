@@ -50,9 +50,12 @@ public class UserController {
     @PostMapping("create")
     public String createAccount(@ModelAttribute account account, @RequestParam String password, Model model) {
     try {
+        
         userService.createAccount(account);
         model.addAttribute("clear", "登録しました");
     } catch (NotFoundException e) {
+        String mail =account.getMail();
+        model.addAttribute("mail", mail);
         model.addAttribute("error", e.getMessage());
     }
     return "account/createaccounttwo";
@@ -88,8 +91,9 @@ public class UserController {
 
     //ログアウト
     @PostMapping("logout")
-    public void getMethodName(HttpSession session) {
+    public String  getMethodName(HttpSession session) {
         session.invalidate(); 
+        return "redirect:login";
     }
     
 
@@ -131,8 +135,9 @@ public class UserController {
     public String deleteAccount(HttpSession session){
        Object obj = session.getAttribute("id");
        Long id = (Long)obj;
+       session.invalidate(); 
        userService.deleteAccount(id);
-       return "nopage";
+       return "redirect:/";
     }
 
     //スタンプを表示　確認まだ
@@ -161,7 +166,7 @@ public class UserController {
     
 
     //報酬を表示　　確認まだ
-    @GetMapping("stamp/reward")
+    @GetMapping("reward")
     public String reward(Model model,HttpSession session){
         if(session.getAttribute("id")==null){
             return "nopage";

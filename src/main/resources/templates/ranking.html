@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ランキング</title>
     <link rel="stylesheet" href="css/ranking.css">
+    <script src="/js/ranking.js"></script>
 </head>
 <body>
 
@@ -30,7 +31,7 @@
         </li>
 
         <!-- ランキングの個々の項目 -->
-        <li th:each="account, iterStat : ${ranking}" class="ranking-item" th:classappend="${iterStat.index + 1 == ${myranking} ? ' highlight' : ''}">
+        <li th:each="account, iterStat : ${ranking}" class="ranking-item" th:classappend="${iterStat.index + 1 == myranking ? ' highlight' : ''}">
             <span class="rank" th:text="${iterStat.index + 1}">1</span>
             <span class="name" th:text="${account.name}">User Name</span>
             <span class="count" th:text="${account.count}">100</span>
@@ -45,7 +46,5 @@
         <button type="submit">スタンプへ</button>
     </form>
 </div>
-
-<script src=js/ranking.js"></script>
 </body>
 </html>
