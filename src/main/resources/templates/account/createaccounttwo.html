@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/account/account.css">
+    <link rel="stylesheet" href="account.css">
     <title>アカウント作成 情報入力</title>
     <script src="/js/validateForm.js" defer></script>
 </head>
 <body>
-    <!-- エラーメッセージ -->
+    
+    <div class="container">
+        <h1>アカウント作成</h1>
+        <!-- エラーメッセージ -->
     <div style="color: red;">
         <p th:text="${error}">そのユーザーネームは既に登録されています。別のユーザーネームを使用してください。</p>
     </div>
-    <div class="container">
-        <h1>アカウント作成</h1>
         <p>以下の情報を入力してアカウントを作成してください。</p>
         <!-- clearが設定されている場合は入力フォームを非表示にし、ログインボタンを表示 -->
         <div th:if="${clear == null}">
