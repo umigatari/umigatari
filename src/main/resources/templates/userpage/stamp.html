@@ -4,23 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>スタンプラリー</title>
-    <link rel="stylesheet" href="/css/userpage/stamp.css">
+    <link rel="stylesheet" href="stamp.css">
     
 </head>
 <body>
 
-<div class="container">
     <header class="header">
-        <img src="umigatari-logo.svg" class="header-logo">
-
-        <div class="account-info">
-            <span th:text="'アカウント名: ' + ${account} ">アカウント名</span>
+        <div class="title">
+            <img src="umigatari.png" class="header-image">
         </div>
-
-    <!-- ログアウトとアカウント削除ボタン -->
-        <div class="header-buttons">
-            <button id="logout-btn">ログアウト</button>
-            <button id="delete-btn">アカウント削除</button>
+        <div class="account-info">
+            <div class="account-icon">
+                <div class="head"></div>
+                <div class="body"></div>
+            </div>
+            <div class="account-text">
+                <span>アカウント</span>
+                <div class="account-dropdown">
+                    <span th:text="'アカウント名: ' + ${account} ">アカウント名</span>
+                    <button id="logout-btn">ログアウト</button>
+                    <button id="delete-btn">アカウント削除</button>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -45,12 +50,24 @@
         </div>
     </div>
 
-    <div class="ranking-button-container">
+    <div class="button-container">
+        <form action="/reward" method="get">
+            <button id="reward-btn" class="reward-btn">プレゼント</button>
+        </form>
+        <form action="/rule" method="get">
+            <button id="rule-btn" class="rule-btn">ルール説明</button>
+        </form>
         <form action="/ranking" method="get">
-        <button id="ranking-btn" class="ranking-btn">ランキングへ</button>
-    </form>
+            <button id="ranking-btn" class="ranking-btn">ランキングへ</button>
+        </form>
     </div>
-</div>
+    <footer class="footer">
+        <div class="logo">
+            <img src="JJC.png" class="header-image">
+            <span class="header-divider">✖</span>
+            <img src="umigatari-logo.svg" class="header-image">
+        </div>
+    </footer>
 
 <!-- ログアウト確認ポップアップ -->
 <div id="logout-popup" class="popup">
@@ -126,7 +143,7 @@
     });
 
    // ログアウトの「はい」ボタンが押されたとき
-   document.getElementById('confirm-logout-yes').addEventListener('click', function() {
+    document.getElementById('confirm-logout-yes').addEventListener('click', function() {
     fetch('/logout', { method: 'POST' });
     window.location.href = '/login'; // ログアウト後、ログイン画面にリダイレクト
     });
