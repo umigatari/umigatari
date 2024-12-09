@@ -1,127 +1,143 @@
 body {
     font-family: Arial, sans-serif;
     background-color: aliceblue;
-    margin: 0;
-    display: flex; /* 全体を中央に寄せるためにflexboxを使用 */
-    justify-content: center; /* 水平方向の中央寄せ */
-    align-items: center; /* 垂直方向の中央寄せ */
-    flex-direction: column;
-    height: 100vh; /* 高さを画面全体に合わせる */
-    padding: 5px;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 20px 5px 20px;
-    background-color: #1e90ff;
-    color: #ffffff;
-    font-size: 10px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    background-color: #92d5dc;
+    position: fixed; /* ヘッダーを固定表示 */
+    top: 0;
+    left: 0;
     width: 100%;
-    box-sizing: border-box;
-    margin-bottom: 7px;
-    flex-wrap: wrap;
+    height: 80px;
 }
 
-.header-logo {
-    max-width: 100%;  /* 画像の横幅を親要素に合わせる */
-    height: auto;     /* 画像の高さを自動調整 */
-    display: block;   /* 画像をブロック要素として表示 */
-    margin-right: auto; 
-}
-
-.header .account-info {
-    display: flex;
-    flex-direction: column; /* 縦並びにする */
-    justify-content: center;
-    align-items: center;
-    margin-top: -80px;
+.title img {
+    text-align: left;
+    width: 95%;
+    height: auto; 
 }
 
 .account-info {
+    margin-left: auto;
     display: flex;
+    flex-direction: column; 
+    align-items: center;
+    padding-right: 30px;
+}
+
+.account-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #ccc;
+    border-radius: 50%;
+}
+
+.account-info span {
+    font-size: 15px;
+    white-space: nowrap; /* テキストが改行されないようにする */
+}
+
+.account-dropdown {
+    display: none; 
     flex-direction: column;
-    align-items: flex-start; /* テキストと入力フィールドを縦並びに */
-    gap: 10px;           /* テキストと入力フィールドの間にスペースを追加 */
-    font-size: 12px;  
-}
-
-.account-info label {
-    font-size: 14px;      /* ラベルのフォントサイズ */
-    color: #ffffff;       /* テキストの色 */
-}
-
-.account-input {
-    padding: 5px 10px;     /* テキストボックス内の余白 */
-    font-size: 14px;        /* フォントサイズ */
-    border-radius: 5px;     /* 角を丸める */
-    border: 1px solid #ccc; /* 枠線 */
-    width: 200px;           /* 幅を設定 */
-}
-
-/* ヘッダーボタン */
-.header-buttons {
-    display: flex;
-    justify-content: flex-end; /* 右寄せ */
-    flex-wrap: nowrap;
     gap: 10px;
-    width: auto;
-    padding: 50px;
-}
-
-.header-buttons button {
-    background-color: #1e90ff; 
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 12px;
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    background-color: #fff;
+    padding: 20px;
+    width: 230px; 
+    border: 1px solid #ccc;
     border-radius: 5px;
-    max-width: 100px;
-    white-space: nowrap;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
-.header-buttons button:hover {
-    background-color: #4682b4;
+.account-info:hover .account-dropdown {
+    display: flex;  /* ホバー時に表示 */
+    position: absolute;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-/* 全体のコンテナ */
+.account-icon {
+    width: 40px; /* アイコンの直径 */
+    height: 40px;
+    background-color: #4b5eaa; 
+    border-radius: 50%; /* 円形にする */
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    position: relative; 
+    margin-bottom: 10px; 
+}
+
+.account-text {
+    text-align: center; 
+    font-size: 16px;
+    color: #333;
+}
+
+.account-icon .head {
+    width: 40%; /* 円の直径 */
+    height: 40%;
+    background-color: white; 
+    border-radius: 50%; /* 円形にする */
+    position: absolute; 
+    top: 10%; 
+}
+
+.account-icon .body {
+    width: 50%; 
+    height: 30%; 
+    background-color: white; 
+    border-radius: 10px; 
+    position: absolute; 
+    bottom: 10%; 
+}
+
 .container {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    box-sizing: border-box; /* パディングを含めた幅指定にする */
+    box-sizing: border-box; 
     display: flex;
     flex-direction: column;
-    align-items: center; /* 中央寄せ */
+    align-items: center; 
 }
 
-/* 累計正解数表示 */
 .score-box {
+    margin-top: 130px;
     margin-bottom: 20px;
     text-align: center;
     font-size: 20px;
 }
 
-/* スタンプ台紙 */
 .stamp-card {
     display: flex;
     justify-content: center;
+    align-items: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     background-color: white;
     border-radius: 10px;
-    width: 330px; /* 台紙の幅調整 */
-    height: auto; /* 必要に応じて高さを自動調整 */
+    width: 330px; 
+    height: auto; 
+    margin: 0 auto;
 }
 
 .stamp-grid {
     display: grid;
     grid-template-columns: repeat(3, 100px); /* 3列のスタンプ */
-    grid-gap: 20px; /* スタンプ間の余白 */
+    grid-gap: 20px; 
 }
 
 .stamp {
@@ -132,13 +148,12 @@ body {
     border: 2px solid #4682b4;
 }
 
-/* ポップアップのスタイル */
 .popup {
     display: none;
     position: fixed;
     top: 60%;
     left: 50%;
-    transform: translate(-50%, -50%); /* 中央揃え */
+    transform: translate(-50%, -50%); 
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
@@ -167,68 +182,53 @@ body {
     background-color: #4682b4;
 }
 
-/* ランキングへボタンのスタイル */
-.ranking-button-container {
-    margin-top: 20px;  /* スタンプ台紙との間に少し余白を追加 */
-    text-align: center; /* ボタンを中央に配置 */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;  
+    text-align: center; 
 }
 
-.ranking-btn {
-    background-color: #fcfa73; /* ボタンの背景色 */
-    color: rgb(27, 24, 24);              /* ボタンの文字色 */
-    padding: 10px 20px;        /* パディング */
-    font-size: 16px;           /* フォントサイズ */
-    border: none;              /* 枠線なし */
-    border-radius: 5px;        /* 角を丸める */
-    cursor: pointer;           /* カーソルをポインターに */
+.ranking-btn,.reward-btn,.rule-btn {
+    background-color: #fcfa73; 
+    color: rgb(27, 24, 24);              
+    padding: 10px 20px;        
+    width: 200px;
+    font-size: 16px;           
+    border: none;           
+    border-radius: 5px; 
+    cursor: pointer;          
 }
 
-.ranking-btn:hover {
-    background-color: #e1bd20;  /* ホバー時の背景色 */
+.ranking-btn:hover,.reward-btn:hover,.rule-btn:hover {
+    background-color: #e1bd20;  
+}
+
+.footer .logo {
+    display: flex; 
+    align-items: center; 
+    flex-direction: column; 
+    align-items: center; 
+    margin-right: 10px; 
+    position: relative;
+}
+
+.footer .logo img {
+    height: 40px; 
+    margin-right: 10px; 
+    margin-top: 40px;
+}
+
+.footer .logo .header-divider {
+    position: absolute; 
+    top: 65%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    font-size: 20px; 
 }
 
 
-@media screen and (max-width: 600px) {
-    .header {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 170px;
-    }
-    
-    .header-logo {
-        max-width: 50%;  /* 画像のサイズを少し小さくする */
-        height: auto;
-        margin-right: 10px;
-    }
 
-    .account-info {
-        font-size: 15px;          /* アカウント情報のフォントサイズを小さく調整 */
-        text-align: center;       /* テキストを中央揃え */
-        margin-left: 190px;
-    }
-    
-    .header-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        margin-left: 150px;
-        margin-top: -50px;
-    }
-    
-    .header-buttons button {
-        font-size: 12px;  /* スマホでも見やすいサイズに調整 */
-        padding: 8px 10px; /* ボタンのパディングを大きく */
-        min-width: 80px;          /* 幅をスマホ向けに調整 */
-        max-width: 100px;
-    }
-
-    .container {
-        padding: 10px;  /* コンテナ内の余白を調整 */
-        width: 95%;               /* コンテナの幅を画面に収める */
-        max-width: 600px;         /* 必要以上に広がらないよう制限 */
-        box-sizing: border-box;   /* パディングを含めて幅を計算 */
-    }
-}
 
