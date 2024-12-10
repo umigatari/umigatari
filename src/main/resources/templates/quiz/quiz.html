@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/quiz/quiz.css">
+    <script src="/js/timestamp.js"></script>
     <title>クイズ解答画面</title>
 </head>
 <body>
@@ -16,14 +17,15 @@
     <h1>Q: <span th:text="${quiz.question}"></span></h1>
     <div class="quiz-container">
         <th:block th:each="choice : ${choices}">
-            <form th:action="@{/quiz/answer}" method="post">
-                <input type="hidden" name="type" th:value="${quiz.type != null ? quiz.type : ''}"/>
+            <form th:action="@{/quiz/answer}" method="post" id="quizForm">
+                <input type="hidden" name="type" th:value="${quiz.type != null ? quiz.type : ''}">
+                <input type="hidden" id="timestamp" name="timestamp" value="">
                 <div class="quiz-item">
                     <button type="submit" class="quiz-button" name="choice" th:value="${choice}">
                         <span th:text="${choice}"></span>
                     </button>
                 </div>
-            </form> 
+            </form>
         </th:block>
     </div>
 </body>
