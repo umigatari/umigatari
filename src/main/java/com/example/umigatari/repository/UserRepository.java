@@ -19,6 +19,13 @@ public class UserRepository {
         jdbcTemplate.update(sql, account.getName(), account.getPassword(), account.getMail());
     }
 
+    //メールアドレスチェック    
+    public int checkMail(String mail){
+        String sql = "SELECT COUNT(*) FROM account WHERE mail = ?";
+    Integer count = jdbcTemplate.queryForObject(sql, Integer.class, mail);
+    return count;
+    }
+
     //正答数の多い順から取り出す
     public List<account> rankingAccount(int limit){
         String sql = "SELECT name,count FROM account ORDER BY count DESC LIMIT ?";
@@ -89,9 +96,12 @@ public class UserRepository {
         String sql = "select count from account where id = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class,id);
     }
+
     //IDをもとに名前を表示する
     public String getName(Long id){
         String sql = "select name from account where id = ?";
         return jdbcTemplate.queryForObject(sql, String.class,id);
     }
+
+    
 }

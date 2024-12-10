@@ -130,6 +130,11 @@ public class QuizRepository {
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class);
         return count != null ? count : 0; // null の場合は 0 を返す
     }
-    
+
+    //IDをもとにtypeを表示
+    public int getType(Long id){
+        String sql ="select type from quiz where id = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class,id);
+    }
 
 }

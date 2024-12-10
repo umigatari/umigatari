@@ -3,8 +3,10 @@ package com.example.umigatari.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.umigatari.NotFoundException;
 import com.example.umigatari.model.quiz;
+import com.example.umigatari.service.AnalysisService;
 import com.example.umigatari.service.QuizService;
 import com.example.umigatari.service.UserService;
 
@@ -34,6 +37,9 @@ public class QuizController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AnalysisService analysisService;
+
     /*セッションは二つあって解いたtypeを保管するのsolvedQuizzesと、正解したtypeを保管するのcorrectがある。
      * スタンプに表示するのはcorrect
      * クイズを２かい解けなくさせるのはsolvedQuizzes
@@ -44,6 +50,7 @@ public class QuizController {
     @SuppressWarnings("unchecked")
     @GetMapping("quiz/{type}")
     public String randomThreeQuiz(@PathVariable("type") int type, Model model, HttpSession session) {
+        //ログインしているか判断
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
@@ -52,6 +59,7 @@ public class QuizController {
         if (solvedQuizzes == null) {
             solvedQuizzes = new LinkedHashSet<>();
         }
+        analysisService.frequencyUp(type);
         //すでに解いているか判断。解いていれば、問題は表示されない。
         if (!solvedQuizzes.contains(type)) {
             solvedQuizzes.add(type);
@@ -65,8 +73,10 @@ public class QuizController {
     }
 
     //ひとつ選ばれたクイズを表示する
+    @SuppressWarnings("unchecked")
     @PostMapping("quiz/{id}")
-    public String showOneQuiz(@PathVariable("id") Long id, Model model,HttpSession session) {
+    public String showOneQuiz(@PathVariable("id") Long id,@RequestParam String timestamp,Model model,HttpSession session) {
+        System.out.println("atai"+timestamp);
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
@@ -76,13 +86,21 @@ public class QuizController {
         model.addAttribute("quiz", quiz);
         model.addAttribute("choices", choices);
         session.setAttribute("answer", quiz.getCorrect());
+        Map<String, Object> timeMap = (Map<String, Object>) session.getAttribute("time");
+        if (timeMap != null) {
+            int type = (int) timeMap.get("type");
+            long timestamp2 = (Long) timeMap.get("timestamp");
+            long longtimestamp = Long.parseLong(timestamp); 
+            analysisService.registerTime(id,type,longtimestamp,timestamp2);
+        }
+
         return "quiz/quiz";
     }
 
     //クイズの回答を表示する
     @SuppressWarnings("unchecked")
     @PostMapping("quiz/answer")
-    public String check(@RequestParam String choice,@RequestParam int type, Model model,HttpSession session) {
+    public String check(@RequestParam String choice,@RequestParam int type, @RequestParam String timestamp,Model model,HttpSession session) {
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
@@ -117,6 +135,14 @@ public class QuizController {
             model.addAttribute("str",str);
             model.addAttribute("correct",correct);
         }
+        Map<String, Object> timeMap = (Map<String, Object>) session.getAttribute("time");
+        if (timeMap == null) {
+            timeMap = new HashMap<>();
+        } 
+        long longtimestamp = Long.parseLong(timestamp); 
+        timeMap.put("type", type);
+        timeMap.put("timestamp", longtimestamp);
+        session.setAttribute("time", timeMap);
         return "quiz/answer";
     }
 
@@ -145,9 +171,20 @@ public class QuizController {
         return "quiz/adduserquiz";
     }
 
+    //クイズ更新ページに遷移
+    @PostMapping("/editing")
+    public String editingCountry(@RequestParam("id") long id, HttpSession session) {
+        session.setAttribute("quizid", id);
+        return "redirect:/admin/create";
+    }
 
-    //管理者ページ
+    //ルールを表示
+    @GetMapping("rule")
+    public String getMethodName() {
+        return "userpage/rule";
+    }
 
+    //以下管理者ページ
 
     //adminページを表示　ok
     @GetMapping("admin")
@@ -285,8 +322,7 @@ public class QuizController {
     }
 
     return redirectUrl;
-}
-
+    }
 
     //チェック済みにする　ok
     @PostMapping("admin/update")
@@ -295,18 +331,4 @@ public class QuizController {
         return "redirect:/admin/check";
         //quizService.updateQuiz(quiz);
     }
-
-    //クイズ更新ページに遷移
-    @PostMapping("/editing")
-    public String editingCountry(@RequestParam("id") long id, HttpSession session) {
-        session.setAttribute("quizid", id);
-        return "redirect:/admin/create";
-    }
-
-    @GetMapping("rule")
-    public String getMethodName() {
-        return "userpage/rule";
-    }
-    
-
 }

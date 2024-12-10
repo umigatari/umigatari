@@ -32,6 +32,16 @@ public class UserService {
         }
     }
 
+    //メールアドレスチェック
+    public boolean chekMail(String mail){
+        int count = userRepository.checkMail(mail);
+        if(count == 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     //ランキングを表示
     public Map<String,Object> ranking(int limit,Long id){
         List<account> rankingList = userRepository.rankingAccount(limit);
@@ -74,7 +84,7 @@ public class UserService {
         // ユーザーIDを取得
         Long id = userRepository.redId(name);
         if (id == null) {
-            // ユーザーIDがnullの場合（ユーザーが存在しない）
+            //ユーザーが存在しない
             result.put("id",null);
             result.put("passwordMatch", false);
             return result; 
@@ -83,22 +93,17 @@ public class UserService {
         // パスワードを取得
         String storedPassword = userRepository.readPassword(name);
         if (storedPassword == null) {
-            // パスワードがnullの場合（ユーザーが存在しない）
+            //ユーザーが存在しない
             result.put("id",null);
             result.put("passwordMatch", false);
             return result; 
         }
-    
-        // パスワードを比較
         boolean passwordMatch = passwordEncoder.matches(password, storedPassword);
-    
-        // 結果をMapに格納
         result.put("id", id);
         result.put("passwordMatch", passwordMatch);
     
         return result;
     }
-    
 
     //正答数を表示
     public int getCount(Long id){
@@ -108,9 +113,5 @@ public class UserService {
     //IDに対するユーザーネームの表示
     public String getName(Long id){
         return userRepository.getName(id);
-    }
-    
-    
-
-    
+    }   
 }

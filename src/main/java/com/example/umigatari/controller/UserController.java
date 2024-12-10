@@ -33,8 +33,13 @@ public class UserController {
     //メールを実際に送る処理
     @PostMapping("sendmail")
     public String sendMail(@RequestParam String mail,Model model){
-        //メールを送る処理　
+        boolean check = userService.chekMail(mail);
+        if(check){
+            //メールを送る処理　
         model.addAttribute("send", "メールを送信しました");
+        return "account/createaccountone";
+        }
+        model.addAttribute("failure", "そのアドレスは既に登録されています");
         return "account/createaccountone";
     }
 
@@ -60,7 +65,6 @@ public class UserController {
     }
     return "account/createaccounttwo";
     }
-
 
     //ログインページを表示
     @GetMapping("login")
