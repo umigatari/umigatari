@@ -73,16 +73,24 @@ input[type="submit"]:hover {
     display: block;
     width: 90%;
     max-width: 400px;
-    height: 70px;
     margin: 10px auto;
     color: black;
     border: 2px solid rgb(73, 110, 148); 
     border-radius: 4px; 
     cursor: pointer; 
-    font-size: 14px;
+    font-size: 20px;
     background-color: white;
-    text-align: center;
-    line-height: 70px;
+    text-align: left;
+    padding: 10px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    white-space: normal;
+    box-sizing: border-box;
+}
+
+.quiz-button span {
+    display: block; /* テキストをブロックにして中央揃えを維持 */
+    line-height: 1.5;
 }
 
 /* ボタンのホバー時のスタイル */

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/quiz/quiz.css">
+    <link rel="stylesheet" href="quiz.css">
     <script src="/js/confirmationtimestamp.js"></script>
     <title>クイズ選択画面</title>
 </head>
@@ -12,7 +12,7 @@
         <h1>うみがたり クイズスタンプラリー</h1>
     </div>   
     <h1>３つの中から１つクイズを選んでね！</h1>
-    <h1 th:text="${soved}">素手の問題をといています</h1>
+    <h1 th:text="${soved}">すでにこの問題をといています</h1>
     <div class="quiz-container">
         <th:block th:each="quiz : ${quiz}">
             <form th:action="@{/quiz/{id}(id=${quiz.id})}" method="post">
