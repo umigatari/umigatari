@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>分析</title>
+    <link rel="stylesheet" href="/css/admin/analysis.css">
+</head>
+<body>
+    <h1>分析データ</h1>
+    <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
+    <h2>全体の統計情報</h2>
+    <p>累計クイズ挑戦数: <span th:text="${getall}">0</span></p>
+    <p>累計登録者数: <span th:text="${member}">0</span>（管理者: 2名）</p>
+
+    <h2>チェックポイントごとの分析結果</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>チェックポイント番号</th> 
+                <th>直前に訪れやすいチェックポイント</th>
+                <th>直後に訪れやすいチェックポイント</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="analysis, iterStat : ${analysis}">
+                <td th:text="${iterStat.index + 1}">1</td>
+                <td th:text="${analysis.previoustype}"
+                    th:title="'移動時間: ' + ${analysis.previoustypetime}">
+                    0
+                </td>
+                <td th:text="${analysis.currenttype}"
+                    th:title="'次の移動時間: ' + ${analysis.currenttypetime}">
+                    0
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>チェックポイントごとの回答数</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>チェックポイント</th>
+                <th>訪問回数</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="answered : ${answered}">
+                <td th:text="${answered.id}">チェックポイント</td>
+                <td th:text="${answered.frequency}">回数</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- 詳細結果 -->
+    <h2>詳細結果</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>直前のタイプ</th>
+                <th>現在のタイプ</th>
+                <th>次のチェックポイントまでの時間（秒）</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="time : ${timeanalysis}">
+                <td th:text="${time.id}">1</td>
+                <td th:text="${time.previousType}">0</td>
+                <td th:text="${time.currentType}">0</td>
+                <td th:text="${time.timeUntilNext}">0</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

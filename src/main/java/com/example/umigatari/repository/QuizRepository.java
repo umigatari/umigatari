@@ -124,6 +124,12 @@ public class QuizRepository {
         jdbcTemplate.update(sql, id);
     }
 
+    //チェックを解除する
+    public void unpostConfirmation(Long id){
+        String sql ="UPDATE quiz SET confirmation = true WHERE id = ?";
+        jdbcTemplate.update(sql, id);
+    }
+
     //通知の件数を表示
     public int getNotice() {
         String sql = "SELECT COUNT(*) FROM quiz WHERE confirmation = TRUE";

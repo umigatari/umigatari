@@ -24,6 +24,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    //テスト用 必要ない消して
+    @GetMapping("/")
+    public String test() {
+        return "admin/admin";
+    }
+    
     //アカウント作成のためのメール送信ページを表示
     @GetMapping("createaccount/mail")
     public String mail(){
@@ -161,13 +167,6 @@ public class UserController {
         model.addAttribute("account", userService.getName(id));
         return "userpage/stamp";
     }
-
-    //テスト用 必要ない消して
-    @GetMapping("/")
-    public String test() {
-        return "admin/admin";
-    }
-    
 
     //報酬を表示　　確認まだ
     @GetMapping("reward")

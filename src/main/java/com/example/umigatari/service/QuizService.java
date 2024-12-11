@@ -114,6 +114,11 @@ public class QuizService {
         quizRepository.updateConfirmation(id);
     }
 
+    //問題チェックを解除する
+    public void unpostConfirmation(Long id){
+        quizRepository.unpostConfirmation(id);
+    }
+
     //通知の件数を表示
     public int getNotice(){
        return quizRepository.getNotice();
