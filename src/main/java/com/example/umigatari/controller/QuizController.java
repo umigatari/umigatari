@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.umigatari.NotFoundException;
+import com.example.umigatari.model.analysis;
+import com.example.umigatari.model.answered;
 import com.example.umigatari.model.quiz;
+import com.example.umigatari.model.timeanalysis;
 import com.example.umigatari.service.AnalysisService;
 import com.example.umigatari.service.QuizService;
 import com.example.umigatari.service.UserService;
@@ -49,7 +52,7 @@ public class QuizController {
     //typeごとのクイズを表示する
     @SuppressWarnings("unchecked")
     @GetMapping("quiz/{type}")
-    public String randomThreeQuiz(@PathVariable("type") int type, Model model, HttpSession session) {
+    public String randomThreeQuiz(@PathVariable int type, Model model, HttpSession session) {
         //ログインしているか判断
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
@@ -169,13 +172,6 @@ public class QuizController {
         quizService.insertQuiz(quiz);
         model.addAttribute("create", "問題を作成しました!");
         return "quiz/adduserquiz";
-    }
-
-    //クイズ更新ページに遷移
-    @PostMapping("/editing")
-    public String editingCountry(@RequestParam("id") long id, HttpSession session) {
-        session.setAttribute("quizid", id);
-        return "redirect:/admin/create";
     }
 
     //ルールを表示
@@ -331,4 +327,36 @@ public class QuizController {
         return "redirect:/admin/check";
         //quizService.updateQuiz(quiz);
     }
+
+    //チェックを解除する
+    @PostMapping("admin/unpost")
+    public String unpostQuiz(@RequestParam Long id){
+        quizService.updateConfirmation(id);
+        return "redirect:/admin/check";
+        //quizService.updateQuiz(quiz);
+    }
+
+     //クイズ更新ページに遷移
+    @PostMapping("/editing")
+    public String editingCountry(@RequestParam("id") long id, HttpSession session) {
+        session.setAttribute("quizid", id);
+        return "redirect:/admin/create";
+    }
+
+    //分析ページを表示
+    @GetMapping("admin/analysis")
+    public String analysis(Model model) {
+        List<analysis> analysis =analysisService.getAnalysis();
+        List<answered> answered = analysisService.getAnswered();
+        int member = userService.getMember();
+        int getAll = analysisService.getAllAnswerd();
+        List <timeanalysis> timeanalysis = analysisService.getDetails();
+        model.addAttribute("getall", getAll);
+        model.addAttribute("member", member);
+        model.addAttribute("analysis", analysis);
+        model.addAttribute("answered", answered);
+        model.addAttribute("timeanalysis", timeanalysis);
+        return "admin/analysis";
+    }
+    
 }

@@ -114,4 +114,9 @@ public class UserService {
     public String getName(Long id){
         return userRepository.getName(id);
     }   
+
+    //登録した人数を数える
+    public int getMember(){
+        return userRepository.getMember();
+    }
 }

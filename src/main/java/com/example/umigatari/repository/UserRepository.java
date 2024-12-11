@@ -103,5 +103,11 @@ public class UserRepository {
         return jdbcTemplate.queryForObject(sql, String.class,id);
     }
 
+    //登録した人数を数える
+    public int getMember(){
+        String sql ="SELECT COUNT(*) AS row_count FROM account";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+
     
 }
