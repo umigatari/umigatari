@@ -42,11 +42,6 @@ public class QuizController {
     @Autowired
     private AnalysisService analysisService;
 
-    /*セッションは二つあって解いたtypeを保管するのsolvedQuizzesと、正解したtypeを保管するのcorrectがある。
-     * スタンプに表示するのはcorrect
-     * クイズを２かい解けなくさせるのはsolvedQuizzes
-     * ログインしてないとページを表示できない機能を追加
-     */
 
     //typeごとのクイズを表示する
     @SuppressWarnings("unchecked")
