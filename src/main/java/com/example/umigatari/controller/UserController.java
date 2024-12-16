@@ -27,7 +27,7 @@ public class UserController {
     //テスト用 必要ない消して
     @GetMapping("/")
     public String test() {
-        return "admin/admin";
+        return "userpage/umigatari";
     }
     
     //アカウント作成のためのメール送信ページを表示
