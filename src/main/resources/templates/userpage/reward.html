@@ -10,41 +10,37 @@
     <h1>うみがたり クイズスタンプラリー</h1>
 </div>
 <body>
-    <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
         <h2>累計正答数に応じた報酬</h2>
         <p>累計正答数が **3問、5問、8問、10問、15問** に到達するごとに、可愛い海洋生物たちの画像をプレゼント！</p>
         <p>以下のリストから、ポイント数に応じた画像をダウンロードしてください。</p>
-    </div>
-
     <p th:text="'現在のポイント: ' + ${count}">現在のポイント:7</p>
 
     <div>
-        <!-- 画像ダウンロードリンクとプレビュー -->
         <ul>
             <li th:if="${count >= 3}">
-                <a href="GZ.jpg" download="GZ.jpg">画像1をダウンロード</a>
+                <a href="/img/ning.jpg" download="/img/ning.jpg">画像1をダウンロード</a>
                 <br>
-                <img src="GZ.jpg" alt="画像1" width="200">
+                <img src="/img/ning.jpg" alt="画像1" width="200">
             </li>
             <li th:if="${count >= 5}">
-                <a href="/img/reward2.jpg" download="reward2.jpg">画像2をダウンロード</a>
+                <a href="/img/ning.jpg" download="/img/ning.jpg">画像2をダウンロード</a>
                 <br>
-                <img src="/img/reward2.jpg" alt="画像2" width="200">
+                <img src="/img/ning.jpg" alt="画像2" width="200">
             </li>
             <li th:if="${count >= 8}">
-                <a href="/img/reward3.jpg" download="reward3.jpg">画像3をダウンロード</a>
+                <a href="/img/ning.jpg" download="/img/ning.jpg">画像3をダウンロード</a>
                 <br>
-                <img src="/img/reward3.jpg" alt="画像3" width="200">
+                <img src="/img/ning.jpg" alt="画像3" width="200">
             </li>
             <li th:if="${count >= 10}">
-                <a href="/img/reward4.jpg" download="reward4.jpg">画像4をダウンロード</a>
+                <a href="/img/ning.jpg" download="/img/ning.jpg">画像4をダウンロード</a>
                 <br>
-                <img src="/img/reward4.jpg" alt="画像4" width="200">
+                <img src="/img/ning.jpg" alt="画像4" width="200">
             </li>
             <li th:if="${count >= 15}">
-                <a href="/img/reward5.jpg" download="reward5.jpg">画像5をダウンロード</a>
+                <a href="/img/ning.jpg" download="/img/ning.jpg">画像5をダウンロード</a>
                 <br>
-                <img src="/img/reward5.jpg" alt="画像5" width="200">
+                <img src="/img/ning.jpg" alt="画像5" width="200">
             </li>
         </ul>
     </div>

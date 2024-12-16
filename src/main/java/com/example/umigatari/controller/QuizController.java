@@ -184,7 +184,10 @@ public class QuizController {
 
     //adminページを表示　ok
     @GetMapping("admin")
-    public String admin(Model model){
+    public String admin(Model model,HttpSession session){
+        if(session.getAttribute("id")==null){
+            return "userpage/nopage";
+        }
         int notice = quizService.getNotice();
         if(notice>=99){
             notice=99;
@@ -196,6 +199,9 @@ public class QuizController {
     //問題作成ページを表示　ok
     @GetMapping("admin/create")
     public String adminCreatQuizPage(HttpSession session,Model model){
+        if(session.getAttribute("id")==null){
+            return "userpage/nopage";
+        }
         Object sessionId = session.getAttribute("quizid");
         //更新ボタンが押された時の処理
         if(sessionId != null){
@@ -230,7 +236,10 @@ public class QuizController {
     //問題チェック画面表示 ok
     @GetMapping("admin/check")
     public String checkQuizPage(Model model,@RequestParam(value = "p_cocid", required = false) Integer pCocid,
-    @RequestParam(value = "dord", required = false) String dord){
+    @RequestParam(value = "dord", required = false) String dord,HttpSession session){
+        if(session.getAttribute("id")==null){
+            return "userpage/nopage";
+        }
         //チェックが必要なクイズを表示。なければな”問題はありません”と表示
         try {
             if (pCocid != null && dord != null) {
@@ -269,7 +278,10 @@ public class QuizController {
     //クイズ一覧 ok
     @GetMapping("admin/quizlist")
     public String quizListPage(Model model,@RequestParam(value = "p_cocid", required = false) Integer pCocid,
-    @RequestParam(value = "dord", required = false) String dord){
+    @RequestParam(value = "dord", required = false) String dord,HttpSession session){
+        if(session.getAttribute("id")==null){
+            return "userpage/nopage";
+        }
         System.out.print(dord);
         if (pCocid != null && dord != null) {
             // 両方のパラメータがある場合の処理
@@ -345,7 +357,10 @@ public class QuizController {
 
     //分析ページを表示
     @GetMapping("admin/analysis")
-    public String analysis(Model model) {
+    public String analysis(Model model,HttpSession session) {
+        if(session.getAttribute("id")==null){
+            return "userpage/nopage";
+        }
         List<analysis> analysis =analysisService.getAnalysis();
         List<answered> answered = analysisService.getAnswered();
         int member = userService.getMember();

@@ -24,7 +24,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    //テスト用 必要ない消して
+    //トップページ
     @GetMapping("/")
     public String test() {
         return "userpage/umigatari";
@@ -61,7 +61,6 @@ public class UserController {
     @PostMapping("create")
     public String createAccount(@ModelAttribute account account, @RequestParam String password, Model model) {
     try {
-        
         userService.createAccount(account);
         model.addAttribute("clear", "登録しました");
     } catch (NotFoundException e) {
@@ -88,6 +87,7 @@ public class UserController {
 
         if(checkpassword&&id!=null){
             if(name.equals("admin")){
+                session.setAttribute("id", id);
                 return "redirect:admin";
             }
             session.setAttribute("id", id);
