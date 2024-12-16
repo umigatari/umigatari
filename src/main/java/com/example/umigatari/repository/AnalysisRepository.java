@@ -1,69 +1,59 @@
 package com.example.umigatari.repository;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.example.umigatari.model.answered;
-import com.example.umigatari.model.timeanalysis;
+
 
 @Repository
 public class AnalysisRepository {
     @Autowired
     public JdbcTemplate jdbcTemplate;
 
-    public void frequencyUp(int type){
-        String sql ="UPDATE answered SET frequency = frequency + 1 WHERE id = ?";
-        jdbcTemplate.update(sql,type);
+    //セクション時間を追加
+    public void updateTime(Long account,int addrivute, int type,int currentType,long time){
+        String sql = "INSERT INTO sectiontime (accountid , addrivute , prevqr ,  presqr ,  untiltime) VALUES (?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql,account,addrivute,type,currentType,time);
     }
 
-    public void updateTime(int type,int currentType,long time){
-        String sql = "INSERT INTO timeanalysis (previoustype ,  currenttype ,  timeuntilnext) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql,type,currentType,time);
-    }
-
-    public List<answered> getAnsweredSortedByFrequency() {
-        String sql = "SELECT id, frequency FROM answered ORDER BY frequency DESC"; 
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(answered.class));
-    }
-
-    //指定したタイプの次のタイプを取得
-    public Integer getcurrenttypeByType(int type) {
-    String sql = "SELECT currenttype FROM timeanalysis WHERE previousType = ? GROUP BY currenttype ORDER BY COUNT(*) DESC LIMIT 1";
-        try {
-            return jdbcTemplate.queryForObject(sql, Integer.class, type);
-        } catch (EmptyResultDataAccessException e) {
-            return 0; // デフォルト値を返す
-        }
-    }
-
-    //指定したタイプの前のタイプを取得
-    public Integer getByprevioustType(int type) {
-    String sql = "SELECT previousType FROM timeanalysis WHERE currenttype = ? GROUP BY previousType ORDER BY COUNT(*) DESC LIMIT 1";
-        try {
-            return jdbcTemplate.queryForObject(sql, Integer.class, type);
-        } catch (EmptyResultDataAccessException e) {
-            return 0; // デフォルト値を返す
-        }
-    }
-
-    public Double getAverageTimeUntilNext(int currentType,int previousType) {
-        String sql = "SELECT AVG(timeUntilNext) FROM timeanalysis WHERE currentType = ? AND previousType = ?";
-        Double avg = jdbcTemplate.queryForObject(sql, Double.class,currentType,previousType);
+    //セクションごとの時間を取得(全体)
+    public Double getSection(int prevqr,int presqr) {
+        String sql = "SELECT AVG(timeUntilNext) FROM sectiontime WHERE currentType = ? AND previousType = ?";
+        Double avg = jdbcTemplate.queryForObject(sql, Double.class,prevqr,presqr);
         return avg != null ? avg : 0; 
     }
 
-    public int getAllAnswerd(){
-        String sql = "SELECT SUM(frequency) AS total_frequency FROM answered";
-        return jdbcTemplate.queryForObject(sql, Integer.class);
+    //セクションごとの時間を取得(属性ごと)
+    public Double getSectionAddrivute(int prevqr,int presqr,int addrivute) {
+        String sql = "SELECT AVG(timeUntilNext) FROM sectiontime WHERE currentType = ? AND previousType = ? AND addrivute = ?";
+        Double avg = jdbcTemplate.queryForObject(sql, Double.class,prevqr,presqr,addrivute);
+        return avg != null ? avg : 0; 
     }
 
-    public List<timeanalysis> getDetails(){
-        String sql = "select * from timeanalysis";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(timeanalysis.class));
+    //入館時間の記録
+    public void enterTime(Long accountid,LocalDateTime entertime,int addrivute){
+        String sql = "INSERT INTO staytime (accountid, entrytime,addrivute) VALUES (?, ?,?)";
+        jdbcTemplate.update(sql,accountid, entertime,addrivute);
+    }
+
+    //退館時間の記録
+    public void exitTime(Long accountid,LocalDateTime entertime,LocalDateTime exittime){
+        String sql ="UPDATE staytime SET exittime = ? WHERE accountid = ? AND entrytime = ?";
+        jdbcTemplate.update(sql, accountid, entertime);
+    }
+
+    //退館時間の平均（全体）
+    public double getStayTime(){
+        String sql = "SELECT AVG(EXTRACT(EPOCH FROM (exittime - entrytime))) FROM staytime WHERE exittime IS NOT NULL";
+        return jdbcTemplate.queryForObject(sql, Double.class);             
+    }
+
+    //退館時間の平均（属性ごと）
+    public double getStayTimeAddrivute(){
+        String sql = "SELECT addrivute, AVG(EXTRACT(EPOCH FROM (exittime - entrytime))) FROM staytime WHERE exittime IS NOT NULL GROUP BY addrivute";
+        return jdbcTemplate.queryForObject(sql, Double.class);             
     }
 }

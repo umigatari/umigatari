@@ -1,14 +1,8 @@
 package com.example.umigatari.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.umigatari.model.analysis;
-import com.example.umigatari.model.answered;
-import com.example.umigatari.model.timeanalysis;
 import com.example.umigatari.repository.AnalysisRepository;
 import com.example.umigatari.repository.QuizRepository;
 
@@ -20,53 +14,48 @@ public class AnalysisService {
     @Autowired
     private QuizRepository quizRepository;
 
-    public void frequencyUp(int type){
-        analysisRepository.frequencyUp(type);
-    }
-
-    public void registerTime(Long id,int type,long timestamp,long timestamp2){
+    //セクションごとの時間の追加  
+    public void addSectionTime(Long id,Long account,int addrivute,int type,long timestamp,long timestamp2){
         int currentType = quizRepository.getType(id);
         long time = timestamp-timestamp2;
-        analysisRepository.updateTime(type,currentType,time);
+        analysisRepository.updateTime(account,addrivute,type,currentType,time);
     }
 
-    public List<answered> getAnswered(){
-        return analysisRepository.getAnsweredSortedByFrequency();
-    }
-
-    public List<analysis> getAnalysis(){
-        List<analysis> analysisList = new ArrayList<>();
-        for(int i = 1;i <10;i++){
-            analysis analysis = new analysis();
-            //１を選んだら１の次のタイプを取得ないなら0
-            int curType = analysisRepository.getcurrenttypeByType(i);
-            if(curType==0){
-                analysis.setCurrenttype(0);
-                analysis.setCurrenttypetime(0);
-            }else{
-                analysis.setCurrenttype(curType);
-                double time1 = analysisRepository.getAverageTimeUntilNext(curType, i);
-                analysis.setCurrenttypetime(time1);
-            }
-            int preType = analysisRepository.getByprevioustType(i);
-            if(preType==0){
-                analysis.setPrevioustype(0);
-                analysis.setPrevioustypetime(0);
-            }else{
-                analysis.setPrevioustype(preType);
-                double time2 = analysisRepository.getAverageTimeUntilNext(i, preType);
-                analysis.setPrevioustypetime(time2);
-            }
-            analysisList.add(analysis);
+    public double[] updateStayTime(){
+        double[] staytime = new double[6];
+        staytime [0] =analysisRepository.getStayTimeAddrivute();
+        for(int i=0;i<5;i++){
+            staytime [i+1]=analysisRepository.getStayTime();
         }
-        return analysisList;
+        return staytime;
     }
+    //セクションごとの時間の取得
+    public double[][] updateSectionTime(){
+        double[] sectiontime = new double[6];
+        for(int i=0;i <6;i++ ){
+            int prevqr = i+1;
+            int presqr = i+2;
+            sectiontime[i] = analysisRepository.getSection(prevqr,presqr );
+        }
+        double [][] sectionaddrivutetime = new double[5][6];
+        for (int i=0;i<5;i++){
+            int addrivute = i+1;
+            for(int q=0;q<6;q++){
+                int prevqr = q+1;
+                int presqr = q+2;
+                sectionaddrivutetime [i][q]=analysisRepository.getSectionAddrivute(prevqr, presqr, addrivute);
+            }
+        }
+        double[][] updatesectiontime = new double[6][6];
+        for (int q = 0; q < 6; q++) {
+            updatesectiontime[0][q] = sectiontime[q];
+         }
+        for (int i = 0; i < 5; i++) {
+            for (int q = 0; q < 6; q++) {
+                updatesectiontime[i + 1][q] = sectionaddrivutetime[i][q];
+            }
+        }
 
-    public int getAllAnswerd(){
-        return analysisRepository.getAllAnswerd();
-    }
-
-    public List<timeanalysis> getDetails(){
-        return analysisRepository.getDetails();
+    return updatesectiontime;
     }
 }
