@@ -22,7 +22,6 @@ import com.example.umigatari.NotFoundException;
 import com.example.umigatari.model.analysis;
 import com.example.umigatari.model.answered;
 import com.example.umigatari.model.quiz;
-import com.example.umigatari.model.timeanalysis;
 import com.example.umigatari.service.AnalysisService;
 import com.example.umigatari.service.QuizService;
 import com.example.umigatari.service.UserService;
@@ -43,11 +42,6 @@ public class QuizController {
     @Autowired
     private AnalysisService analysisService;
 
-    /*セッションは二つあって解いたtypeを保管するのsolvedQuizzesと、正解したtypeを保管するのcorrectがある。
-     * スタンプに表示するのはcorrect
-     * クイズを２かい解けなくさせるのはsolvedQuizzes
-     * ログインしてないとページを表示できない機能を追加
-     */
 
     //typeごとのクイズを表示する
     @SuppressWarnings("unchecked")
@@ -365,12 +359,10 @@ public class QuizController {
         List<answered> answered = analysisService.getAnswered();
         int member = userService.getMember();
         int getAll = analysisService.getAllAnswerd();
-        List <timeanalysis> timeanalysis = analysisService.getDetails();
         model.addAttribute("getall", getAll);
         model.addAttribute("member", member);
         model.addAttribute("analysis", analysis);
         model.addAttribute("answered", answered);
-        model.addAttribute("timeanalysis", timeanalysis);
         return "admin/analysis";
     }
     
