@@ -199,5 +199,9 @@ public class UserController {
         return "userpage/ranking";
     }
     
+    @GetMapping("qr")
+    public String qrcode(){
+        return"userpage/QR";
+    }
     
 }
