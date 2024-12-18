@@ -1,5 +1,6 @@
 package com.example.umigatari.controller;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.umigatari.NotFoundException;
 import com.example.umigatari.model.account;
+import com.example.umigatari.service.AnalysisService;
 import com.example.umigatari.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -24,10 +26,32 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AnalysisService analysisService;
+
     //トップページ
     @GetMapping("/")
-    public String test() {
+    public String umigatari(Model model) {
+        model.addAttribute("showPopup",true);
         return "userpage/umigatari";
+    }
+    //かえり
+    @GetMapping("seeyousoon")
+    public String seeyousoon(HttpSession session){
+        Object obj = session.getAttribute("id");
+        Long id = (Long) obj;
+        Object objtime = session.getAttribute("entertime");
+        Timestamp entertime = (Timestamp) objtime;
+        analysisService.exitTime(id,entertime);
+        return "userpage/exit";
+    }
+
+    //アンケート結果を設定
+    @PostMapping("addrivute")
+    public String addrivute(Model model,HttpSession session,@RequestParam int answer){
+        model.addAttribute("showPopup",false);
+        session.setAttribute("addrivute",answer);
+        return  "userpage/umigatari";
     }
     
     //アカウント作成のためのメール送信ページを表示
@@ -51,20 +75,25 @@ public class UserController {
 
     //アカウント作成するページを表示
     @GetMapping("createaccount/create")
-    public String account(@RequestParam("mail") String mail, Model model){
+    public String account(@RequestParam("mail") String mail, Model model,@RequestParam("addrvute") String addrivute){
         //クエリパラメタでメールアドレスを受けとる予定
+        model.addAttribute("addrivute", addrivute);
         model.addAttribute("mail", mail);
         return "account/createaccounttwo";
     }
 
     //アカウント登録機能
     @PostMapping("create")
-    public String createAccount(@ModelAttribute account account, @RequestParam String password, Model model) {
+    public String createAccount(@ModelAttribute account account, @RequestParam String password, Model model,HttpSession session) {
     try {
+        int addrivute = account.getAddrivute();
+        session.setAttribute("addrivute", addrivute);
         userService.createAccount(account);
         model.addAttribute("clear", "登録しました");
     } catch (NotFoundException e) {
         String mail =account.getMail();
+        int addrivute = account.getAddrivute();
+        model.addAttribute("addrivute", addrivute);
         model.addAttribute("mail", mail);
         model.addAttribute("error", e.getMessage());
     }
@@ -80,16 +109,21 @@ public class UserController {
     //ログインパスワードを比較
     @PostMapping("password")
     public String loginPassword(@RequestParam String name,@RequestParam String password,HttpSession session, Model model){
+        //メールアドレスにする
         Map<String, Object> result = userService.readPassword(name, password);
-
         boolean checkpassword = result != null && (boolean) result.get("passwordMatch");
         Long id = result != null ? (Long) result.get("id") : null;
-
         if(checkpassword&&id!=null){
             if(name.equals("admin")){
                 session.setAttribute("id", id);
                 return "redirect:admin";
             }
+            long currentMillis = System.currentTimeMillis();
+            Timestamp entertime = new Timestamp(currentMillis);
+            session.setAttribute("entertime", entertime);
+            Object objadd = session.getAttribute("addrivute");
+            int addrivute = (int) objadd;
+            analysisService.enterTime(id, addrivute,entertime);
             session.setAttribute("id", id);
             model.addAttribute("login", "ログイン成功しました");
             return "redirect:stamp";//普通に再度ページを表示のほうがいいかな？

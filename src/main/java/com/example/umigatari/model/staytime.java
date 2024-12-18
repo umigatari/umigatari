@@ -1,11 +1,13 @@
 package com.example.umigatari.model;
+import java.sql.Timestamp;
+
 import lombok.Data;
-import java.time.LocalDateTime;
+
 
 @Data
 public class staytime {
     private int accountid;
-    private LocalDateTime entrytime;
-    private LocalDateTime exittime;
+    private Timestamp entrytime;
+    private Timestamp exittime;
     private int addrivute;
 }

@@ -11,4 +11,5 @@ public class account {
     private String password;
     private int count;
     private String mail;
+    private int addrivute;
 }

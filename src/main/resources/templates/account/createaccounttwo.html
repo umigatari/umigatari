@@ -21,7 +21,7 @@
             <form action="/create" method="post" onsubmit="validateForm(event)">
                 <!-- 受け取ったメールを隠しフィールドに設定 -->
                 <input type="hidden" name="mail" th:value="${mail}">
-
+                <input type="hidden" name="addrivute" th:value="${addrivute}">
                 <label for="username">ユーザー名</label>
                 <input type="text" id="name" name="name" required placeholder="ユーザー名">
 

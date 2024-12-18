@@ -1,6 +1,7 @@
 package com.example.umigatari.controller;
 
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.umigatari.NotFoundException;
 import com.example.umigatari.model.analysis;
-import com.example.umigatari.model.answered;
 import com.example.umigatari.model.quiz;
 import com.example.umigatari.service.AnalysisService;
 import com.example.umigatari.service.QuizService;
@@ -52,11 +52,9 @@ public class QuizController {
             return "userpage/nopage";
         }
         Set<Integer> solvedQuizzes = (Set<Integer>) session.getAttribute("solvedQuizzes");
-        //リスト作成
         if (solvedQuizzes == null) {
             solvedQuizzes = new LinkedHashSet<>();
         }
-        analysisService.frequencyUp(type);
         //すでに解いているか判断。解いていれば、問題は表示されない。
         if (!solvedQuizzes.contains(type)) {
             solvedQuizzes.add(type);
@@ -72,8 +70,7 @@ public class QuizController {
     //ひとつ選ばれたクイズを表示する
     @SuppressWarnings("unchecked")
     @PostMapping("quiz/{id}")
-    public String showOneQuiz(@PathVariable("id") Long id,@RequestParam String timestamp,Model model,HttpSession session) {
-        System.out.println("atai"+timestamp);
+    public String showOneQuiz(@PathVariable("id") Long id,Model model,HttpSession session) {
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
@@ -83,21 +80,26 @@ public class QuizController {
         model.addAttribute("quiz", quiz);
         model.addAttribute("choices", choices);
         session.setAttribute("answer", quiz.getCorrect());
+        //時間の記録
         Map<String, Object> timeMap = (Map<String, Object>) session.getAttribute("time");
         if (timeMap != null) {
+            Object objid = session.getAttribute("id");
+            Long accountid = (Long)objid;
+            Object objaddri = session.getAttribute("addrivute");
+            int addrivute = (int)objaddri;
             int type = (int) timeMap.get("type");
             long timestamp2 = (Long) timeMap.get("timestamp");
-            long longtimestamp = Long.parseLong(timestamp); 
-            analysisService.registerTime(id,type,longtimestamp,timestamp2);
+            long timestamp = Instant.now().toEpochMilli();
+            analysisService.addSectionTime(id,accountid,addrivute,type,timestamp,timestamp2);
         }
-
         return "quiz/quiz";
     }
 
     //クイズの回答を表示する
     @SuppressWarnings("unchecked")
     @PostMapping("quiz/answer")
-    public String check(@RequestParam String choice,@RequestParam int type, @RequestParam String timestamp,Model model,HttpSession session) {
+    public String check(@RequestParam String choice,@RequestParam int type, Model model,HttpSession session) {
+        //ログインしてないなら返す
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
@@ -108,10 +110,11 @@ public class QuizController {
        Object obj = session.getAttribute("id");
        Long id = (Long)obj;
         int count = userService.getCount(id);
-        String str = "今までの累計正解数は、" + count + "回です";
         //正解かどうかを判断
         if (answer.equals(choice)) {
             //カウントアップ
+            count = count+1;
+            String str = "今までの累計正解数は、" + count + "回です";
             model.addAttribute("count", str);
             userService.countUp(id);
             model.addAttribute("message", "正解!");
@@ -129,16 +132,18 @@ public class QuizController {
             model.addAttribute("message", "不正解");
             Set<Integer> correct = (Set<Integer>) session.getAttribute("carrect");
             session.setAttribute("correct", correct);
+            String str = "今までの累計正解数は、" + count + "回です";
             model.addAttribute("str",str);
             model.addAttribute("correct",correct);
         }
+        //時間の記録
         Map<String, Object> timeMap = (Map<String, Object>) session.getAttribute("time");
         if (timeMap == null) {
             timeMap = new HashMap<>();
         } 
-        long longtimestamp = Long.parseLong(timestamp); 
+        long timestamp = Instant.now().toEpochMilli();
         timeMap.put("type", type);
-        timeMap.put("timestamp", longtimestamp);
+        timeMap.put("timestamp", timestamp);
         session.setAttribute("time", timeMap);
         return "quiz/answer";
     }
@@ -176,7 +181,7 @@ public class QuizController {
 
     //以下管理者ページ
 
-    //adminページを表示　ok
+    //adminページを表示
     @GetMapping("admin")
     public String admin(Model model,HttpSession session){
         if(session.getAttribute("id")==null){
@@ -190,7 +195,7 @@ public class QuizController {
         return "admin/admin";
     }
 
-    //問題作成ページを表示　ok
+    //問題作成ページを表示
     @GetMapping("admin/create")
     public String adminCreatQuizPage(HttpSession session,Model model){
         if(session.getAttribute("id")==null){
@@ -208,7 +213,7 @@ public class QuizController {
         return "admin/createquiz";
     }
 
-    //問題作成　ok
+    //問題作成
     @PostMapping("admin/create")
     public String adminCreateQuiz(@ModelAttribute quiz quiz,Model model){
         //問題作成なのか更新なのかチェック
@@ -227,7 +232,7 @@ public class QuizController {
         return "admin/createquiz";
     }
 
-    //問題チェック画面表示 ok
+    //問題チェック画面表示
     @GetMapping("admin/check")
     public String checkQuizPage(Model model,@RequestParam(value = "p_cocid", required = false) Integer pCocid,
     @RequestParam(value = "dord", required = false) String dord,HttpSession session){
@@ -269,7 +274,7 @@ public class QuizController {
         quizService.updateQuiz();
     }*/
 
-    //クイズ一覧 ok
+    //クイズ一覧
     @GetMapping("admin/quizlist")
     public String quizListPage(Model model,@RequestParam(value = "p_cocid", required = false) Integer pCocid,
     @RequestParam(value = "dord", required = false) String dord,HttpSession session){
@@ -300,14 +305,14 @@ public class QuizController {
         }
     }
 
-    //クイズ削除 問題チェック画面からok
+    //クイズ削除 問題チェック画面から
     @PostMapping("admin/delete")
     public String deleteQuiz(@RequestParam Long id){
         quizService.deleteQuiz(id);
         return "redirect:/admin/check";
     }
 
-    //クイズ削除 一覧からok
+    //クイズ削除 一覧から
     @PostMapping("admin/delete2")
     public String deleteQuiz2(@RequestParam Long id, @RequestParam(required = false) String p_cocid, 
                           @RequestParam(required = false) String dord) {
@@ -326,7 +331,7 @@ public class QuizController {
     return redirectUrl;
     }
 
-    //チェック済みにする　ok
+    //チェック済みにする
     @PostMapping("admin/update")
     public String updateQuiz(@RequestParam Long id){
         quizService.updateConfirmation(id);
@@ -355,14 +360,10 @@ public class QuizController {
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
-        List<analysis> analysis =analysisService.getAnalysis();
-        List<answered> answered = analysisService.getAnswered();
-        int member = userService.getMember();
-        int getAll = analysisService.getAllAnswerd();
-        model.addAttribute("getall", getAll);
-        model.addAttribute("member", member);
-        model.addAttribute("analysis", analysis);
-        model.addAttribute("answered", answered);
+        analysis analysis = new analysis();
+        analysis.setStaytime(analysisService.updateStayTime());
+        analysis.setSectionstaytime(analysisService.updateSectionTime());
+        model.addAttribute("analysis", analysisService.raito(analysis));
         return "admin/analysis";
     }
     
