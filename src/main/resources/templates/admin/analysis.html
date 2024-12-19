@@ -4,63 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>分析結果</title>
-    <style>
-        table {
-            width: 50%;
-            margin: 20px auto;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        h1 {
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/admin/analysis.css">
 </head>
 <body>
     <h1>分析結果</h1>
-
-    <!-- 滞在時間 -->
+    <h2>利用人数</h2>
+    <h3 th:text="${count}">30</h3>
     <h2>滞在時間</h2>
     <table>
         <thead>
             <tr>
                 <th>属性</th>
-                <th>滞在時間（割合）</th>
+                <th>滞在時間</th>
             </tr>
         </thead>
         <tbody>
-            <!-- 遍歴 Staytime -->
             <tr th:each="time, iterStat : ${analysis.staytime}">
-                <td th:text="${iterStat.index + 1}"></td>
-                <td th:text="${time + '%'}"></td>
+                <td th:text="${attributes[iterStat.index]}"></td>
+                <td th:text="${time + '分'}"></td>
             </tr>
         </tbody>
     </table>
 
-    <!-- セクションごとの滞在時間割合 -->
-    <h2>セクションごとの滞在時間割合</h2>
+    <h2>セクションごとの滞在時間(割合)</h2>
     <table>
         <thead>
             <tr>
-                <th>セクション</th>
-                <th>属性1</th>
-                <th>属性2</th>
-                <th>属性3</th>
-                <th>属性4</th>
-                <th>属性5</th>
+                <th>属性</th>
+                <th>０～１</th>
+                <th>１～２</th>
+                <th>２～３</th>
+                <th>３～４</th>
+                <th>４～５</th>
+                <th>５～６</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="row, rowStat : ${analysis.sectionstaytime}">
-                <td th:text="${rowStat.index + 1}"></td>
-                <td th:each="col, colStat : ${row}" th:text="${col}"></td>
+                <td th:text="${attributes[rowStat.index]}"></td>
+                <td th:each="col : ${row}" th:text="${col + '%'}"></td>
             </tr>
         </tbody>
     </table>

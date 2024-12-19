@@ -19,7 +19,7 @@
             </form>
         </div>
 
-        <div id="quiz-form-container" th:unless="${create}">
+        <div id="quiz-form-container" th:if="${count >= 3}" th:unless="${create}">
             <form action="/quiz/create" method="post">
                 <label for="question">クイズ:</label>
                 <input type="text" id="question" name="question" maxlength="100" required>

@@ -61,6 +61,7 @@ public class QuizController {
             session.setAttribute("solvedQuizzes", solvedQuizzes);
             List<quiz> quiz = quizService.randomThreeQuiz(type);
             model.addAttribute("quiz", quiz);
+            model.addAttribute("type",type);
         } else {
             model.addAttribute("soved", "すでに問題を解いています");
         }
@@ -70,7 +71,7 @@ public class QuizController {
     //ひとつ選ばれたクイズを表示する
     @SuppressWarnings("unchecked")
     @PostMapping("quiz/{id}")
-    public String showOneQuiz(@PathVariable("id") Long id,Model model,HttpSession session) {
+    public String showOneQuiz(@PathVariable("id") Long id,Model model,HttpSession session,@RequestParam int type) {
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
@@ -87,10 +88,10 @@ public class QuizController {
             Long accountid = (Long)objid;
             Object objaddri = session.getAttribute("addrivute");
             int addrivute = (int)objaddri;
-            int type = (int) timeMap.get("type");
+            int prevtype = (int) timeMap.get("type");
             long timestamp2 = (Long) timeMap.get("timestamp");
-            long timestamp = Instant.now().toEpochMilli();
-            analysisService.addSectionTime(id,accountid,addrivute,type,timestamp,timestamp2);
+            long timestamp = Instant.now().getEpochSecond();
+            analysisService.addSectionTime(id,accountid,addrivute,prevtype,type,timestamp,timestamp2);
         }
         return "quiz/quiz";
     }
@@ -141,7 +142,7 @@ public class QuizController {
         if (timeMap == null) {
             timeMap = new HashMap<>();
         } 
-        long timestamp = Instant.now().toEpochMilli();
+        long timestamp = Instant.now().getEpochSecond();
         timeMap.put("type", type);
         timeMap.put("timestamp", timestamp);
         session.setAttribute("time", timeMap);
@@ -158,16 +159,12 @@ public class QuizController {
     }
 
     //クイズ作成機能
-    @SuppressWarnings("unchecked")
     @PostMapping("quiz/create")
     public String createQuiz(@ModelAttribute quiz quiz, Model model, HttpSession session) {
-        //セッションに含まれるtypeを確認しそのtypeの問題が作成できるよにする
-        Set<Integer> solvedQuizzes = (Set<Integer>) session.getAttribute("solvedQuizzes");
-        if (solvedQuizzes != null && !solvedQuizzes.isEmpty()) {
-            List<Integer> solvedList = new ArrayList<>(solvedQuizzes);
-            Integer lastType = solvedList.get(solvedList.size() - 1);
-            quiz.setType(lastType);
-        }
+        Object obj = session.getAttribute("id");
+        Long id = (Long)obj;
+        int count = userService.getCount(id);
+        model.addAttribute("count", count);
         quizService.insertQuiz(quiz);
         model.addAttribute("create", "問題を作成しました!");
         return "quiz/adduserquiz";
@@ -363,7 +360,11 @@ public class QuizController {
         analysis analysis = new analysis();
         analysis.setStaytime(analysisService.updateStayTime());
         analysis.setSectionstaytime(analysisService.updateSectionTime());
+        String [] arr = {"一人","家族","友人","恋人","その他","全体"};
+       // analysis.setAddrivute(arr);
+        model.addAttribute("count",userService.getMember());
         model.addAttribute("analysis", analysisService.raito(analysis));
+        model.addAttribute("attributes", arr);
         return "admin/analysis";
     }
     

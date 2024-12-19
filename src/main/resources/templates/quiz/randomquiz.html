@@ -16,6 +16,7 @@
         <th:block th:each="quiz : ${quiz}">
             <form th:action="@{/quiz/{id}(id=${quiz.id})}" method="post">
                 <div class="quiz-item">
+                    <input type="hidden" name="type" th:value="${quiz.type != null ? quiz.type : ''}">
                     <button type="submit" class="quiz-button" >
                         <span th:text="${quiz.question}"></span>
                     </button>

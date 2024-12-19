@@ -5,5 +5,6 @@ import lombok.Data;
 @Data
 public class analysis {
     private double [] staytime;
-    private double [][] sectionstaytime;
+    private Double [][] sectionstaytime;
+   // private String [] addrivute;
 }

@@ -35,11 +35,7 @@ public class UserService {
     //メールアドレスチェック
     public boolean chekMail(String mail){
         int count = userRepository.checkMail(mail);
-        if(count == 0){
-            return true;
-        }else{
-            return false;
-        }
+        return count == 0;
     }
 
     //ランキングを表示

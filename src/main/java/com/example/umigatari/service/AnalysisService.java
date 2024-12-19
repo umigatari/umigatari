@@ -1,27 +1,23 @@
 package com.example.umigatari.service;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.umigatari.model.analysis;
 import com.example.umigatari.repository.AnalysisRepository;
-import com.example.umigatari.repository.QuizRepository;
 
 @Service
 public class AnalysisService {
     @Autowired
     private AnalysisRepository analysisRepository;
 
-    @Autowired
-    private QuizRepository quizRepository;
-
     //セクションごとの時間の追加  
-    public void addSectionTime(Long id,Long account,int addrivute,int type,long timestamp,long timestamp2){
-        int currentType = quizRepository.getType(id);
+    public void addSectionTime(Long id,Long account,int addrivute,int prevtype,int prestype,long timestamp,long timestamp2){
         long time = timestamp-timestamp2;
-        analysisRepository.updateTime(account,addrivute,type,currentType,time);
+        analysisRepository.updateTime(account,addrivute,prevtype,prestype,time);
     }
 
     //入館時間の記録
@@ -40,68 +36,60 @@ public class AnalysisService {
     //属性ごとの滞在時間の取得
     public double[] updateStayTime(){
         double[] staytime = new double[6];
-        staytime [0] =analysisRepository.getStayTime();
         for(int i=0;i<5;i++){
-            staytime [i+1]=analysisRepository.getStayTimeAddrivute(i+1);
+            staytime [i]=analysisRepository.getStayTimeAddrivute(i+1);
         }
+        staytime [5] =analysisRepository.getStayTime();
+        //System.out.print(analysisRepository.getStayTime());
         return staytime;
     }
 
     //属性ごとセクションごとの時間の取得
-    public double[][] updateSectionTime(){
-        double[] sectiontime = new double[6];
-        for(int i=0;i <6;i++ ){
-            int prevqr = i+1;
-            int presqr = i+2;
-            sectiontime[i] = analysisRepository.getSection(prevqr,presqr );
-        }
-        double [][] sectionaddrivutetime = new double[5][6];
+    public Double[][] updateSectionTime(){
+        Double [][] sectionaddrivutetime = new Double[6][6];
         for (int i=0;i<5;i++){
             int addrivute = i+1;
             for(int q=0;q<6;q++){
-                int prevqr = q+1;
-                int presqr = q+2;
+                int prevqr = q;
+                int presqr = q+1;
                 sectionaddrivutetime [i][q]=analysisRepository.getSectionAddrivute(prevqr, presqr, addrivute);
             }
         }
-        double[][] updatesectiontime = new double[6][6];
-        System.arraycopy(sectiontime, 0, updatesectiontime[0], 0, 6);
-        for (int i = 0; i < 5; i++) {
-            System.arraycopy(sectionaddrivutetime[i], 0, updatesectiontime[i + 1], 0, 6);
+        for(int i=0;i <6;i++ ){
+            int prevqr = i;
+            int presqr = i+1;
+            sectionaddrivutetime[5][i] = analysisRepository.getSection(prevqr,presqr );
         }
-
-    return updatesectiontime;
+    return sectionaddrivutetime;
     }
 
     //属性ごとの時間の割合
     public analysis raito(analysis analysis){
+        //staytime
         double [] staytime = analysis.getStaytime();
-        double dou = staytime [0];
-        double dou2 = 0;
-        for(int i=0;i<5;i++){
-            dou2 = dou2+staytime[i+1];
-        }
+        //System.out.print(staytime[5]);
         double [] douarr= new double[6];
-        douarr[0] = dou;
-        for(int i=1;i<6;i++){
-            douarr[i] = Math.round((staytime[i] / dou2) * 1000.0) / 1000.0 * 100;
+        for(int i=0;i<6;i++){
+            douarr[i] = Math.round(staytime[i]*100/60)/100;
         }
         analysis.setStaytime(douarr);
-        double [][] sectionstaytime = analysis.getSectionstaytime();
-        double [] douarr2 = new double[6];
-        for(int i=0;i<6;i++){
-            for(int q=1;q<6;q++){
-                douarr2[i]=sectionstaytime[i][q];
+        // sectionstaytime
+        Double[][] sectionstaytime = analysis.getSectionstaytime();
+        Double[] douarr2 = new Double[6];
+        Arrays.fill(douarr2, 0.0);
+        for (int i = 0; i < 6; i++) {
+                for (int q = 0; q < 6; q++) {
+                    douarr2[i] = sectionstaytime[i][q]+douarr2[i];  
+                    System.out.print(douarr2[i]);
+                    }
             }
-        }
-        double [][] douarr3 = new double[6][6];
-        for(int i=0;i<6;i++){
-            douarr3[i][0]=sectionstaytime[i][0];
-            for(int q=1;q<6;q++){
-                douarr3[q][i]=Math.round((sectionstaytime[q][i]/douarr2[i])*1000.0)/1000.0*100;
+            Double[][] douarr3 = new Double[6][6];
+        for (int i = 0; i < 6; i++) {
+                for (int q = 0; q < 6; q++) {
+                    douarr3[i][q] = (double)Math.round((sectionstaytime[i][q] / douarr2[i]) * 100);
+                    }
             }
-        }
-        analysis.setSectionstaytime(douarr3);
+            analysis.setSectionstaytime(douarr3);
         return analysis;
     }
 }

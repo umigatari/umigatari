@@ -148,15 +148,5 @@ form {
     display: inline-block;
 }
 
-/* 送信ボタンのスタイル */
-button[type="submit"] {
-    background-color: #4682B4; /* 明るい黄色 */
-    color: white; /* 文字色を白に設定 */
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+
 
