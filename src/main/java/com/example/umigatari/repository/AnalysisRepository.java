@@ -14,22 +14,22 @@ public class AnalysisRepository {
     public JdbcTemplate jdbcTemplate;
 
     //セクション時間を追加
-    public void updateTime(Long account,int addrivute, int type,int currentType,long time){
+    public void updateTime(Long account,int addrivute, int type,int currentType,Long time){
         String sql = "INSERT INTO sectiontime (accountid , addrivute , prevqr ,  presqr ,  untiltime) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,account,addrivute,type,currentType,time);
     }
 
     //セクションごとの時間を取得(全体)
     public Double getSection(int prevqr,int presqr) {
-        String sql = "SELECT AVG(untiltime) FROM sectiontime WHERE presqr = ? AND prevqr = ?";
-        Double avg = jdbcTemplate.queryForObject(sql, Double.class,prevqr,presqr);
+        String sql =  "SELECT AVG(untiltime) FROM sectiontime WHERE presqr = ? AND prevqr = ?";
+        Double avg = jdbcTemplate.queryForObject(sql, Double.class,presqr,prevqr);
         return avg != null ? avg : 0; 
     }
 
     //属性ごとセクションごとの時間を取得(属性ごと)
     public Double getSectionAddrivute(int prevqr,int presqr,int addrivute) {
         String sql = "SELECT AVG(untiltime) FROM sectiontime WHERE presqr = ? AND prevqr = ? AND addrivute = ?";
-        Double avg = jdbcTemplate.queryForObject(sql, Double.class,prevqr,presqr,addrivute);
+        Double avg = jdbcTemplate.queryForObject(sql, Double.class,presqr,prevqr,addrivute);
         return avg != null ? avg : 0; 
     }
 

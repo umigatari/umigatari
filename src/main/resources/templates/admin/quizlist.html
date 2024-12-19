@@ -11,22 +11,7 @@
             <h1>一覧</h1>
     </header>
     <form action="/admin/quizlist" method="get" onsubmit="removeEmptyParams()">
-        <!-- 1から9の選択肢 -->
-        <label for="p_cocid">クイズジャンルごとに絞り込む:</label>
-        <select id="p_cocid" name="p_cocid">
-            <option value="">すべて表示する</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-        </select>
         <br><br>  
-        <!-- 昇順・降順の選択肢 -->
         <label for="dord">問題作成日で並び替える:</label>
         <select id="dord" name="dord">
             <option value="">選択しない</option>
@@ -34,7 +19,6 @@
             <option value="desc">降順</option>
         </select>
         <br><br>
-        <!-- フォーム送信ボタン -->
         <button type="submit">並び替え</button>
     </form>
     <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
@@ -46,7 +30,6 @@
                     <span th:text="'正解: ' + ${quiz.correct} ">正解</span>
                     <span th:text="'不正解の選択肢: ' + ${quiz.other_one}">不正解1</span>
                     <span th:text="'不正解の選択肢: ' + ${quiz.other_two}">不正解2</span>
-                    <span th:text="'クイズのジャンル: ' + ${quiz.type}">ジャンル</span>
                     
                     <div class="quiz-buttons">
                         <form th:action="@{/admin/unpost}" method="post">

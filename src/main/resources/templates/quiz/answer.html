@@ -26,9 +26,6 @@
         </div>
 
         <div class="button-container">
-            <form th:action="@{/quiz/createpage}" method="get">
-                <button th:if="${message != null and message == '正解!'}">クイズを作成する</button>
-            </form>
             <form action="/stamp" method="get">
                 <button type="submit">スタンプ一覧へ戻る</button>
             </form>
@@ -45,14 +42,14 @@
             var correct = /*[[${correct}]]*/ [];
             var images = {
                 1: '/img/1.jpg',
-                2: '/img/2.jpg',
-                3: '/img/3.jpg',
-                4: '/img/4.jpg',
-                5: '/img/5.jpg',
-                6: '/img/6.jpg',
-                7: '/img/7.jpg',
-                8: '/img/8.jpg',
-                9: '/img/9.jpg'
+                2: '/img/1.jpg',
+                3: '/img/1.jpg',
+                4: '/img/1.jpg',
+                5: '/img/1.jpg',
+                6: '/img/1.jpg',
+                7: '/img/1.jpg',
+                8: '/img/1.jpg',
+                9: '/img/1.jpg'
             };
             for (var i = 0; i < correct.length; i++) {
                 var stampId = "stamp-" + correct[i];

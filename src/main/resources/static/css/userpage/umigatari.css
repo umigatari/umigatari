@@ -77,7 +77,7 @@ p{
 
 /* ポップアップのスタイル */
 .popup-container {
-    display: none; /* 初期状態は非表示 */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;

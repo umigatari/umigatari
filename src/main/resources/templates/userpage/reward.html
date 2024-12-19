@@ -11,36 +11,36 @@
 </div>
 <body>
         <h2>累計正答数に応じた報酬</h2>
-        <p>累計正答数が **3問、5問、8問、10問、15問** に到達するごとに、可愛い海洋生物たちの画像をプレゼント！</p>
+        <p>累計正答数が **3問、5問、7問、9問、11問** に到達するごとに、可愛い海洋生物たちの画像をプレゼント！</p>
         <p>以下のリストから、ポイント数に応じた画像をダウンロードしてください。</p>
     <p th:text="'現在のポイント: ' + ${count}">現在のポイント:7</p>
 
     <div>
         <ul>
             <li th:if="${count >= 3}">
-                <a href="/img/ning.jpg" download="/img/ning.jpg">画像1をダウンロード</a>
-                <br>
                 <img src="/img/ning.jpg" alt="画像1" width="200">
+                <br>
+                <a href="/img/ning.jpg" download="/img/ning.jpg">画像1をダウンロード</a>
             </li>
             <li th:if="${count >= 5}">
+                <img src="/img/ning.jpg" alt="画像1" width="200">
+                <br>
                 <a href="/img/ning.jpg" download="/img/ning.jpg">画像2をダウンロード</a>
-                <br>
-                <img src="/img/ning.jpg" alt="画像2" width="200">
             </li>
-            <li th:if="${count >= 8}">
+            <li th:if="${count >= 7}">
+                <img src="/img/ning.jpg" alt="画像1" width="200">
+                <br>
                 <a href="/img/ning.jpg" download="/img/ning.jpg">画像3をダウンロード</a>
-                <br>
-                <img src="/img/ning.jpg" alt="画像3" width="200">
             </li>
-            <li th:if="${count >= 10}">
+            <li th:if="${count >= 9}">
+                <img src="/img/ning.jpg" alt="画像1" width="200">
+                <br>
                 <a href="/img/ning.jpg" download="/img/ning.jpg">画像4をダウンロード</a>
-                <br>
-                <img src="/img/ning.jpg" alt="画像4" width="200">
             </li>
-            <li th:if="${count >= 15}">
-                <a href="/img/ning.jpg" download="/img/ning.jpg">画像5をダウンロード</a>
+            <li th:if="${count >= 11}">
+                <img src="/img/ning.jpg" alt="画像1" width="200">
                 <br>
-                <img src="/img/ning.jpg" alt="画像5" width="200">
+                <a href="/img/ning.jpg" download="/img/ning.jpg">画像5をダウンロード</a>
             </li>
         </ul>
     </div>

@@ -1,6 +1,8 @@
 package com.example.umigatari.controller;
 
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -36,6 +38,7 @@ public class UserController {
         return "userpage/umigatari";
     }
     //かえり
+    @SuppressWarnings("unchecked")
     @GetMapping("seeyousoon")
     public String seeyousoon(HttpSession session){
         Object obj = session.getAttribute("id");
@@ -43,6 +46,18 @@ public class UserController {
         Object objtime = session.getAttribute("entertime");
         Timestamp entertime = (Timestamp) objtime;
         analysisService.exitTime(id,entertime);
+        //時間の記録
+        Map<String, Object> timeMap = (Map<String, Object>) session.getAttribute("time");
+        if (timeMap != null) {
+            Object objid = session.getAttribute("id");
+            Long accountid = (Long)objid;
+            Object objaddri = session.getAttribute("addrivute");
+            int addrivute = (int)objaddri;
+            int type = (int) timeMap.get("type");
+            long timestamp2 = (Long) timeMap.get("timestamp");
+            long timestamp = Instant.now().getEpochSecond();
+            analysisService.addSectionTime(id,accountid,addrivute,type,6,timestamp,timestamp2);
+        }
         return "userpage/exit";
     }
 
@@ -126,6 +141,12 @@ public class UserController {
             analysisService.enterTime(id, addrivute,entertime);
             session.setAttribute("id", id);
             model.addAttribute("login", "ログイン成功しました");
+             //時間の記録
+            Map<String, Object> timeMap = new HashMap<>();
+            long timestamp = Instant.now().getEpochSecond();
+            timeMap.put("type", 0);
+            timeMap.put("timestamp", timestamp);
+            session.setAttribute("time", timeMap);
             return "redirect:stamp";//普通に再度ページを表示のほうがいいかな？
         }else{
             model.addAttribute("failure", "パスワードもしくはユーザーネームが間違っています");
@@ -137,7 +158,7 @@ public class UserController {
     @PostMapping("logout")
     public String  getMethodName(HttpSession session) {
         session.invalidate(); 
-        return "redirect:login";
+        return "redirect:";
     }
     
 
@@ -181,7 +202,7 @@ public class UserController {
        Long id = (Long)obj;
        session.invalidate(); 
        userService.deleteAccount(id);
-       return "redirect:/";
+       return "redirect:";
     }
 
     //スタンプを表示　確認まだ

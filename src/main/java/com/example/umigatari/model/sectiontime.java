@@ -9,5 +9,5 @@ public class sectiontime {
     private int addrivute;
     private int prevqr;
     private int presqr;
-    private long untiltime;
+    private Long untiltime;
 }
