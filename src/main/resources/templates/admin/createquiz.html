@@ -8,7 +8,7 @@
 </head>
 <body>
     <header class="header">
-        <h1>作成</h1>
+        <h1>クイズ作成</h1>
     </header>
     <div th:if="${create}">
        <p th:text="${create}"></p>
@@ -22,6 +22,7 @@
    </div>
     <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
     <button type="button" class="list-button" onclick="location.href='/admin/quizlist'">一覧に戻る</button>
+    <button type="button" class="check-button" onclick="location.href='/admin/check'">問題チェックに戻る</button>
     <form action="/admin/create" method="post">
         <label for="question">クイズ:</label>
         <input type="text" id="question" name="question" maxlength="100" required 

@@ -8,18 +8,15 @@
 <body>
     <div class="container">
         <header class="header">
-            <h1>問題チェック画面</h1>
-        </header>  
-            <br><br>      
-            <!-- 昇順・降順の選択肢 -->
+            <h1>問題チェック</h1>
+        </header>
+        <form action="http://localhost:8080/admin/check" method="get" onsubmit="removeEmptyParams()">
             <label for="dord">問題作成日で並び替える:</label>
             <select id="dord" name="dord">
-                <option value="">選択しない</option>
                 <option value="asc">昇順</option>
                 <option value="desc">降順</option>
             </select>
-            <br><br>      
-            <!-- フォーム送信ボタン -->
+            <br><br>     
             <button type="submit">並び替え</button>
         </form>
         <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
@@ -30,10 +27,8 @@
                     <span th:text="'ID: ' + ${quiz.id} ">問題</span>
                     <span th:text="'問題: ' + ${quiz.question} ">問題</span>
                     <span th:text="'正解: ' + ${quiz.correct} ">正解</span>
-                    <span th:text="'不正解の選択肢: ' + ${quiz.other_one}">不正解1</span>
-                    <span th:text="'不正解の選択肢: ' + ${quiz.other_two}">不正解2</span>
-                    <span th:text="'クイズのジャンル: ' + ${quiz.type}">ジャンル</span>
-                    <span th:text="'投稿されているか: ' + ${quiz.confirmation}">ジャンル</span>
+                    <span th:text="'不正解１: ' + ${quiz.other_one}">不正解1</span>
+                    <span th:text="'不正解２: ' + ${quiz.other_two}">不正解2</span>
                     <div class="quiz-buttons">
                         <form th:action="@{/admin/update}" method="post">
                             <input type="hidden" name="id" th:value="${quiz.id}" />

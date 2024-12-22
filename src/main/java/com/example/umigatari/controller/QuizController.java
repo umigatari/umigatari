@@ -339,8 +339,8 @@ public class QuizController {
     //チェックを解除する
     @PostMapping("admin/unpost")
     public String unpostQuiz(@RequestParam Long id){
-        quizService.updateConfirmation(id);
-        return "redirect:/admin/check";
+        quizService.unpostConfirmation(id);
+        return "redirect:/admin/quizlist";
         //quizService.updateQuiz(quiz);
     }
 

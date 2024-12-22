@@ -42,7 +42,7 @@ button[type="submit"]:hover {
 }
 
 button.back-button {
-    background-color: #4fbd5a; /* サンドカラー */
+    background-color: #4b5eaa;
     color: white; /* テキストを白色に */
     padding: 10px 20px; /* 内側余白 */
     font-size: 16px; /* フォントサイズ */
@@ -53,7 +53,7 @@ button.back-button {
 }
 
 button.back-button:hover {
-    background-color: #1d781d; /* 濃いサンドカラーに変更 */
+    background-color: #4b5eaa; /* 濃いサンドカラーに変更 */
 }
 
 
