@@ -8,13 +8,13 @@
 </head>
 <body>
     <header class="header">
-        <h1>管理者画面トップページ</h1>
+        <h1>管理者画面</h1>
     </header>
     <div class="button-container">
-        <a href="/admin/create" class="admin-button">作成</a>
+        <a href="/admin/create" class="admin-button">クイズ作成</a>
     </div>
     <div class="button-container">
-        <a href="/admin/quizlist" class="admin-button">更新削除</a>
+        <a href="/admin/quizlist" class="admin-button">クイズ一覧</a>
     </div>
     <div class="notification-container" th:attr="data-notice=${notice}">
         <span class="notification-badge" th:text="${notice}">1</span>

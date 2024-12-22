@@ -98,7 +98,7 @@ button:hover {
 
 
 .back-button:hover {
-    background-color: #3b4b8a;
+    background-color: C;
 }
 
 .list-button{
@@ -116,6 +116,22 @@ button:hover {
     position: absolute;
     left: 240px; /* 左側に配置 */
     top: 20px;  /* 上側に配置 */
+}
+.check-button{
+    background-color: #4b5eaa;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    width: auto;
+    max-width: 200px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    left: 460px;
+    top: 20px;
 }
 
 .back-button:hover {

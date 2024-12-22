@@ -59,13 +59,14 @@ span {
 
 button {
     padding: 10px 20px;
-    color: white;
+    color: rgb(255, 255, 255);
     font-size: 16px;
     font-weight: normal;  
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     border: none;
+    background-color: #eece51
 }
 
 button:hover {
