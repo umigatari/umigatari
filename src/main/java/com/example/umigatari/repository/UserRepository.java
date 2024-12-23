@@ -44,9 +44,21 @@ public class UserRepository {
     }
     
     //名前に対応するパスワードを表示する
-    public String readPassword(String name) {
+    public String readPasswordByname(String name) {
         String sql = "SELECT password FROM account WHERE name = ?";
         List<String> passwords = jdbcTemplate.queryForList(sql, String.class, name);
+        
+        if (passwords.isEmpty()) {
+            return null; // パスワードが見つからなかった場合
+        }
+        
+        return passwords.get(0); // 見つかった場合、最初のパスワードを返す
+    }
+
+    //メールアドレスに対応するパスワードを表示する
+    public String readPasswordBymail(String mail) {
+        String sql = "SELECT password FROM account WHERE mail = ?";
+        List<String> passwords = jdbcTemplate.queryForList(sql, String.class, mail);
         
         if (passwords.isEmpty()) {
             return null; // パスワードが見つからなかった場合
@@ -73,6 +85,12 @@ public class UserRepository {
         return jdbcTemplate.queryForObject(sql,String.class,name);      
     }
 
+    //メールアドレスに対応する名前を取得
+    public String mailToName(String mail){
+        String sql = "select name from account where mail = ?";
+        return  jdbcTemplate.queryForObject(sql,String.class,mail);    
+    }
+
     //カウントに+１する
     public void countUp(Long id){
         String sql = "update account set count = count + 1 where id = ?";
@@ -80,7 +98,7 @@ public class UserRepository {
     }
 
     //nameに対するIdを表示する
-    public Long redId(String name) {
+    public Long redIdByname(String name) {
     String sql = "SELECT id FROM account WHERE name = ?";
     List<Long> ids = jdbcTemplate.queryForList(sql, Long.class, name);
     
@@ -90,6 +108,18 @@ public class UserRepository {
     
     return ids.get(0); // 見つかった場合、最初のIDを返す
     }
+
+    //mailに対するIdを表示する
+    public Long redIdBymail(String mail) {
+        String sql = "SELECT id FROM account WHERE mail = ?";
+        List<Long> ids = jdbcTemplate.queryForList(sql, Long.class, mail);
+        
+        if (ids.isEmpty()) {
+            return null; // IDが見つからなかった場合
+        }
+        
+        return ids.get(0); // 見つかった場合、最初のIDを返す
+        }
 
     //IDをもとに正答数を表示する
     public int getCount(Long id){

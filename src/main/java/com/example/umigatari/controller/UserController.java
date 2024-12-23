@@ -20,8 +20,19 @@ import com.example.umigatari.model.account;
 import com.example.umigatari.service.AnalysisService;
 import com.example.umigatari.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+/*属性をattributeなのをaddrivuteと勘違いしています。
+ * 使用してるセッション
+ * solvedQuizzes解いた問題
+ * correct正解した問題
+ * answer正解の情報
+ * timeセクションごとの時間の情報
+ * idユーザーID
+ * addrivuteユーザの属性
+ * entertime入館時間
+ */
 @Controller
 
 public class UserController {
@@ -37,16 +48,26 @@ public class UserController {
         model.addAttribute("showPopup",true);
         return "userpage/umigatari";
     }
+
+    //アンケート結果を設定
+    @PostMapping("addrivute")
+    public String addrivute(Model model,HttpSession session,@RequestParam int answer){
+        model.addAttribute("showPopup",false);
+        session.setAttribute("addrivute",answer);
+        return  "userpage/umigatari";
+    }
+
     //かえり
     @SuppressWarnings("unchecked")
     @GetMapping("seeyousoon")
     public String seeyousoon(HttpSession session){
+        //退館時間の記録
         Object obj = session.getAttribute("id");
         Long id = (Long) obj;
         Object objtime = session.getAttribute("entertime");
         Timestamp entertime = (Timestamp) objtime;
         analysisService.exitTime(id,entertime);
-        //時間の記録
+        //セクションごとの時間の記録
         Map<String, Object> timeMap = (Map<String, Object>) session.getAttribute("time");
         if (timeMap != null) {
             Object objid = session.getAttribute("id");
@@ -60,25 +81,19 @@ public class UserController {
         }
         return "userpage/exit";
     }
-
-    //アンケート結果を設定
-    @PostMapping("addrivute")
-    public String addrivute(Model model,HttpSession session,@RequestParam int answer){
-        model.addAttribute("showPopup",false);
-        session.setAttribute("addrivute",answer);
-        return  "userpage/umigatari";
-    }
     
-    //アカウント作成のためのメール送信ページを表示
+    //アカウント作成のためのメール送信ページを表示 ok
     @GetMapping("createaccount/mail")
     public String mail(){
         return "account/createaccountone";
     }
 
-    //メールを実際に送る処理
+    //メールを実際に送る処理 未実装
     @PostMapping("sendmail")
-    public String sendMail(@RequestParam String mail,Model model){
+    public String sendMail(@RequestParam String mail,Model model,HttpSession session){
         boolean check = userService.chekMail(mail);
+        //Object objadd = session.getAttribute("addrivute");
+        //int addrivute = (int) objadd;
         if(check){
             //メールを送る処理　
         model.addAttribute("send", "メールを送信しました");
@@ -88,16 +103,16 @@ public class UserController {
         return "account/createaccountone";
     }
 
-    //アカウント作成するページを表示
+    //アカウント作成するページを表示 ok
     @GetMapping("createaccount/create")
     public String account(@RequestParam("mail") String mail, Model model,@RequestParam("addrvute") String addrivute){
-        //クエリパラメタでメールアドレスを受けとる予定
+        //クエリパラメタでメールアドレス、属性を受けとる
         model.addAttribute("addrivute", addrivute);
         model.addAttribute("mail", mail);
         return "account/createaccounttwo";
     }
 
-    //アカウント登録機能
+    //アカウント登録機能 ok
     @PostMapping("create")
     public String createAccount(@ModelAttribute account account, @RequestParam String password, Model model,HttpSession session) {
     try {
@@ -115,24 +130,26 @@ public class UserController {
     return "account/createaccounttwo";
     }
 
-    //ログインページを表示
+    //ログインページを表示 ok
     @GetMapping("login")
     public String login(){
         return "account/login";
     }
 
-    //ログインパスワードを比較
+    //ログインパスワードを比較 ok
     @PostMapping("password")
     public String loginPassword(@RequestParam String name,@RequestParam String password,HttpSession session, Model model){
-        //メールアドレスにする
+        //メールアドレスに変更予定。今は、開発環境でメールアドレスうつのだるいんでユーザーネーム使います。変数名mailだけど開発中はnameが入ります。
         Map<String, Object> result = userService.readPassword(name, password);
         boolean checkpassword = result != null && (boolean) result.get("passwordMatch");
         Long id = result != null ? (Long) result.get("id") : null;
         if(checkpassword&&id!=null){
+            //管理者アカウントなら管理者画面に遷移
             if(name.equals("admin")){
                 session.setAttribute("id", id);
                 return "redirect:admin";
             }
+            //入館時間の記録
             long currentMillis = System.currentTimeMillis();
             Timestamp entertime = new Timestamp(currentMillis);
             session.setAttribute("entertime", entertime);
@@ -147,30 +164,32 @@ public class UserController {
             timeMap.put("type", 0);
             timeMap.put("timestamp", timestamp);
             session.setAttribute("time", timeMap);
-            return "redirect:stamp";//普通に再度ページを表示のほうがいいかな？
+            return "redirect:stamp";
         }else{
             model.addAttribute("failure", "パスワードもしくはユーザーネームが間違っています");
             return "account/login";
         }      
     }
 
-    //ログアウト
+    //ログアウト ok
     @PostMapping("logout")
-    public String  getMethodName(HttpSession session) {
+    public String logout(HttpSession session) {
         session.invalidate(); 
         return "redirect:";
     }
     
 
-    //パスワードを忘れたページを表示
+    //パスワードを忘れたページを表示 ok
     @GetMapping("login/forgotpassword")
     public String passwordmail(){
         return "account/forgotpassone";
     }
 
-    //パスワードを変更するためのメールを送る
+    //パスワードを変更するためのメールを送る 未実装
     @PostMapping("forgotpassword")
-    public String readmail(@RequestParam String mail,Model model){
+    public String readmail(@RequestParam String mail,Model model,HttpSession session){
+        //Object objadd = session.getAttribute("addrivute");
+        //int addrivute = (int) objadd;
         //メールを送る処理。上と同様
         model.addAttribute("send", "メールを送信しました");
         return "account/forgotpassone";
@@ -178,7 +197,9 @@ public class UserController {
 
     //パスワードを変更画面を表示
     @GetMapping("changepassword")
-    public String password(@RequestParam(value = "mail", required = true) String mail, Model model) {
+    public String password(@RequestParam(value = "mail", required = true) String mail,@RequestParam(value = "addrivute", required = true) String addrivute, Model model,HttpSession session) {
+        //クエリパラメタから属性とメールアドレスを受け取る
+        session.setAttribute("addrivute", addrivute);
     if (mail == null || mail.isBlank()) {
         model.addAttribute("error", "メールアドレスが指定されていません。");
         return "account/error"; // 適切なエラーページに遷移
@@ -195,7 +216,7 @@ public class UserController {
         return "redirect:login";
     }
 
-    //アカウント完全削除 確認まだ
+    //アカウント完全削除
     @PostMapping("deleteaccount")
     public String deleteAccount(HttpSession session){
        Object obj = session.getAttribute("id");
@@ -205,7 +226,9 @@ public class UserController {
        return "redirect:";
     }
 
-    //スタンプを表示　確認まだ
+    //以下ユーザーページ
+
+    //スタンプを表示
     @SuppressWarnings("unchecked")
     @GetMapping("stamp")
     public String getStamp(HttpSession session,Model model){
@@ -223,11 +246,20 @@ public class UserController {
         return "userpage/stamp";
     }
 
-    //報酬を表示　　確認まだ
+    //報酬を表示　　
     @GetMapping("reward")
-    public String reward(Model model,HttpSession session){
+    public String reward(Model model,HttpSession session,HttpServletRequest request){
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
+        }
+        //リファラで遷移が正しいかチェック
+        String referer = request.getHeader("Referer");
+        String allowedRefererPattern = "^https?://localhost:8080/stamp";
+        if (referer == null || !referer.matches(allowedRefererPattern)) {
+            if (referer == null) {
+                return "redirect:/userpage/nopage";
+            }
+            return "redirect:" + referer;
         }
         Object obj = session.getAttribute("id");
        Long id = (Long)obj;
@@ -236,12 +268,20 @@ public class UserController {
 
     }
 
-    //ランキングを表示　確認まだ
+    //ランキングを表示　
     @SuppressWarnings("unchecked")
     @GetMapping("ranking")
-    public String ranking(HttpSession session, Model model){
+    public String ranking(HttpSession session, Model model,HttpServletRequest request){
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
+        }
+        String referer = request.getHeader("Referer");
+        String allowedRefererPattern = "^https?://localhost:8080/stamp";
+        if (referer == null || !referer.matches(allowedRefererPattern)) {
+            if (referer == null) {
+                return "redirect:/userpage/nopage";
+            }
+            return "redirect:" + referer;
         }
         int limit = 5;
         Object obj = session.getAttribute("id");
@@ -255,7 +295,18 @@ public class UserController {
     }
     
     @GetMapping("qr")
-    public String qrcode(){
+    public String qrcode(HttpSession session,HttpServletRequest request){
+        if(session.getAttribute("id")==null){
+            return "userpage/nopage";
+        }
+        String referer = request.getHeader("Referer");
+        String allowedRefererPattern = "^https?://localhost:8080/stamp";
+        if (referer == null || !referer.matches(allowedRefererPattern)) {
+            if (referer == null) {
+                return "redirect:/userpage/nopage";
+            }
+            return "redirect:" + referer;
+        }
         return"userpage/QR";
     }
     

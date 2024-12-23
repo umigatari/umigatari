@@ -26,9 +26,19 @@ import com.example.umigatari.service.AnalysisService;
 import com.example.umigatari.service.QuizService;
 import com.example.umigatari.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-
+/*属性のスペルをattributeなのにaddrivuteと勘違いしています。
+ * 使用してるセッション
+ * solvedQuizzes解いた問題
+ * correct正解した問題
+ * answer正解の情報
+ * timeセクションごとの時間の情報
+ * idユーザーID
+ * addrivuteユーザの属性
+ * entertime入館時間
+ */
 @Controller
 
 public class QuizController {
@@ -43,10 +53,10 @@ public class QuizController {
     private AnalysisService analysisService;
 
 
-    //typeごとのクイズを表示する
+    //QRコードごとのクイズを表示する
     @SuppressWarnings("unchecked")
     @GetMapping("quiz/{type}")
-    public String randomThreeQuiz(@PathVariable int type, Model model, HttpSession session) {
+    public String randomThreeQuiz(@PathVariable int type, Model model,HttpSession session) {
         //ログインしているか判断
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
@@ -59,7 +69,8 @@ public class QuizController {
         if (!solvedQuizzes.contains(type)) {
             solvedQuizzes.add(type);
             session.setAttribute("solvedQuizzes", solvedQuizzes);
-            List<quiz> quiz = quizService.randomThreeQuiz(type);
+            //クイズを取得
+            List<quiz> quiz = quizService.randomThreeQuiz();
             model.addAttribute("quiz", quiz);
             model.addAttribute("type",type);
         } else {
@@ -71,15 +82,28 @@ public class QuizController {
     //ひとつ選ばれたクイズを表示する
     @SuppressWarnings("unchecked")
     @PostMapping("quiz/{id}")
-    public String showOneQuiz(@PathVariable("id") Long id,Model model,HttpSession session,@RequestParam int type) {
+    public String showOneQuiz(@PathVariable("id") Long id,Model model,HttpSession session,@RequestParam int type,HttpServletRequest request) {
+        //ログインか判断
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
+        //リファラで遷移が正しいかチェック
+        String referer = request.getHeader("Referer");
+        String allowedRefererPattern = "^https?://localhost:8080/quiz/\\d+$";
+        if (referer == null || !referer.matches(allowedRefererPattern)) {
+            if (referer == null) {
+                return "redirect:/userpage/nopage";
+            }
+            return "redirect:" + referer;
+        }
+        //クイズを取得
         quiz quiz = quizService.selectOneById(id);
+        //選択肢をシャッフル
         List<String> choices = new ArrayList<>(List.of(quiz.getCorrect(), quiz.getOther_one(), quiz.getOther_two()));
         Collections.shuffle(choices);
         model.addAttribute("quiz", quiz);
         model.addAttribute("choices", choices);
+        //セッションに回答をセットセット
         session.setAttribute("answer", quiz.getCorrect());
         //時間の記録
         Map<String, Object> timeMap = (Map<String, Object>) session.getAttribute("time");
@@ -99,10 +123,19 @@ public class QuizController {
     //クイズの回答を表示する
     @SuppressWarnings("unchecked")
     @PostMapping("quiz/answer")
-    public String check(@RequestParam String choice,@RequestParam int type, Model model,HttpSession session) {
+    public String check(@RequestParam String choice,@RequestParam int type, Model model,HttpSession session,HttpServletRequest request) {
         //ログインしてないなら返す
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
+        }
+        //リファラで遷移が正しいかチェック
+        String referer = request.getHeader("Referer");
+        String allowedRefererPattern = "^https?://localhost:8080/quiz/\\d+$";
+        if (referer == null || !referer.matches(allowedRefererPattern)) {
+            if (referer == null) {
+                return "redirect:/userpage/nopage";
+            }
+            return "redirect:" + referer;
         }
         //正解を取得
         Object answerobj =session.getAttribute("answer");
@@ -129,7 +162,6 @@ public class QuizController {
             model.addAttribute("correct",correct);
         //不正解なら不正解と表示
         } else {
-            //model.addAttribute("count", str);
             model.addAttribute("message", "不正解");
             Set<Integer> correct = (Set<Integer>) session.getAttribute("carrect");
             session.setAttribute("correct", correct);
@@ -151,20 +183,31 @@ public class QuizController {
 
     //クイズ作成のページを表示
     @GetMapping("quiz/createpage")
-    public String createQuizPage(HttpSession session) {
+    public String createQuizPage(HttpSession session, Model model,HttpServletRequest request) {
+        //ログインしているか判断
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
+        //リファラで遷移が正しいかチェック
+        String referer = request.getHeader("Referer");
+        String allowedRefererPattern = "^https?://localhost:8080/stamp";
+        if (referer == null || !referer.matches(allowedRefererPattern)) {
+            if (referer == null) {
+                return "redirect:/userpage/nopage";
+            }
+            return "redirect:" + referer;
+        }
+        //正解数を取得
+        Object obj = session.getAttribute("id");
+        Long id = (Long)obj;
+        int count = userService.getCount(id);
+        model.addAttribute("count", count);
         return "quiz/adduserquiz";
     }
 
     //クイズ作成機能
     @PostMapping("quiz/create")
     public String createQuiz(@ModelAttribute quiz quiz, Model model, HttpSession session) {
-        Object obj = session.getAttribute("id");
-        Long id = (Long)obj;
-        int count = userService.getCount(id);
-        model.addAttribute("count", count);
         quizService.insertQuiz(quiz);
         model.addAttribute("create", "問題を作成しました!");
         return "quiz/adduserquiz";
@@ -172,7 +215,16 @@ public class QuizController {
 
     //ルールを表示
     @GetMapping("rule")
-    public String getMethodName() {
+    public String getRule(HttpServletRequest request) {
+         //リファラで遷移が正しいかチェック
+         String referer = request.getHeader("Referer");
+         String allowedRefererPattern = "^https?://localhost:8080/stamp";
+         if (referer == null || !referer.matches(allowedRefererPattern)) {
+             if (referer == null) {
+                 return "redirect:/userpage/nopage";
+             }
+             return "redirect:" + referer;
+         }
         return "userpage/rule";
     }
 
@@ -194,9 +246,18 @@ public class QuizController {
 
     //問題作成ページを表示
     @GetMapping("admin/create")
-    public String adminCreatQuizPage(HttpSession session,Model model){
+    public String adminCreatQuizPage(HttpSession session,Model model,HttpServletRequest request){
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
+        }
+        //リファラで遷移が正しいかチェック
+        String referer = request.getHeader("Referer");
+        String allowedRefererPattern = "^https?://localhost:8080/admin";
+        if (referer == null || !referer.matches(allowedRefererPattern)) {
+            if (referer == null) {
+                return "userpage/nopage";
+            }
+            return "redirect:" + referer;
         }
         Object sessionId = session.getAttribute("quizid");
         //更新ボタンが押された時の処理
@@ -232,29 +293,38 @@ public class QuizController {
     //問題チェック画面表示
     @GetMapping("admin/check")
     public String checkQuizPage(Model model,@RequestParam(value = "p_cocid", required = false) Integer pCocid,
-    @RequestParam(value = "dord", required = false) String dord,HttpSession session){
+    @RequestParam(value = "dord", required = false) String dord,HttpSession session,HttpServletRequest request){
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
+        }
+        //リファラで遷移が正しいかチェック
+        String referer = request.getHeader("Referer");
+        String allowedRefererPattern = "^https?://localhost:8080/admin";
+        if (referer == null || !referer.matches(allowedRefererPattern)) {
+            if (referer == null) {
+                return "userpage/nopage";
+            }
+            return "redirect:" + referer;
         }
         //チェックが必要なクイズを表示。なければな”問題はありません”と表示
         try {
             if (pCocid != null && dord != null) {
-                // ok
+                // クエリパラメタに何もないとき
                 List<quiz> quiz= quizService.readOrderTypeQuizCheck(dord,pCocid);
                 model.addAttribute("quiz",quiz);
                 return "admin/check";
             } else if (pCocid != null) {
-                //ok
+                //このコード意味ない
                 List<quiz> quiz= quizService.selectByTypeCheck(pCocid);
                 model.addAttribute("quiz",quiz);
                 return "admin/check";
             } else if (dord != null) {
-                // ok
+                // 降順か昇順か判断
                 List<quiz> quiz= quizService.selectByOrderCheck(dord);
                 model.addAttribute("quiz",quiz);
                 return "admin/check";
             } else {
-                // ok
+                // このコード意味ない
                 List<quiz> quizzes = quizService.checkListQuiz();
             model.addAttribute("quiz", quizzes);
             return "admin/check";
@@ -266,17 +336,21 @@ public class QuizController {
         }
     }
 
-    /*@PostMapping("admin/check")
-    public String checkQuiz(){
-        quizService.updateQuiz();
-    }*/
-
     //クイズ一覧
     @GetMapping("admin/quizlist")
     public String quizListPage(Model model,@RequestParam(value = "p_cocid", required = false) Integer pCocid,
-    @RequestParam(value = "dord", required = false) String dord,HttpSession session){
+    @RequestParam(value = "dord", required = false) String dord,HttpSession session,HttpServletRequest request){
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
+        }
+        //リファラで遷移が正しいかチェック
+        String referer = request.getHeader("Referer");
+        String allowedRefererPattern = "^https?://localhost:8080/admin";
+        if (referer == null || !referer.matches(allowedRefererPattern)) {
+            if (referer == null) {
+                return "userpage/nopage";
+            }
+            return "redirect:" + referer;
         }
         System.out.print(dord);
         if (pCocid != null && dord != null) {
@@ -304,9 +378,20 @@ public class QuizController {
 
     //クイズ削除 問題チェック画面から
     @PostMapping("admin/delete")
-    public String deleteQuiz(@RequestParam Long id){
+    public String deleteQuiz(@RequestParam Long id, @RequestParam(required = false) String p_cocid, 
+    @RequestParam(required = false) String dord){
         quizService.deleteQuiz(id);
-        return "redirect:/admin/check";
+        // 削除後にパラメータをリダイレクトURLに追加
+    String redirectUrl = "redirect:/admin/check";
+    if (p_cocid != null && !p_cocid.isEmpty()) {
+        redirectUrl += "?p_cocid=" + p_cocid;
+    }
+    if (dord != null && !dord.isEmpty()) {
+        // パラメータを&で繋げて追加
+        redirectUrl += (redirectUrl.contains("?") ? "&" : "?") + "dord=" + dord;
+    }
+
+    return redirectUrl;
     }
 
     //クイズ削除 一覧から
@@ -346,16 +431,25 @@ public class QuizController {
 
      //クイズ更新ページに遷移
     @PostMapping("/editing")
-    public String editingCountry(@RequestParam("id") long id, HttpSession session) {
+    public String editingQUiz(@RequestParam("id") long id, HttpSession session) {
         session.setAttribute("quizid", id);
         return "redirect:/admin/create";
     }
 
     //分析ページを表示
     @GetMapping("admin/analysis")
-    public String analysis(Model model,HttpSession session) {
+    public String analysis(Model model,HttpSession session,HttpServletRequest request) {
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
+        }
+        //リファラで遷移が正しいかチェック
+        String referer = request.getHeader("Referer");
+        String allowedRefererPattern = "^https?://localhost:8080/admin";
+        if (referer == null || !referer.matches(allowedRefererPattern)) {
+            if (referer == null) {
+                return "userpage/nopage";
+            }
+            return "redirect:" + referer;
         }
         analysis analysis = new analysis();
         analysis.setStaytime(analysisService.updateStayTime());
