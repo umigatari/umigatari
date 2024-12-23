@@ -76,8 +76,8 @@ public class QuizService {
     }
 
     //クイズを３問表示
-    public List<quiz> randomThreeQuiz(int type){
-        return quizRepository.randomThreeQuiz(type);
+    public List<quiz> randomThreeQuiz(){
+        return quizRepository.randomThreeQuiz();
     }
 
     //作成

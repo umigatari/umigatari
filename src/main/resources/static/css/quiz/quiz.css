@@ -3,12 +3,14 @@ body {
     background-color: aliceblue;
     margin: 0;
     padding: 0;
+    font-family: "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", "Meiryo", "MS PGothic", sans-serif;
 }
 .header {
     background-color: #92d5dc;
     padding: 20px;
     text-align: center;
     color: #4e493f;
+
 }
 .header h1 {
     font-size: 24px;
@@ -120,8 +122,8 @@ input[type="submit"]:hover {
     border: none; 
 }
 .square-image {
-    width: 100px;
-    height: 20px;
+    width: 360px;
+    height: 200px;
     object-fit: cover;
     border: 5px solid #ffffff; 
 }

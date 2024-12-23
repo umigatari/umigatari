@@ -50,7 +50,7 @@ public class UserService {
 
     //パスワードを返す
     public String loginAccount(String name){
-        return userRepository.readPassword(name);
+        return userRepository.readPasswordByname(name);
     }
 
     //パスワードを変更
@@ -68,6 +68,10 @@ public class UserService {
     public String readMail(String name){
         return userRepository.readMail(name);
     }
+    //メールアドレスから名前を取得
+    public String mailToName(String mail){
+        return  userRepository.mailToName(mail);
+    }
 
     //正答数を増やす
     public void countUp(Long id){
@@ -78,7 +82,8 @@ public class UserService {
     public Map<String, Object> readPassword(String name, String password) {
         Map<String, Object> result = new HashMap<>();
         // ユーザーIDを取得
-        Long id = userRepository.redId(name);
+        //Long id = userRepository.redIdBymail(mail);
+        Long id = userRepository.redIdByname(name);
         if (id == null) {
             //ユーザーが存在しない
             result.put("id",null);
@@ -87,7 +92,8 @@ public class UserService {
         }
     
         // パスワードを取得
-        String storedPassword = userRepository.readPassword(name);
+        //String storedPassword = userRepository.readPasswordBymail(mail);
+        String storedPassword = userRepository.readPasswordByname(name);
         if (storedPassword == null) {
             //ユーザーが存在しない
             result.put("id",null);
