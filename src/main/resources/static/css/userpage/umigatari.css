@@ -115,3 +115,26 @@ p{
 .popup button:hover {
     background-color: #45a049;
 }
+     
+.random-image {
+    margin: 20px auto;
+}
+.download-btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.download-btn:hover {
+    background-color: #0056b3;
+}
+.footer {
+    margin-top: 40px;
+    font-size: 16px;
+    color: #555;
+}
