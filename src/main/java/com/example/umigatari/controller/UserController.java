@@ -20,7 +20,9 @@ import com.example.umigatari.model.account;
 import com.example.umigatari.service.AnalysisService;
 import com.example.umigatari.service.UserService;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 /*属性をattributeなのをaddrivuteと勘違いしています。
@@ -138,7 +140,7 @@ public class UserController {
 
     //ログインパスワードを比較 ok
     @PostMapping("password")
-    public String loginPassword(@RequestParam String name,@RequestParam String password,HttpSession session, Model model){
+    public String loginPassword(@RequestParam String name,@RequestParam String password,HttpSession session, Model model,HttpServletResponse response){
         //メールアドレスに変更予定。今は、開発環境でメールアドレスうつのだるいんでユーザーネーム使います。変数名mailだけど開発中はnameが入ります。
         Map<String, Object> result = userService.readPassword(name, password);
         boolean checkpassword = result != null && (boolean) result.get("passwordMatch");
@@ -164,6 +166,13 @@ public class UserController {
             timeMap.put("type", 0);
             timeMap.put("timestamp", timestamp);
             session.setAttribute("time", timeMap);
+             // セッションIDのクッキーの有効期限を6時間に設定
+            Cookie sessionCookie = new Cookie("JSESSIONID", session.getId());
+            sessionCookie.setMaxAge(6 * 60 * 60); // 6時間
+            sessionCookie.setPath("/");
+            sessionCookie.setHttpOnly(true);
+            response.addCookie(sessionCookie);
+
             return "redirect:stamp";
         }else{
             model.addAttribute("failure", "パスワードもしくはユーザーネームが間違っています");

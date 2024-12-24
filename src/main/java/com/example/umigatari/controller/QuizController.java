@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,7 @@ public class QuizController {
             solvedQuizzes.add(type);
             session.setAttribute("solvedQuizzes", solvedQuizzes);
             //クイズを取得
+            System.out.print(type);
             List<quiz> quiz = quizService.randomThreeQuiz();
             model.addAttribute("quiz", quiz);
             model.addAttribute("type",type);
@@ -102,6 +104,7 @@ public class QuizController {
         List<String> choices = new ArrayList<>(List.of(quiz.getCorrect(), quiz.getOther_one(), quiz.getOther_two()));
         Collections.shuffle(choices);
         model.addAttribute("quiz", quiz);
+        model.addAttribute("type",type);
         model.addAttribute("choices", choices);
         //セッションに回答をセットセット
         session.setAttribute("answer", quiz.getCorrect());
@@ -230,11 +233,38 @@ public class QuizController {
 
     //以下管理者ページ
 
+    //管理者のログインページを作成
+    @GetMapping("adminlogin")
+    public String adminLogin(){
+        return "admin/adminlogin";
+    }
+
+    //管理者のパスワード比較
+    @PostMapping("adminpassword")
+    public String adminLoginPassword(@RequestParam String name,@RequestParam String password,HttpSession session, Model model){
+         Map<String, Object> result = userService.readPassword(name, password);
+        boolean checkpassword = result != null && (boolean) result.get("passwordMatch");
+        Long id = result != null ? (Long) result.get("id") : null;
+        if(checkpassword&&id!=null){
+            //管理者アカウントなら管理者画面に遷移
+            if(name.equals("admin")){
+                session.setAttribute("id", id);
+                return "redirect:admin";
+            }else{
+                return "userpage/umigatari";
+            }
+        }else{
+            model.addAttribute("failure", "パスワードもしくはユーザーネームが間違っています");
+            return "account/login";
+        }      
+    }
+    
     //adminページを表示
     @GetMapping("admin")
     public String admin(Model model,HttpSession session){
-        if(session.getAttribute("id")==null){
-            return "userpage/nopage";
+        Long obj = 19L;//管理者のIDが入る
+        if(!Objects.equals(session.getAttribute("id"), obj)){
+            return "admin/adminlogin";
         }
         int notice = quizService.getNotice();
         if(notice>=99){
@@ -247,17 +277,9 @@ public class QuizController {
     //問題作成ページを表示
     @GetMapping("admin/create")
     public String adminCreatQuizPage(HttpSession session,Model model,HttpServletRequest request){
-        if(session.getAttribute("id")==null){
-            return "userpage/nopage";
-        }
-        //リファラで遷移が正しいかチェック
-        String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080/admin";
-        if (referer == null || !referer.matches(allowedRefererPattern)) {
-            if (referer == null) {
-                return "userpage/nopage";
-            }
-            return "redirect:" + referer;
+        Long obj = 19L;//管理者のIDが入る
+        if(!Objects.equals(session.getAttribute("id"), obj)){
+            return "admin/adminlogin";
         }
         Object sessionId = session.getAttribute("quizid");
         //更新ボタンが押された時の処理
@@ -294,17 +316,9 @@ public class QuizController {
     @GetMapping("admin/check")
     public String checkQuizPage(Model model,@RequestParam(value = "p_cocid", required = false) Integer pCocid,
     @RequestParam(value = "dord", required = false) String dord,HttpSession session,HttpServletRequest request){
-        if(session.getAttribute("id")==null){
-            return "userpage/nopage";
-        }
-        //リファラで遷移が正しいかチェック
-        String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080/admin";
-        if (referer == null || !referer.matches(allowedRefererPattern)) {
-            if (referer == null) {
-                return "userpage/nopage";
-            }
-            return "redirect:" + referer;
+        Long obj = 19L;//管理者のIDが入る
+        if(!Objects.equals(session.getAttribute("id"), obj)){
+            return "admin/adminlogin";
         }
         //チェックが必要なクイズを表示。なければな”問題はありません”と表示
         try {
@@ -340,17 +354,9 @@ public class QuizController {
     @GetMapping("admin/quizlist")
     public String quizListPage(Model model,@RequestParam(value = "p_cocid", required = false) Integer pCocid,
     @RequestParam(value = "dord", required = false) String dord,HttpSession session,HttpServletRequest request){
-        if(session.getAttribute("id")==null){
-            return "userpage/nopage";
-        }
-        //リファラで遷移が正しいかチェック
-        String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080/admin";
-        if (referer == null || !referer.matches(allowedRefererPattern)) {
-            if (referer == null) {
-                return "userpage/nopage";
-            }
-            return "redirect:" + referer;
+        Long obj = 19L;//管理者のIDが入る
+        if(!Objects.equals(session.getAttribute("id"), obj)){
+            return "admin/adminlogin";
         }
         System.out.print(dord);
         if (pCocid != null && dord != null) {
@@ -439,17 +445,9 @@ public class QuizController {
     //分析ページを表示
     @GetMapping("admin/analysis")
     public String analysis(Model model,HttpSession session,HttpServletRequest request) {
-        if(session.getAttribute("id")==null){
-            return "userpage/nopage";
-        }
-        //リファラで遷移が正しいかチェック
-        String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080/admin";
-        if (referer == null || !referer.matches(allowedRefererPattern)) {
-            if (referer == null) {
-                return "userpage/nopage";
-            }
-            return "redirect:" + referer;
+        Long obj = 19L;//管理者のIDが入る
+        if(!Objects.equals(session.getAttribute("id"), obj)){
+            return "admin/adminlogin";
         }
         analysis analysis = new analysis();
         analysis.setStaytime(analysisService.updateStayTime());

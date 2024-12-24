@@ -14,7 +14,7 @@
     <div class="quiz-container">
         <th:block th:each="choice : ${choices}">
             <form th:action="@{/quiz/answer}" method="post" id="quizForm">
-                <input type="hidden" name="type" th:value="${quiz.type != null ? quiz.type : ''}">
+                <input type="hidden" name="type" id="type" th:value="${type}">
                 <div class="quiz-item">
                     <button type="submit" class="quiz-button" name="choice" th:value="${choice}">
                         <span th:text="${choice}"></span>
