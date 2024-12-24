@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クイズスタンプラリー終了</title>
+    <link rel="stylesheet" href="/css/userpage/umigatari.css">
+</head>
+<body>
+    <div class="header">
+        <h1>クイズスタンプラリーに参加いただきありがとうございました！</h1>
+    </div>
+    <div class="content-container">
+        <h2>これでクイズスタンプラリーは終わりです！</h2>
+        <p>楽しんでいただけましたか？</p>
+        <p>下記のボタンより、かわいい生き物たちの画像をダウンロードしてください！</p>
+        <div class="random-image">
+            <img th:src="@{'/img/' + ${img} + '.png'}" th:alt="'かわいい生き物の画像 ' + ${img}" style="max-width: 100%; height: auto;">
+        </div>
+        <a th:href="@{'/img/' + ${img} + '.png'}" class="download-btn" download th:text="'画像をダウンロード'">画像をダウンロード</a>
+    </div>
+    <div class="footer">
+        <p>またのご来場をお待ちしております！</p>
+    </div>
+</body>
+</html>

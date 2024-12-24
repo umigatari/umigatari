@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,8 +62,8 @@ public class UserController {
 
     //かえり
     @SuppressWarnings("unchecked")
-    @GetMapping("seeyousoon")
-    public String seeyousoon(HttpSession session){
+    @GetMapping("exit")
+    public String seeyousoon(HttpSession session,Model model){
         //退館時間の記録
         Object obj = session.getAttribute("id");
         Long id = (Long) obj;
@@ -81,6 +82,10 @@ public class UserController {
             long timestamp = Instant.now().getEpochSecond();
             analysisService.addSectionTime(id,accountid,addrivute,type,6,timestamp,timestamp2);
         }
+        String [] img = {"lea1","lea2","lea3","lea4","lea5"};
+        Random random = new Random();
+        int randomNumber = random.nextInt(5);
+        model.addAttribute("img",img[randomNumber]);
         return "userpage/exit";
     }
     
