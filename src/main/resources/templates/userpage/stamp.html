@@ -27,36 +27,35 @@
         </div>
     </header>
 
-    <!-- 累計正解数表示 -->
     <div class="score-box">
         <p>今までの累計正解数：<span id="count" th:text="${count}">0</span></p>
     </div>
 
-    <!-- スタンプ台紙 -->
     <div class="stamp-card">
-        <!-- スタンプの円（3×3のグリッド）-->
         <div class="stamp-grid">
             <div class="stamp" id="stamp-1"></div>
             <div class="stamp" id="stamp-2"></div>
             <div class="stamp" id="stamp-3"></div>
             <div class="stamp" id="stamp-4"></div>
             <div class="stamp" id="stamp-5"></div>
-            <div class="stamp" id="stamp-6"></div>
-            <div class="stamp" id="stamp-7"></div>
-            <div class="stamp" id="stamp-8"></div>
-            <div class="stamp" id="stamp-9"></div>
         </div>
     </div>
 
     <div class="button-container">
-        <form action="/reward" method="get">
-            <button id="reward-btn" class="reward-btn">プレゼント</button>
-        </form>
         <form action="/rule" method="get">
             <button id="rule-btn" class="rule-btn">ルール説明</button>
         </form>
+        <form th:action="@{/qr}" method="get">
+            <button id="ranking-btn" class="ranking-btn">QRコードを読み取る</button>
+        </form>
+        <form action="/reward" method="get">
+            <button id="reward-btn" class="reward-btn">プレゼント</button>
+        </form>
         <form action="/ranking" method="get">
             <button id="ranking-btn" class="ranking-btn">ランキングへ</button>
+        </form>
+        <form th:action="@{/quiz/createpage}" method="get">
+            <button id="ranking-btn" class="ranking-btn">クイズを作成する</button>
         </form>
     </div>
     <footer class="footer">
@@ -67,7 +66,6 @@
         </div>
     </footer>
 
-<!-- ログアウト確認ポップアップ -->
 <div id="logout-popup" class="popup">
     <div class="popup-content">
         <p>ログアウトしますか？</p>
@@ -76,7 +74,6 @@
     </div>
 </div>
 
-<!-- アカウント削除確認ポップアップ -->
 <div id="delete-popup" class="popup">
     <div class="popup-content">
         <p>アカウントは完全に削除されますが<br>よろしいですか？</p>
@@ -85,7 +82,6 @@
     </div>
 </div>
 
-<!-- 最終確認ポップアップ（アカウント削除） -->
 <div id="final-delete-popup" class="popup">
     <div class="popup-content">
         <p>本当に削除しますか？</p>
@@ -102,14 +98,10 @@
         // IDと画像パスのマッピングを定義
         var images = {
         1: '/img/1.jpg',
-        2: '/img/2.jpg',
-        3: '/img/3.jpg',
-        4: '/img/4.jpg',
-        5: '/img/5.jpg',
-        6: '/img/6.jpg',
-        7: '/img/7.jpg',
-        8: '/img/8.jpg',
-        9: '/img/9.jpg'
+        2: '/img/1.jpg',
+        3: '/img/1.jpg',
+        4: '/img/1.jpg',
+        5: '/img/1.jpg'
         };
         // 画像をセットするための処理
         for (var i = 0; i < correct.length; i++) {

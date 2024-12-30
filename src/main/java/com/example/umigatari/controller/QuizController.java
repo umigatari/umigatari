@@ -44,7 +44,7 @@ public class QuizController {
 
 
     //typeごとのクイズを表示する
-    @SuppressWarnings("unchecked")
+     @SuppressWarnings("unchecked")
     @GetMapping("quiz/{type}")
     public String randomThreeQuiz(@PathVariable int type, Model model, HttpSession session) {
         //ログインしているか判断
