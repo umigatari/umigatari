@@ -91,7 +91,7 @@ public class QuizController {
         }
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080/quiz/\\d+$";
+        String allowedRefererPattern = "^https?://examplepj.f5.si/quiz/\\d+$";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -133,7 +133,7 @@ public class QuizController {
         }
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080/quiz/\\d+$";
+        String allowedRefererPattern = "^https?://examplepj.f5.si/quiz/\\d+$";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -193,7 +193,7 @@ public class QuizController {
         }
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080/stamp";
+        String allowedRefererPattern = "^https?://examplepj.f5.si/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -221,7 +221,7 @@ public class QuizController {
     public String getRule(HttpServletRequest request) {
          //リファラで遷移が正しいかチェック
          String referer = request.getHeader("Referer");
-         String allowedRefererPattern = "^https?://localhost:8080/stamp";
+         String allowedRefererPattern = "^https?://examplepj.f5.si/stamp.*";
          if (referer == null || !referer.matches(allowedRefererPattern)) {
              if (referer == null) {
                  return "redirect:/userpage/nopage";
