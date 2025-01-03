@@ -129,24 +129,56 @@ h1{
     padding: 20px;
     background-color: white;
     border-radius: 10px;
-    width: 330px; 
-    height: auto; 
+    width: 100%;
+    max-width: 350px;
     margin: 0 auto;
 }
 
 .stamp-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 100px); /* 3列のスタンプ */
-    grid-gap: 20px; 
+    display: grid; /* グリッドレイアウトを使用 */
+    grid-template-columns: repeat(5, 60px); /* 5列で設定 */
+    grid-template-rows: repeat(2, 100px); /* 2行で設定 */
+    grid-gap: 3px; /* 各スタンプ間のスペースを設定 */
+    justify-content: center;
+    align-items: center; /* 縦方向も中央揃え */
+    width: 100%;
+    margin-left: -45px;
+}
+
+/* 各スタンプの配置を指定 */
+#stamp-1 {
+    grid-column: 2; /* 上段2列目 */
+    grid-row: 1; /* 上段1行目 */
+}
+
+#stamp-2 {
+    grid-column: 4; /* 上段4列目 */
+    grid-row: 1; /* 上段1行目 */
+}
+
+#stamp-3 {
+    grid-column: 1; /* 下段1列目 */
+    grid-row: 2; /* 下段2行目 */
+}
+
+#stamp-4 {
+    grid-column: 3; /* 下段3列目 */
+    grid-row: 2; /* 下段2行目 */
+}
+
+#stamp-5 {
+    grid-column: 5; /* 下段5列目 */
+    grid-row: 2; /* 下段2行目 */
 }
 
 .stamp {
     width: 100px;
     height: 100px;
-    border-radius: 50%;
+    border-radius: 50%; /* 円形にする */
     background-color: #d3d3d3;
     border: 2px solid #4682b4;
 }
+
 
 .popup {
     display: none;
