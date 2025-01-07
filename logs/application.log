@@ -1,135 +1,227 @@
-2025-01-03T13:15:21.954+09:00  INFO 30104 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : Starting UmigatariApplication using Java 21.0.5 with PID 30104 (C:\Users\ryuhe\Desktop\ae\umigatari\umigatari\target\classes started by ryuhe in C:\Users\ryuhe\Desktop\ae\umigatari\umigatari)
-2025-01-03T13:15:21.975+09:00  INFO 30104 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : No active profile set, falling back to 1 default profile: "default"
-2025-01-03T13:15:22.063+09:00  INFO 30104 --- [umigatari] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2025-01-03T13:15:22.065+09:00  INFO 30104 --- [umigatari] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2025-01-03T13:15:23.087+09:00  INFO 30104 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2025-01-03T13:15:23.087+09:00  INFO 30104 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
-2025-01-03T13:15:23.130+09:00  INFO 30104 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 0 JDBC repository interfaces.
-2025-01-03T13:15:23.156+09:00  INFO 30104 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2025-01-03T13:15:23.158+09:00  INFO 30104 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-01-03T13:15:23.172+09:00  INFO 30104 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 0 JPA repository interfaces.
-2025-01-03T13:15:24.179+09:00  INFO 30104 --- [umigatari] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-01-03T13:15:24.214+09:00  INFO 30104 --- [umigatari] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-01-03T13:15:24.215+09:00  INFO 30104 --- [umigatari] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
-2025-01-03T13:15:24.310+09:00  INFO 30104 --- [umigatari] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-01-03T13:15:24.311+09:00  INFO 30104 --- [umigatari] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2245 ms
-2025-01-03T13:15:24.548+09:00  INFO 30104 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-01-03T13:15:24.825+09:00  INFO 30104 --- [umigatari] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7433b5b8
-2025-01-03T13:15:24.827+09:00  INFO 30104 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-01-03T13:15:24.890+09:00  INFO 30104 --- [umigatari] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-01-03T13:15:24.960+09:00  INFO 30104 --- [umigatari] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
-2025-01-03T13:15:25.039+09:00  INFO 30104 --- [umigatari] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-01-03T13:15:25.598+09:00  INFO 30104 --- [umigatari] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-01-03T13:15:26.044+09:00  INFO 30104 --- [umigatari] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-01-03T13:15:26.051+09:00  INFO 30104 --- [umigatari] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-01-03T13:15:27.306+09:00  INFO 30104 --- [umigatari] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-01-03T13:15:27.362+09:00  INFO 30104 --- [umigatari] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-01-03T13:15:27.382+09:00  INFO 30104 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : Started UmigatariApplication in 5.963 seconds (process running for 6.503)
-2025-01-03T13:15:31.451+09:00  INFO 30104 --- [umigatari] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-01-03T13:17:13.306+09:00  INFO 33280 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : Starting UmigatariApplication using Java 21.0.5 with PID 33280 (C:\Users\ryuhe\Desktop\ae\umigatari\umigatari\target\classes started by ryuhe in C:\Users\ryuhe\Desktop\ae\umigatari\umigatari)
-2025-01-03T13:17:13.310+09:00  INFO 33280 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : No active profile set, falling back to 1 default profile: "default"
-2025-01-03T13:17:13.409+09:00  INFO 33280 --- [umigatari] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2025-01-03T13:17:13.409+09:00  INFO 33280 --- [umigatari] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2025-01-03T13:17:14.436+09:00  INFO 33280 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2025-01-03T13:17:14.436+09:00  INFO 33280 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
-2025-01-03T13:17:14.452+09:00  INFO 33280 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 18 ms. Found 0 JDBC repository interfaces.
-2025-01-03T13:17:14.480+09:00  INFO 33280 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2025-01-03T13:17:14.487+09:00  INFO 33280 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-01-03T13:17:14.498+09:00  INFO 33280 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3 ms. Found 0 JPA repository interfaces.
-2025-01-03T13:17:15.396+09:00  INFO 33280 --- [umigatari] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-01-03T13:17:15.423+09:00  INFO 33280 --- [umigatari] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-01-03T13:17:15.423+09:00  INFO 33280 --- [umigatari] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
-2025-01-03T13:17:15.506+09:00  INFO 33280 --- [umigatari] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-01-03T13:17:15.508+09:00  INFO 33280 --- [umigatari] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2098 ms
-2025-01-03T13:17:15.734+09:00  INFO 33280 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-01-03T13:17:16.029+09:00  INFO 33280 --- [umigatari] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7d9e95ad
-2025-01-03T13:17:16.042+09:00  INFO 33280 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-01-03T13:17:16.108+09:00  INFO 33280 --- [umigatari] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-01-03T13:17:16.162+09:00  INFO 33280 --- [umigatari] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
-2025-01-03T13:17:16.199+09:00  INFO 33280 --- [umigatari] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-01-03T13:17:16.768+09:00  INFO 33280 --- [umigatari] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-01-03T13:17:17.207+09:00  INFO 33280 --- [umigatari] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-01-03T13:17:17.208+09:00  INFO 33280 --- [umigatari] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-01-03T13:17:18.269+09:00  INFO 33280 --- [umigatari] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-01-03T13:17:18.321+09:00  INFO 33280 --- [umigatari] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-01-03T13:17:18.337+09:00  INFO 33280 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : Started UmigatariApplication in 5.618 seconds (process running for 6.091)
-2025-01-03T13:17:23.212+09:00  INFO 33280 --- [umigatari] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-01-03T13:26:42.588+09:00  WARN 33280 --- [umigatari] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m26s298ms303µs700ns).
-2025-01-03T13:51:16.818+09:00  INFO 30692 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : Starting UmigatariApplication using Java 21.0.5 with PID 30692 (C:\Users\ryuhe\Desktop\ae\umigatari\umigatari\target\classes started by ryuhe in C:\Users\ryuhe\Desktop\ae\umigatari\umigatari)
-2025-01-03T13:51:16.824+09:00  INFO 30692 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : No active profile set, falling back to 1 default profile: "default"
-2025-01-03T13:51:16.936+09:00  INFO 30692 --- [umigatari] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2025-01-03T13:51:16.937+09:00  INFO 30692 --- [umigatari] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2025-01-03T13:51:18.076+09:00  INFO 30692 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2025-01-03T13:51:18.076+09:00  INFO 30692 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
-2025-01-03T13:51:18.108+09:00  INFO 30692 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 0 JDBC repository interfaces.
-2025-01-03T13:51:18.149+09:00  INFO 30692 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2025-01-03T13:51:18.153+09:00  INFO 30692 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-01-03T13:51:18.174+09:00  INFO 30692 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 JPA repository interfaces.
-2025-01-03T13:51:19.211+09:00  INFO 30692 --- [umigatari] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-01-03T13:51:19.237+09:00  INFO 30692 --- [umigatari] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-01-03T13:51:19.244+09:00  INFO 30692 --- [umigatari] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
-2025-01-03T13:51:19.394+09:00  INFO 30692 --- [umigatari] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-01-03T13:51:19.397+09:00  INFO 30692 --- [umigatari] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2460 ms
-2025-01-03T13:51:19.667+09:00  INFO 30692 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-01-03T13:51:19.902+09:00  INFO 30692 --- [umigatari] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1b43a306
-2025-01-03T13:51:19.906+09:00  INFO 30692 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-01-03T13:51:19.953+09:00  INFO 30692 --- [umigatari] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-01-03T13:51:20.001+09:00  INFO 30692 --- [umigatari] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
-2025-01-03T13:51:20.027+09:00  INFO 30692 --- [umigatari] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-01-03T13:51:20.459+09:00  INFO 30692 --- [umigatari] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-01-03T13:51:20.963+09:00  INFO 30692 --- [umigatari] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-01-03T13:51:20.963+09:00  INFO 30692 --- [umigatari] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-01-03T13:51:22.415+09:00  INFO 30692 --- [umigatari] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-01-03T13:51:22.485+09:00  INFO 30692 --- [umigatari] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-01-03T13:51:22.507+09:00  INFO 30692 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : Started UmigatariApplication in 6.308 seconds (process running for 6.826)
-2025-01-03T13:51:26.523+09:00  INFO 30692 --- [umigatari] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-01-03T13:53:22.085+09:00  INFO 30692 --- [umigatari] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2025-01-03T13:53:22.118+09:00  INFO 30692 --- [umigatari] [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-01-03T13:53:22.123+09:00  INFO 30692 --- [umigatari] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-01-03T13:53:22.132+09:00  INFO 30692 --- [umigatari] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-01-03T13:53:22.297+09:00  INFO 30692 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : Starting UmigatariApplication using Java 21.0.5 with PID 30692 (C:\Users\ryuhe\Desktop\ae\umigatari\umigatari\target\classes started by ryuhe in C:\Users\ryuhe\Desktop\ae\umigatari\umigatari)
-2025-01-03T13:53:22.298+09:00  INFO 30692 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : No active profile set, falling back to 1 default profile: "default"
-2025-01-03T13:53:22.718+09:00  INFO 30692 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2025-01-03T13:53:22.722+09:00  INFO 30692 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
-2025-01-03T13:53:22.756+09:00  INFO 30692 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 0 JDBC repository interfaces.
-2025-01-03T13:53:22.771+09:00  INFO 30692 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2025-01-03T13:53:22.773+09:00  INFO 30692 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-01-03T13:53:22.780+09:00  INFO 30692 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 0 JPA repository interfaces.
-2025-01-03T13:53:22.990+09:00  INFO 30692 --- [umigatari] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-01-03T13:53:22.992+09:00  INFO 30692 --- [umigatari] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-01-03T13:53:22.993+09:00  INFO 30692 --- [umigatari] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
-2025-01-03T13:53:23.044+09:00  INFO 30692 --- [umigatari] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-01-03T13:53:23.044+09:00  INFO 30692 --- [umigatari] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 738 ms
-2025-01-03T13:53:23.109+09:00  INFO 30692 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
-2025-01-03T13:53:23.191+09:00  INFO 30692 --- [umigatari] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@5aa53c94
-2025-01-03T13:53:23.192+09:00  INFO 30692 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
-2025-01-03T13:53:23.194+09:00  INFO 30692 --- [umigatari] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-01-03T13:53:23.201+09:00  INFO 30692 --- [umigatari] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-01-03T13:53:23.222+09:00  INFO 30692 --- [umigatari] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-01-03T13:53:23.263+09:00  INFO 30692 --- [umigatari] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-01-03T13:53:23.264+09:00  INFO 30692 --- [umigatari] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-01-03T13:53:23.484+09:00  INFO 30692 --- [umigatari] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-01-03T13:53:23.495+09:00  INFO 30692 --- [umigatari] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-01-03T13:53:23.502+09:00  INFO 30692 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : Started UmigatariApplication in 1.25 seconds (process running for 127.817)
-2025-01-03T13:53:23.505+09:00  INFO 30692 --- [umigatari] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-01-03T14:13:15.602+09:00  INFO 35656 --- [umigatari] [main] c.e.umigatari.UmigatariApplicationTests  : Starting UmigatariApplicationTests using Java 21.0.5 with PID 35656 (started by ryuhe in C:\Users\ryuhe\Desktop\ae\umigatari\umigatari)
-2025-01-03T14:13:15.610+09:00  INFO 35656 --- [umigatari] [main] c.e.umigatari.UmigatariApplicationTests  : No active profile set, falling back to 1 default profile: "default"
-2025-01-03T14:13:16.620+09:00  INFO 35656 --- [umigatari] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2025-01-03T14:13:16.620+09:00  INFO 35656 --- [umigatari] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
-2025-01-03T14:13:16.654+09:00  INFO 35656 --- [umigatari] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 28 ms. Found 0 JDBC repository interfaces.
-2025-01-03T14:13:16.682+09:00  INFO 35656 --- [umigatari] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2025-01-03T14:13:16.686+09:00  INFO 35656 --- [umigatari] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-01-03T14:13:16.697+09:00  INFO 35656 --- [umigatari] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 0 JPA repository interfaces.
-2025-01-03T14:13:17.321+09:00  INFO 35656 --- [umigatari] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-01-03T14:13:17.656+09:00  INFO 35656 --- [umigatari] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@390037e7
-2025-01-03T14:13:17.656+09:00  INFO 35656 --- [umigatari] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-01-03T14:13:17.720+09:00  INFO 35656 --- [umigatari] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-01-03T14:13:17.784+09:00  INFO 35656 --- [umigatari] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
-2025-01-03T14:13:17.845+09:00  INFO 35656 --- [umigatari] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-01-03T14:13:18.477+09:00  INFO 35656 --- [umigatari] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-01-03T14:13:19.203+09:00  INFO 35656 --- [umigatari] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-01-03T14:13:19.203+09:00  INFO 35656 --- [umigatari] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-01-03T14:13:20.470+09:00  INFO 35656 --- [umigatari] [main] c.e.umigatari.UmigatariApplicationTests  : Started UmigatariApplicationTests in 5.277 seconds (process running for 6.562)
-2025-01-03T14:13:21.318+09:00  INFO 35656 --- [umigatari] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-01-03T14:13:21.327+09:00  INFO 35656 --- [umigatari] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-01-03T14:13:21.337+09:00  INFO 35656 --- [umigatari] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-01-07T19:01:52.814+09:00  INFO 19392 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : Starting UmigatariApplication using Java 21.0.5 with PID 19392 (C:\Users\ryuhe\Desktop\ae\umigatari\umigatari\target\classes started by ryuhe in C:\Users\ryuhe\Desktop\ae\umigatari\umigatari)
+2025-01-07T19:01:52.838+09:00  INFO 19392 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-01-07T19:01:52.919+09:00  INFO 19392 --- [umigatari] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-01-07T19:01:52.919+09:00  INFO 19392 --- [umigatari] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-01-07T19:01:54.056+09:00  INFO 19392 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-01-07T19:01:54.058+09:00  INFO 19392 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-01-07T19:01:54.088+09:00  INFO 19392 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 0 JDBC repository interfaces.
+2025-01-07T19:01:54.109+09:00  INFO 19392 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-01-07T19:01:54.110+09:00  INFO 19392 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-01-07T19:01:54.120+09:00  INFO 19392 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 0 JPA repository interfaces.
+2025-01-07T19:01:54.964+09:00  INFO 19392 --- [umigatari] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-01-07T19:01:55.000+09:00  INFO 19392 --- [umigatari] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-07T19:01:55.000+09:00  INFO 19392 --- [umigatari] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-01-07T19:01:55.084+09:00  INFO 19392 --- [umigatari] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-01-07T19:01:55.084+09:00  INFO 19392 --- [umigatari] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2165 ms
+2025-01-07T19:01:55.324+09:00  INFO 19392 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-07T19:01:55.701+09:00  INFO 19392 --- [umigatari] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@618b684c
+2025-01-07T19:01:55.701+09:00  INFO 19392 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-07T19:01:55.796+09:00  INFO 19392 --- [umigatari] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-07T19:01:55.931+09:00  INFO 19392 --- [umigatari] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-01-07T19:01:56.005+09:00  INFO 19392 --- [umigatari] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-01-07T19:01:56.615+09:00  INFO 19392 --- [umigatari] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-01-07T19:01:57.026+09:00  INFO 19392 --- [umigatari] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-07T19:01:57.031+09:00  INFO 19392 --- [umigatari] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-01-07T19:01:57.497+09:00  WARN 19392 --- [umigatari] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'quizController': Unsatisfied dependency expressed through field 'userService': Error creating bean with name 'userService' defined in file [C:\Users\ryuhe\Desktop\ae\umigatari\umigatari\target\classes\com\example\umigatari\service\UserService.class]: Failed to instantiate [com.example.umigatari.service.UserService]: Constructor threw exception
+2025-01-07T19:01:57.498+09:00  INFO 19392 --- [umigatari] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-01-07T19:01:57.502+09:00  INFO 19392 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-01-07T19:01:57.508+09:00  INFO 19392 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-01-07T19:01:57.513+09:00  INFO 19392 --- [umigatari] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-01-07T19:01:57.531+09:00  INFO 19392 --- [umigatari] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-01-07T19:01:57.554+09:00 ERROR 19392 --- [umigatari] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'quizController': Unsatisfied dependency expressed through field 'userService': Error creating bean with name 'userService' defined in file [C:\Users\ryuhe\Desktop\ae\umigatari\umigatari\target\classes\com\example\umigatari\service\UserService.class]: Failed to instantiate [com.example.umigatari.service.UserService]: Constructor threw exception
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:788) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1439) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971) ~[spring-context-6.1.15.jar:6.1.15]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.15.jar:6.1.15]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.6.jar:3.3.6]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.6.jar:3.3.6]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.6.jar:3.3.6]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.6.jar:3.3.6]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.6.jar:3.3.6]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.6.jar:3.3.6]
+	at com.example.umigatari.UmigatariApplication.main(UmigatariApplication.java:10) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.6.jar:3.3.6]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userService' defined in file [C:\Users\ryuhe\Desktop\ae\umigatari\umigatari\target\classes\com\example\umigatari\service\UserService.class]: Failed to instantiate [com.example.umigatari.service.UserService]: Constructor threw exception
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:318) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:306) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785) ~[spring-beans-6.1.15.jar:6.1.15]
+	... 23 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.example.umigatari.service.UserService]: Constructor threw exception
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:221) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:117) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:315) ~[spring-beans-6.1.15.jar:6.1.15]
+	... 36 common frames omitted
+Caused by: software.amazon.awssdk.core.exception.SdkClientException: Configured region (ap-northeast-1%20%23%20SES%C3%A3%C2%81%C2%AE%C3%A3%C2%83%C2%AA%C3%A3%C2%83%C2%BC%C3%A3%C2%82%C2%B8%C3%A3%C2%83%C2%A7%C3%A3%C2%83%C2%B3) and tags ([]) resulted in an invalid URI: https://email.ap-northeast-1%20%23%20SES%C3%A3%C2%81%C2%AE%C3%A3%C2%83%C2%AA%C3%A3%C2%83%C2%BC%C3%A3%C2%82%C2%B8%C3%A3%C2%83%C2%A7%C3%A3%C2%83%C2%B3.amazonaws.com. This is usually caused by an invalid region configuration. Valid regions: [af-south-1, ap-northeast-1, ap-northeast-2, ap-northeast-3, ap-south-1, ap-southeast-1, ap-southeast-2, ap-southeast-3, ca-central-1, eu-central-1, eu-north-1, eu-south-1, eu-west-1, eu-west-2, eu-west-3, fips-us-east-1, fips-us-west-2, me-south-1, sa-east-1, us-east-1, us-east-2, us-west-1, us-west-2, fips-us-gov-west-1, us-gov-west-1]
+	at software.amazon.awssdk.core.exception.SdkClientException$BuilderImpl.build(SdkClientException.java:111) ~[sdk-core-2.20.52.jar:na]
+	at software.amazon.awssdk.core.exception.SdkClientException.create(SdkClientException.java:43) ~[sdk-core-2.20.52.jar:na]
+	at software.amazon.awssdk.awscore.endpoint.DefaultServiceEndpointBuilder.getServiceEndpoint(DefaultServiceEndpointBuilder.java:154) ~[aws-core-2.20.52.jar:na]
+	at software.amazon.awssdk.awscore.client.builder.AwsDefaultClientBuilder.endpointFromConfig(AwsDefaultClientBuilder.java:255) ~[aws-core-2.20.52.jar:na]
+	at software.amazon.awssdk.awscore.client.builder.AwsDefaultClientBuilder.lambda$resolveEndpoint$2(AwsDefaultClientBuilder.java:243) ~[aws-core-2.20.52.jar:na]
+	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
+	at software.amazon.awssdk.awscore.client.builder.AwsDefaultClientBuilder.resolveEndpoint(AwsDefaultClientBuilder.java:243) ~[aws-core-2.20.52.jar:na]
+	at software.amazon.awssdk.awscore.client.builder.AwsDefaultClientBuilder.finalizeChildConfiguration(AwsDefaultClientBuilder.java:195) ~[aws-core-2.20.52.jar:na]
+	at software.amazon.awssdk.core.client.builder.SdkDefaultClientBuilder.syncClientConfiguration(SdkDefaultClientBuilder.java:183) ~[sdk-core-2.20.52.jar:na]
+	at software.amazon.awssdk.services.ses.DefaultSesClientBuilder.buildClient(DefaultSesClientBuilder.java:38) ~[ses-2.20.52.jar:na]
+	at software.amazon.awssdk.services.ses.DefaultSesClientBuilder.buildClient(DefaultSesClientBuilder.java:27) ~[ses-2.20.52.jar:na]
+	at software.amazon.awssdk.core.client.builder.SdkDefaultClientBuilder.build(SdkDefaultClientBuilder.java:150) ~[sdk-core-2.20.52.jar:na]
+	at com.example.umigatari.service.UserService.<init>(UserService.java:40) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486) ~[na:na]
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:208) ~[spring-beans-6.1.15.jar:6.1.15]
+	... 38 common frames omitted
+
+2025-01-07T19:03:21.388+09:00  INFO 1644 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : Starting UmigatariApplication using Java 21.0.5 with PID 1644 (C:\Users\ryuhe\Desktop\ae\umigatari\umigatari\target\classes started by ryuhe in C:\Users\ryuhe\Desktop\ae\umigatari\umigatari)
+2025-01-07T19:03:21.399+09:00  INFO 1644 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-01-07T19:03:21.474+09:00  INFO 1644 --- [umigatari] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-01-07T19:03:21.474+09:00  INFO 1644 --- [umigatari] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-01-07T19:03:22.387+09:00  INFO 1644 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-01-07T19:03:22.387+09:00  INFO 1644 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-01-07T19:03:22.414+09:00  INFO 1644 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 18 ms. Found 0 JDBC repository interfaces.
+2025-01-07T19:03:22.438+09:00  INFO 1644 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-01-07T19:03:22.438+09:00  INFO 1644 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-01-07T19:03:22.456+09:00  INFO 1644 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 0 JPA repository interfaces.
+2025-01-07T19:03:23.296+09:00  INFO 1644 --- [umigatari] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-01-07T19:03:23.320+09:00  INFO 1644 --- [umigatari] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-07T19:03:23.320+09:00  INFO 1644 --- [umigatari] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-01-07T19:03:23.403+09:00  INFO 1644 --- [umigatari] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-01-07T19:03:23.404+09:00  INFO 1644 --- [umigatari] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1922 ms
+2025-01-07T19:03:23.611+09:00  INFO 1644 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-07T19:03:23.963+09:00  INFO 1644 --- [umigatari] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@8dae8e8
+2025-01-07T19:03:23.963+09:00  INFO 1644 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-07T19:03:24.033+09:00  INFO 1644 --- [umigatari] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-07T19:03:24.107+09:00  INFO 1644 --- [umigatari] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-01-07T19:03:24.151+09:00  INFO 1644 --- [umigatari] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-01-07T19:03:24.580+09:00  INFO 1644 --- [umigatari] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-01-07T19:03:24.984+09:00  INFO 1644 --- [umigatari] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-07T19:03:24.988+09:00  INFO 1644 --- [umigatari] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-01-07T19:03:25.444+09:00  WARN 1644 --- [umigatari] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'quizController': Unsatisfied dependency expressed through field 'userService': Error creating bean with name 'userService' defined in file [C:\Users\ryuhe\Desktop\ae\umigatari\umigatari\target\classes\com\example\umigatari\service\UserService.class]: Failed to instantiate [com.example.umigatari.service.UserService]: Constructor threw exception
+2025-01-07T19:03:25.445+09:00  INFO 1644 --- [umigatari] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-01-07T19:03:25.453+09:00  INFO 1644 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-01-07T19:03:25.460+09:00  INFO 1644 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-01-07T19:03:25.466+09:00  INFO 1644 --- [umigatari] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-01-07T19:03:25.479+09:00  INFO 1644 --- [umigatari] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-01-07T19:03:25.506+09:00 ERROR 1644 --- [umigatari] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'quizController': Unsatisfied dependency expressed through field 'userService': Error creating bean with name 'userService' defined in file [C:\Users\ryuhe\Desktop\ae\umigatari\umigatari\target\classes\com\example\umigatari\service\UserService.class]: Failed to instantiate [com.example.umigatari.service.UserService]: Constructor threw exception
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:788) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1439) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971) ~[spring-context-6.1.15.jar:6.1.15]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.15.jar:6.1.15]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.6.jar:3.3.6]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.6.jar:3.3.6]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.6.jar:3.3.6]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.6.jar:3.3.6]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.6.jar:3.3.6]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.6.jar:3.3.6]
+	at com.example.umigatari.UmigatariApplication.main(UmigatariApplication.java:10) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.6.jar:3.3.6]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userService' defined in file [C:\Users\ryuhe\Desktop\ae\umigatari\umigatari\target\classes\com\example\umigatari\service\UserService.class]: Failed to instantiate [com.example.umigatari.service.UserService]: Constructor threw exception
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:318) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:306) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785) ~[spring-beans-6.1.15.jar:6.1.15]
+	... 23 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.example.umigatari.service.UserService]: Constructor threw exception
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:221) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:117) ~[spring-beans-6.1.15.jar:6.1.15]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:315) ~[spring-beans-6.1.15.jar:6.1.15]
+	... 36 common frames omitted
+Caused by: software.amazon.awssdk.core.exception.SdkClientException: Configured region (ap-northeast-1%20) and tags ([]) resulted in an invalid URI: https://email.ap-northeast-1%20.amazonaws.com. This is usually caused by an invalid region configuration. Valid regions: [af-south-1, ap-northeast-1, ap-northeast-2, ap-northeast-3, ap-south-1, ap-southeast-1, ap-southeast-2, ap-southeast-3, ca-central-1, eu-central-1, eu-north-1, eu-south-1, eu-west-1, eu-west-2, eu-west-3, fips-us-east-1, fips-us-west-2, me-south-1, sa-east-1, us-east-1, us-east-2, us-west-1, us-west-2, fips-us-gov-west-1, us-gov-west-1]
+	at software.amazon.awssdk.core.exception.SdkClientException$BuilderImpl.build(SdkClientException.java:111) ~[sdk-core-2.20.52.jar:na]
+	at software.amazon.awssdk.core.exception.SdkClientException.create(SdkClientException.java:43) ~[sdk-core-2.20.52.jar:na]
+	at software.amazon.awssdk.awscore.endpoint.DefaultServiceEndpointBuilder.getServiceEndpoint(DefaultServiceEndpointBuilder.java:154) ~[aws-core-2.20.52.jar:na]
+	at software.amazon.awssdk.awscore.client.builder.AwsDefaultClientBuilder.endpointFromConfig(AwsDefaultClientBuilder.java:255) ~[aws-core-2.20.52.jar:na]
+	at software.amazon.awssdk.awscore.client.builder.AwsDefaultClientBuilder.lambda$resolveEndpoint$2(AwsDefaultClientBuilder.java:243) ~[aws-core-2.20.52.jar:na]
+	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
+	at software.amazon.awssdk.awscore.client.builder.AwsDefaultClientBuilder.resolveEndpoint(AwsDefaultClientBuilder.java:243) ~[aws-core-2.20.52.jar:na]
+	at software.amazon.awssdk.awscore.client.builder.AwsDefaultClientBuilder.finalizeChildConfiguration(AwsDefaultClientBuilder.java:195) ~[aws-core-2.20.52.jar:na]
+	at software.amazon.awssdk.core.client.builder.SdkDefaultClientBuilder.syncClientConfiguration(SdkDefaultClientBuilder.java:183) ~[sdk-core-2.20.52.jar:na]
+	at software.amazon.awssdk.services.ses.DefaultSesClientBuilder.buildClient(DefaultSesClientBuilder.java:38) ~[ses-2.20.52.jar:na]
+	at software.amazon.awssdk.services.ses.DefaultSesClientBuilder.buildClient(DefaultSesClientBuilder.java:27) ~[ses-2.20.52.jar:na]
+	at software.amazon.awssdk.core.client.builder.SdkDefaultClientBuilder.build(SdkDefaultClientBuilder.java:150) ~[sdk-core-2.20.52.jar:na]
+	at com.example.umigatari.service.UserService.<init>(UserService.java:40) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486) ~[na:na]
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:208) ~[spring-beans-6.1.15.jar:6.1.15]
+	... 38 common frames omitted
+
+2025-01-07T19:06:51.746+09:00  INFO 32652 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : Starting UmigatariApplication using Java 21.0.5 with PID 32652 (C:\Users\ryuhe\Desktop\ae\umigatari\umigatari\target\classes started by ryuhe in C:\Users\ryuhe\Desktop\ae\umigatari\umigatari)
+2025-01-07T19:06:51.748+09:00  INFO 32652 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-01-07T19:06:51.835+09:00  INFO 32652 --- [umigatari] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-01-07T19:06:51.836+09:00  INFO 32652 --- [umigatari] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-01-07T19:06:52.736+09:00  INFO 32652 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-01-07T19:06:52.739+09:00  INFO 32652 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-01-07T19:06:52.788+09:00  INFO 32652 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37 ms. Found 0 JDBC repository interfaces.
+2025-01-07T19:06:52.816+09:00  INFO 32652 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-01-07T19:06:52.816+09:00  INFO 32652 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-01-07T19:06:52.816+09:00  INFO 32652 --- [umigatari] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JPA repository interfaces.
+2025-01-07T19:06:53.655+09:00  INFO 32652 --- [umigatari] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-01-07T19:06:53.688+09:00  INFO 32652 --- [umigatari] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-07T19:06:53.688+09:00  INFO 32652 --- [umigatari] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-01-07T19:06:53.766+09:00  INFO 32652 --- [umigatari] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-01-07T19:06:53.766+09:00  INFO 32652 --- [umigatari] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1929 ms
+2025-01-07T19:06:53.960+09:00  INFO 32652 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-07T19:06:54.278+09:00  INFO 32652 --- [umigatari] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@49ca8e80
+2025-01-07T19:06:54.278+09:00  INFO 32652 --- [umigatari] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-07T19:06:54.346+09:00  INFO 32652 --- [umigatari] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-07T19:06:54.416+09:00  INFO 32652 --- [umigatari] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-01-07T19:06:54.480+09:00  INFO 32652 --- [umigatari] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-01-07T19:06:54.912+09:00  INFO 32652 --- [umigatari] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-01-07T19:06:55.317+09:00  INFO 32652 --- [umigatari] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-07T19:06:55.326+09:00  INFO 32652 --- [umigatari] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-01-07T19:06:57.063+09:00  INFO 32652 --- [umigatari] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-01-07T19:06:57.118+09:00  INFO 32652 --- [umigatari] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-01-07T19:06:57.131+09:00  INFO 32652 --- [umigatari] [restartedMain] c.e.umigatari.UmigatariApplication       : Started UmigatariApplication in 5.998 seconds (process running for 6.539)

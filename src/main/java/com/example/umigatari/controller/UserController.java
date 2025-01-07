@@ -99,10 +99,13 @@ public class UserController {
     @PostMapping("sendmail")
     public String sendMail(@RequestParam String mail,Model model,HttpSession session){
         boolean check = userService.chekMail(mail);
-        //Object objadd = session.getAttribute("addrivute");
-        //int addrivute = (int) objadd;
+        Object objadd = session.getAttribute("addrivute");
+        int addrivute = (int) objadd;
         if(check){
-            //メールを送る処理　
+            String baseUrl = "https://example.com/createaccount/create";
+            String registrationUrl = baseUrl + "?mail=" + mail + "&addrivute=" + addrivute;
+            String body = "新規登録用URLを送付しました。以下のURLから新規登録してください。\n"+registrationUrl;
+            userService.sendEmail(mail, "新規登録について", body);
         model.addAttribute("send", "メールを送信しました");
         return "account/createaccountone";
         }
@@ -202,9 +205,12 @@ public class UserController {
     //パスワードを変更するためのメールを送る 未実装
     @PostMapping("forgotpassword")
     public String readmail(@RequestParam String mail,Model model,HttpSession session){
-        //Object objadd = session.getAttribute("addrivute");
-        //int addrivute = (int) objadd;
-        //メールを送る処理。上と同様
+        Object objadd = session.getAttribute("addrivute");
+        int addrivute = (int) objadd;
+        String baseUrl = "https://example.com/createaccount/create";
+            String registrationUrl = baseUrl + "?mail=" + mail + "&addrivute=" + addrivute;
+            String body = "新規登録用URLを送付しました。以下のURLから新規登録してください。\n"+registrationUrl;
+            userService.sendEmail(mail, "新規登録について", body);
         model.addAttribute("send", "メールを送信しました");
         return "account/forgotpassone";
     }
