@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,12 +13,53 @@ import org.springframework.stereotype.Service;
 import com.example.umigatari.NotFoundException;
 import com.example.umigatari.model.account;
 import com.example.umigatari.repository.UserRepository;
+
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.ses.SesClient;
+import software.amazon.awssdk.services.ses.model.Body;
+import software.amazon.awssdk.services.ses.model.Content;
+import software.amazon.awssdk.services.ses.model.Destination;
+import software.amazon.awssdk.services.ses.model.Message;
+import software.amazon.awssdk.services.ses.model.SendEmailRequest;
+import software.amazon.awssdk.services.ses.model.SesException;
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    private final SesClient sesClient;
+    
+    //sesClientの初期化
+    public UserService(@Value("${aws.region}") String region) {
+        this.sesClient = SesClient.builder()
+                .region(Region.of(region))
+                .credentialsProvider(DefaultCredentialsProvider.create()) 
+                .build();
+    }
+
+    //メールを送信資する処理
+    public void sendEmail(String mail, String subject, String body) {
+        try {
+            SendEmailRequest emailRequest = SendEmailRequest.builder()
+                    .destination(Destination.builder().toAddresses(mail).build())
+                    .message(Message.builder()
+                            .subject(Content.builder().data(subject).charset("UTF-8").build())
+                            .body(Body.builder()
+                                    .text(Content.builder().data(body).charset("UTF-8").build())
+                                    .build())
+                            .build())
+                    .source("your-verified-email@example.com")//アドレスは後で変更
+                    .build();
+
+            sesClient.sendEmail(emailRequest);
+        } catch (SesException e) {
+            System.err.println("Email sending failed: " + e.awsErrorDetails().errorMessage());
+            throw new RuntimeException("Failed to send email", e);
+        }
+    }
 
     //アカウント作成
     public void createAccount(account account) {
@@ -37,6 +79,7 @@ public class UserService {
         int count = userRepository.checkMail(mail);
         return count == 0;
     }
+
 
     //ランキングを表示
     public Map<String,Object> ranking(int limit,Long id){
