@@ -30,6 +30,7 @@ import com.example.umigatari.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+//１月８日　メール送る以外の機能は追加済み、不必要なものを削除していく作業を始める
 /*属性のスペルをattributeなのにaddrivuteと勘違いしています。
  * 使用してるセッション
  * solvedQuizzes解いた問題
