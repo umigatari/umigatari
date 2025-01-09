@@ -2,65 +2,70 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.min.js"></script>
     <title>QRコードリーダー</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/css/userpage/QR.css">
-    <script src="https://unpkg.com/@zxing/library@latest/umd/index.min.js"></script>
+    <link rel="stylesheet" href="QR.css">
 </head>
 <body>
-
-    <h1>QRコードスキャナー</h1>
-    <video id="video"></video>
-    <button id="startButton">スキャン開始</button>
-    <p id="result">結果: 未検出</p>
-
+    <header class="header">
+        <h1>うみがたりクイズスタンプラリー</h1>
+    </header>
+    <h2>QRコードをスキャンしてください</h2>
+    <video id="camera" autoplay></video>
+    <p id="output">読み取り中...</p>
     <script>
-        // ZXing ライブラリの初期化
-        const codeReader = new ZXing.BrowserQRCodeReader();
-        const audio = new Audio('beep.mp3');  // ビープ音の設定
-        const videoElement = document.getElementById('video');
-        const resultElement = document.getElementById('result');
-        const startButtonElement = document.getElementById('startButton');
+        const video = document.getElementById('camera');
+        const output = document.getElementById('output');
 
-        // 背面カメラのデバイスを選択する関数
-        const getBackCamera = (devices) => {
-            return devices.find((device) => device.label.toLowerCase().includes('back'));
-        };
+        // カメラを起動
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                console.error("カメラの起動に失敗:", err);
+                output.textContent = "カメラが利用できません。";
+            });
 
-        // スキャン開始関数
-        const startScan = () => {
-            codeReader.listVideoInputDevices()
-                .then((videoInputDevices) => {
-                    if (videoInputDevices.length === 0) {
-                        alert('カメラが見つかりませんでした。');
-                        return;
-                    }
+        // QRコードの読み取り
+        video.addEventListener('play', () => {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
 
-                    const backCamera = getBackCamera(videoInputDevices);
-                    const selectedDeviceId = backCamera ? backCamera.deviceId : videoInputDevices[videoInputDevices.length - 1].deviceId;
+            const scanQRCode = () => {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-                    // QRコード読み取りの開始
-                    codeReader.decodeFromVideoDevice(selectedDeviceId, videoElement, (result, err) => {
-                        if (result) {
-                            resultElement.textContent = '結果: ' + result.text;
-                            audio.play();  // QRコードが読み取られたら音を鳴らす
-                            codeReader.reset();  // リセット
-                        }
-                        if (err && !(err instanceof ZXing.NotFoundException)) {
-                            console.error('エラー:', err);
-                            resultElement.textContent = 'エラー: ' + err;
-                        }
+                const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                const qrCode = jsQR(imageData.data, canvas.width, canvas.height);
+
+                if (qrCode) {
+                    output.textContent = `QRコード読み取り成功: ${qrCode.data}`;
+
+                    // URLをSpring Bootのサーバーに送信
+                    fetch('/processQRCode', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ url: qrCode.data })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("サーバーからの応答:", data);
+                    })
+                    .catch(error => {
+                        console.error("QRコードの処理に失敗:", error);
                     });
-                })
-                .catch((err) => {
-                    console.error('エラー:', err);
-                    alert('カメラへのアクセス中にエラーが発生しました。');
-                });
-        };
+                } else {
+                    requestAnimationFrame(scanQRCode);
+                }
+            };
 
-        // スキャン開始ボタンがクリックされたら、スキャンを開始
-        startButtonElement.addEventListener('click', startScan);
+            scanQRCode();
+        });
     </script>
-
 </body>
 </html>
