@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/account/account.css">
+
     <title>ログイン</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
             <p th:text="${failure}">そのユーザーネームは既に登録されています。別のユーザーネームを使用してください。</p>
         </div>
 
-        <form action="/adminpassword" method="post">
+        <form action="adminpassword" method="post">
             <div class="form-group">
                 <label for="name">ユーザー名</label>
                 <input type="text" id="name" name="name" placeholder="ユーザー名" required>

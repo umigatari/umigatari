@@ -1,37 +1,45 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: aliceblue;
     display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;              /* 画面全体の高さを使う */
+    margin: 0;                  /* デフォルトのマージンをリセット */
     flex-direction: column;
-    align-items: center;
-    margin: 20px;
 }
 
-#video {
-    width: 100%;
-    height: auto;
-    max-width: 400px;
+.header {
+    background-color: #92d5dc;
+    padding: 20px;
+    text-align: center;
+    color: #4e493f;
+    width: 100%;  
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10; 
 }
 
-#startButton {
-    padding: 15px 30px;
+h1{
     font-size: 20px;
-    margin-top: 20px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-#startButton:hover {
-    background-color: #0056b3;
+/* QRコードをスキャンするためのカメラ映像のスタイル */
+video {
+    border: 3px solid #333; /* カメラ映像の枠線 */
+    width: 300px;  /* QRコードが適切に表示されるサイズに調整 */
+    height: 300px; /* 正方形の枠 */
+    object-fit: cover; /* 画面の比率を保ちながら切り抜く */
+    margin-top: 100px; /* ヘッダーとカメラ映像の間にスペースを作る */
+    margin-left: auto; /* 左右中央に配置 */
+    margin-right: auto ;
 }
 
-#result {
-    margin-top: 20px;
+/* QRコードの読み取り結果 */
+#output {
+    text-align: center;
     font-size: 18px;
+    margin-top: 20px;
     color: #333;
-    word-break: break-all;
-    max-width: 100%;
 }

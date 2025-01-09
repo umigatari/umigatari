@@ -92,7 +92,7 @@ public class QuizController {
         }
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://examplepj.f5.si/quiz/\\d+$";
+        String allowedRefererPattern = "^https?://localhost:8080/quiz/\\d+$";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -134,7 +134,7 @@ public class QuizController {
         }
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://examplepj.f5.si/quiz/\\d+$";
+        String allowedRefererPattern = "^https?://localhost:8080/quiz/\\d+$";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -157,9 +157,7 @@ public class QuizController {
             userService.countUp(id);
             model.addAttribute("message", "正解!");
             Set<Integer> correct = (Set<Integer>) session.getAttribute("correct");
-            if (correct == null) {
-                correct = new LinkedHashSet<>();
-            }
+            System.out.println(correct);
             correct.add(type);
             session.setAttribute("correct", correct);
             model.addAttribute("str",str);
@@ -167,8 +165,8 @@ public class QuizController {
         //不正解なら不正解と表示
         } else {
             model.addAttribute("message", "不正解");
-            Set<Integer> correct = (Set<Integer>) session.getAttribute("carrect");
-            session.setAttribute("correct", correct);
+            Set<Integer> correct = (Set<Integer>) session.getAttribute("correct");
+            System.out.println(correct);
             String str = "今までの累計正解数は、" + count + "回です";
             model.addAttribute("str",str);
             model.addAttribute("correct",correct);
@@ -194,7 +192,7 @@ public class QuizController {
         }
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://examplepj.f5.si/stamp.*";
+        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -222,7 +220,7 @@ public class QuizController {
     public String getRule(HttpServletRequest request) {
          //リファラで遷移が正しいかチェック
          String referer = request.getHeader("Referer");
-         String allowedRefererPattern = "^https?://examplepj.f5.si/stamp.*";
+         String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
          if (referer == null || !referer.matches(allowedRefererPattern)) {
              if (referer == null) {
                  return "redirect:/userpage/nopage";
@@ -339,7 +337,6 @@ public class QuizController {
                 model.addAttribute("quiz",quiz);
                 return "admin/check";
             } else {
-                // このコード意味ない
                 List<quiz> quizzes = quizService.checkListQuiz();
             model.addAttribute("quiz", quizzes);
             return "admin/check";

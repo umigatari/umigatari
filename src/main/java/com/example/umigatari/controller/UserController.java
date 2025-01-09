@@ -3,6 +3,7 @@ package com.example.umigatari.controller;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -154,11 +155,6 @@ public class UserController {
         boolean checkpassword = result != null && (boolean) result.get("passwordMatch");
         Long id = result != null ? (Long) result.get("id") : null;
         if(checkpassword&&id!=null){
-            //管理者アカウントなら管理者画面に遷移
-            if(name.equals("admin")){
-                session.setAttribute("id", id);
-                return "redirect:admin";
-            }
             //入館時間の記録
             long currentMillis = System.currentTimeMillis();
             Timestamp entertime = new Timestamp(currentMillis);
@@ -180,7 +176,9 @@ public class UserController {
             sessionCookie.setPath("/");
             sessionCookie.setHttpOnly(true);
             response.addCookie(sessionCookie);
-
+            Set<Integer> correct = new LinkedHashSet<>();
+            correct.add(0);
+            session.setAttribute("correct", correct);
             return "redirect:stamp";
         }else{
             model.addAttribute("failure", "パスワードもしくはユーザーネームが間違っています");
@@ -274,7 +272,7 @@ public class UserController {
         }
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://examplepj.f5.si/stamp.*";
+        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -296,7 +294,7 @@ public class UserController {
             return "userpage/nopage";
         }
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://examplepj.f5.si/stamp.*";
+        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -320,7 +318,7 @@ public class UserController {
             return "userpage/nopage";
         }
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://examplepj.f5.si/stamp.*";
+        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
