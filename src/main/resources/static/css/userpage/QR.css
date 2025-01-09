@@ -1,12 +1,8 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: aliceblue;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    height: 100vh;              /* 画面全体の高さを使う */
-    margin: 0;                  /* デフォルトのマージンをリセット */
-    flex-direction: column;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
 }
 
 .header {
@@ -14,32 +10,72 @@ body {
     padding: 20px;
     text-align: center;
     color: #4e493f;
-    width: 100%;  
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10; 
+}
+
+.header h1 {
+    font-size: 24px;
+    margin: 0;
 }
 
 h1{
+    font-size: 24px;
+    margin-right: 40px;
+}
+
+#startButton {
+    padding: 15px 30px;
     font-size: 20px;
+    margin-top: 40px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 120px;
 }
 
-/* QRコードをスキャンするためのカメラ映像のスタイル */
-video {
-    border: 3px solid #333; /* カメラ映像の枠線 */
-    width: 300px;  /* QRコードが適切に表示されるサイズに調整 */
-    height: 300px; /* 正方形の枠 */
-    object-fit: cover; /* 画面の比率を保ちながら切り抜く */
-    margin-top: 100px; /* ヘッダーとカメラ映像の間にスペースを作る */
-    margin-left: auto; /* 左右中央に配置 */
-    margin-right: auto ;
+#startButton:hover {
+    background-color: #0056b3;
 }
 
-/* QRコードの読み取り結果 */
-#output {
-    text-align: center;
-    font-size: 18px;
+h2{
+    font-size: 30px;
     margin-top: 20px;
-    color: #333;
+    margin-left: 60px;
+}
+
+p{
+    font-size: 20px;
+    margin-top: 5px;
+    margin-left: 65px;
+}
+
+.space-frame {
+    position: relative; /* 相対位置でビデオタグを内包 */
+    width: 300px; /* 枠線の横幅 */
+    height: 300px; /* 枠線の縦幅（正方形） */
+    border: 2px solid #4682b4; /* 枠線の色 */
+    margin-top: 20px; /* h1との間に余白を作る */
+    overflow: hidden; /* ビデオが枠からはみ出さないように */
+    margin-left: 60px;
+}
+
+#video {
+    position: absolute; /* 絶対位置で枠内に配置 */
+    width: 100%; /* 枠の幅に合わせる */
+    height: 100%; /* 枠の高さに合わせる */
+    object-fit: cover; /* ビデオを枠に合わせて縮小・拡大 */
+}
+
+button{
+    background-color: #e7ce53;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px 20px;
 }

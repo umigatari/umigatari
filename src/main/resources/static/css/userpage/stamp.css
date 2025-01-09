@@ -26,6 +26,7 @@ h1{
     flex-direction: column; 
     align-items: center;
     padding-right: 30px;
+    touch-action: manipulation; /* タッチ操作を有効化 */
 }
 
 .account-icon {
@@ -33,6 +34,7 @@ h1{
     height: 40px;
     background-color: #ccc;
     border-radius: 50%;
+    cursor: pointer; /* タップ可能であることを示す */
 }
 
 .account-info span {
