@@ -5,35 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.min.js"></script>
     <title>QRコードリーダー</title>
-    <link rel="stylesheet" href="QR.css">
+    <link rel="stylesheet" href="/css/userpage/QR.css">
 </head>
 <body>
     <header class="header">
         <h1>うみがたりクイズスタンプラリー</h1>
     </header>
-    <h2>QRコードをスキャンしてください</h2>
-    <video id="camera" autoplay></video>
-    <p id="output">読み取り中...</p>
+    <h2>QRコードスキャナー</h2>
+    <p>QRコードを読み取ってください</p>
+    <div class="space-frame">
+        <video id="video" autoplay></video>
+    </div>
+    <button id="startButton">スキャン開始</button>
+    <p id="output"></p>
+    <form action="stamp" method="get">
+        <button type="submit">スタンプへ</button>
+    </form>
     <script>
-        const video = document.getElementById('camera');
+        const video = document.getElementById('video');
+        const startButton = document.getElementById('startButton');
         const output = document.getElementById('output');
 
-        // カメラを起動
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-            .then(stream => {
-                video.srcObject = stream;
-            })
-            .catch(err => {
-                console.error("カメラの起動に失敗:", err);
-                output.textContent = "カメラが利用できません。";
-            });
+        let stream;
 
-        // QRコードの読み取り
-        video.addEventListener('play', () => {
+        // スキャン開始ボタンが押されたときの処理
+        startButton.addEventListener('click', () => {
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+                .then(s => {
+                    stream = s;
+                    video.srcObject = stream;
+                    video.play();
+                    output.textContent = "カメラが起動しました。QRコードを読み取っています...";
+                    startQRCodeScanner();
+                })
+                .catch(err => {
+                    console.error("カメラの起動に失敗:", err);
+                    output.textContent = "カメラが利用できません。";
+                });
+        });
+
+        // QRコードのスキャン処理
+        function startQRCodeScanner() {
             const canvas = document.createElement('canvas');
             const context = canvas.getContext('2d');
 
             const scanQRCode = () => {
+                if (!stream) return;
+
                 canvas.width = video.videoWidth;
                 canvas.height = video.videoHeight;
                 context.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -48,9 +66,9 @@
                     fetch('/processQRCode', {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ url: qrCode.data })
+                        body: JSON.stringify({ url: qrCode.data }),
                     })
                     .then(response => response.json())
                     .then(data => {
@@ -59,13 +77,26 @@
                     .catch(error => {
                         console.error("QRコードの処理に失敗:", error);
                     });
+
+                    // スキャンを停止
+                    stopScanner();
                 } else {
                     requestAnimationFrame(scanQRCode);
                 }
             };
 
             scanQRCode();
-        });
+        }
+
+        // カメラストリームを停止する処理
+        function stopScanner() {
+            if (stream) {
+                const tracks = stream.getTracks();
+                tracks.forEach(track => track.stop());
+                stream = null;
+                output.textContent += " スキャンを停止しました。";
+            }
+        }
     </script>
 </body>
 </html>

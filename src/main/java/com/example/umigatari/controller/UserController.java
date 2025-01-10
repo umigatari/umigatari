@@ -87,6 +87,7 @@ public class UserController {
         Random random = new Random();
         int randomNumber = random.nextInt(5);
         model.addAttribute("img",img[randomNumber]);
+        session.invalidate(); 
         return "userpage/exit";
     }
     
@@ -96,7 +97,7 @@ public class UserController {
         return "account/createaccountone";
     }
 
-    //メールを実際に送る処理 未実装
+    //メールを実際に送る処理 ok
     @PostMapping("sendmail")
     public String sendMail(@RequestParam String mail,Model model,HttpSession session){
         boolean check = userService.chekMail(mail);

@@ -42,11 +42,14 @@
     </div>
 
     <div class="button-container">
-        <form action="/reward" method="get">
-            <button id="reward-btn" class="reward-btn">プレゼント</button>
-        </form>
         <form action="/rule" method="get">
             <button id="rule-btn" class="rule-btn">ルール説明</button>
+        </form>
+        <form th:action="@{/qr}" method="get">
+            <button id="ranking-btn" class="ranking-btn">QRコードを読み取る</button>
+        </form>
+        <form action="/reward" method="get">
+            <button id="reward-btn" class="reward-btn">プレゼント</button>
         </form>
         <form action="/ranking" method="get">
             <button id="ranking-btn" class="ranking-btn">ランキングへ</button>
@@ -54,9 +57,7 @@
         <form th:action="@{/quiz/createpage}" method="get">
             <button id="ranking-btn" class="ranking-btn">クイズを作成する</button>
         </form>
-        <form th:action="@{/qr}" method="get">
-            <button id="ranking-btn" class="ranking-btn">QRコードを読み取る</button>
-        </form>
+    
     </div>
     <footer class="footer">
         <div class="logo">
@@ -124,12 +125,24 @@
 
    // ログアウトボタンが押されたとき、ログアウト確認ポップアップを表示
     document.getElementById('logout-btn').addEventListener('click', function() {
-    logoutPopup.style.display = 'block'; // ログアウト確認ポップアップを表示
+       logoutPopup.style.display = 'block'; // ログアウト確認ポップアップを表示
+    });
+
+    // タッチイベント対応
+    document.getElementById('logout-btn').addEventListener('touchstart', function(event) {
+        event.preventDefault(); // ダブルタップズーム防止
+        logoutPopup.style.display = 'block';
     });
 
    // アカウント削除ボタンが押されたとき、アカウント削除確認ポップアップを表示
     document.getElementById('delete-btn').addEventListener('click', function() {
         deletePopup.style.display = 'block'; // アカウント削除確認ポップアップを表示
+    });
+
+    // タッチイベント対応
+    document.getElementById('delete-btn').addEventListener('touchstart', function(event) {
+        event.preventDefault();
+        deletePopup.style.display = 'block';
     });
 
    // ログアウトの「はい」ボタンが押されたとき
@@ -148,6 +161,13 @@
         finalDeletePopup.style.display = 'block'; // 最終確認ポップアップを表示
         deletePopup.style.display = 'none'; // アカウント削除確認ポップアップを非表示
     });
+
+    // タッチイベント対応
+    document.getElementById('confirm-delete-yes').addEventListener('touchstart', function(event) {
+        event.preventDefault();
+        finalDeletePopup.style.display = 'block';
+        deletePopup.style.display = 'none';
+    });
             
     // アカウント削除の「いいえ」ボタンが押されたとき
     document.getElementById('confirm-delete-no').addEventListener('click', function() {
@@ -159,6 +179,11 @@
         fetch('/deleteaccount', { method: 'POST' });
     window.location.href = '/deleteaccount'; 
     });
+
+    // 最終確認の「いいえ」ボタンが押されたとき
+    document.getElementById('confirm-final-delete-no').addEventListener('click', function() {
+        finalDeletePopup.style.display = 'none'; // ポップアップを非表示
+    });
                 
     // 最終確認の「いいえ」ボタンが押されたとき
     document.getElementById('confirm-final-delete-no').addEventListener('click', function() {
@@ -166,7 +191,6 @@
     });
 
 </script>
-
 
 </body>
 </html>

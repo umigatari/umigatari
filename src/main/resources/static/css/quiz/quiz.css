@@ -95,6 +95,7 @@ input[type="submit"]:hover {
 }
 
 .quiz-button span {
+    font-family: "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", "Meiryo", "MS PGothic", sans-serif;
     display: block; /* テキストをブロックにして中央揃えを維持 */
     line-height: 1.5;
 }
@@ -137,17 +138,36 @@ form {
     text-align: center; /* 子要素を中央揃え */
 }
 
-.stampbutton[type="submit"] {
-    background-color: #FAC61E; /* 明るい黄色 */
-    color: white; /* 文字色を白に設定 */
+#stamp-btn {
+    background-color: #e7ce53;
+    color: white;
     padding: 10px 20px;
-    margin: 10px auto;
-    border: none;
-    border-radius: 5px;
     font-size: 16px;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    display: inline-block;
+    margin: 10px 20px;
+    margin-right: 270px;
+}
+
+button[type="submit"]{
+    padding: 15px 30px;
+    font-size: 20px;
+    margin-top: 40px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+    margin: 20px;
+    font-size: 18px;
 }
 
 
