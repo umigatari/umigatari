@@ -115,6 +115,16 @@ form {
     text-align: center; /* 子要素を中央揃え */
 }
 
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
 #stamp-btn {
     background-color: #e7ce53;
     color: white;
@@ -160,15 +170,5 @@ p {
 
 #addquiz:hover {
     background-color: #0056b3;
-}
-
-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
 }
 
