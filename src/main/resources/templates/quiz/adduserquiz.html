@@ -14,6 +14,11 @@
         <h1>問題作成</h1>
         <p>みんなに知ってほしい豆知識や難易度がたかい問題など海の生き物や水族館に関する問題を作ってみてください！</p>
         <p>１個のクイズにつき正解の回答１つと不正解の回答２つを入力してください</p>
+
+        <div id="message" th:if="${create}">
+            <h2 th:text="${create}" ></h2>
+        </div>
+
         <div id="quiz-form-container" th:if="${count >= 3}" th:unless="${create}">
             <form action="/quiz/create" method="post">
                 <label for="question">クイズ:</label>
@@ -30,17 +35,15 @@
         
                 <input type="hidden" name="confirmation" value="true">
         
-                <button type="submit">送信</button>
+                <button id = "addquiz" type="submit">送信</button>
             </form>
         </div>
         
-        <div id="message"></div>
-        <div  class="button-container">
+        <div class="button-container">
             <form th:action="@{/stamp}" method="get">
                 <button id="stamp-btn" class="stamp-btn">スタンプへ</button>
             </form>
         </div>
     </div>
-
 </body>
 </html>

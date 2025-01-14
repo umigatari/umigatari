@@ -1,102 +1,103 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.min.js"></script>
     <title>QRコードリーダー</title>
-    <link rel="stylesheet" href="/css/userpage/QR.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/@zxing/library@latest/umd/index.min.js"></script>
+    <link rel="stylesheet" href="css/userpage/QR.css">
 </head>
+
+<div class="header">
+    <h1>うみがたり クイズスタンプラリー</h1>
+</div>
+
 <body>
-    <header class="header">
-        <h1>うみがたりクイズスタンプラリー</h1>
-    </header>
-    <h2>QRコードスキャナー</h2>
-    <p>QRコードを読み取ってください</p>
-    <div class="space-frame">
-        <video id="video" autoplay></video>
-    </div>
+    <h1>QRコードスキャナー</h1>
+    <video id="video"></video>
     <button id="startButton">スキャン開始</button>
-    <p id="output"></p>
-    <form action="stamp" method="get">
-        <button type="submit">スタンプへ</button>
-    </form>
+    <p id="result">結果: 未検出</p>
+    <div>
+        <button onclick="location.href='/stamp'">ホームに戻る</button>
+    </div>
     <script>
-        const video = document.getElementById('video');
+        const codeReader = new ZXing.BrowserQRCodeReader();
+        const videoElement = document.getElementById('video');
+        const resultElement = document.getElementById('result');
         const startButton = document.getElementById('startButton');
-        const output = document.getElementById('output');
+        const audio = new Audio('path/to/sound.mp3'); // 読み取り成功時の音声ファイル
 
-        let stream;
-
-        // スキャン開始ボタンが押されたときの処理
         startButton.addEventListener('click', () => {
-            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-                .then(s => {
-                    stream = s;
-                    video.srcObject = stream;
-                    video.play();
-                    output.textContent = "カメラが起動しました。QRコードを読み取っています...";
-                    startQRCodeScanner();
-                })
-                .catch(err => {
-                    console.error("カメラの起動に失敗:", err);
-                    output.textContent = "カメラが利用できません。";
-                });
+            startScan();
         });
 
-        // QRコードのスキャン処理
-        function startQRCodeScanner() {
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
+        const startScan = () => {
+            codeReader.listVideoInputDevices()
+                .then((videoInputDevices) => {
+                    if (videoInputDevices.length === 0) {
+                        alert('カメラが見つかりませんでした。');
+                        return;
+                    }
 
-            const scanQRCode = () => {
-                if (!stream) return;
+                    const backCamera = getBackCamera(videoInputDevices);
+                    const selectedDeviceId = backCamera ? backCamera.deviceId : videoInputDevices[videoInputDevices.length - 1].deviceId;
 
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    codeReader.decodeFromVideoDevice(selectedDeviceId, videoElement, (result, err) => {
+                        if (result) {
+                            const scannedText = result.text;
+                            resultElement.textContent = '結果: ' + scannedText;
+                            audio.play();
+                            codeReader.reset();
 
-                const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-                const qrCode = jsQR(imageData.data, canvas.width, canvas.height);
-
-                if (qrCode) {
-                    output.textContent = `QRコード読み取り成功: ${qrCode.data}`;
-
-                    // URLをSpring Bootのサーバーに送信
-                    fetch('/processQRCode', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ url: qrCode.data }),
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log("サーバーからの応答:", data);
-                    })
-                    .catch(error => {
-                        console.error("QRコードの処理に失敗:", error);
+                            if (isValidURL(scannedText)) {
+                                if (isSameOrigin(scannedText)) {
+                                    window.location.href = scannedText;
+                                } else {
+                                    alert('異なるドメインへのリクエストは許可されていません。');
+                                }
+                            } else {
+                                alert('QRコードには有効なURLが含まれていません。');
+                            }
+                        }
+                        if (err && !(err instanceof ZXing.NotFoundException)) {
+                            console.error('エラー:', err);
+                            resultElement.textContent = 'エラー: ' + err;
+                        }
                     });
+                })
+                .catch((err) => {
+                    console.error('エラー:', err);
+                    alert('カメラへのアクセス中にエラーが発生しました。');
+                });
+        };
 
-                    // スキャンを停止
-                    stopScanner();
-                } else {
-                    requestAnimationFrame(scanQRCode);
+        const getBackCamera = (videoInputDevices) => {
+            for (let device of videoInputDevices) {
+                if (device.label.toLowerCase().includes('back')) {
+                    return device;
                 }
-            };
-
-            scanQRCode();
-        }
-
-        // カメラストリームを停止する処理
-        function stopScanner() {
-            if (stream) {
-                const tracks = stream.getTracks();
-                tracks.forEach(track => track.stop());
-                stream = null;
-                output.textContent += " スキャンを停止しました。";
             }
-        }
+            return null;
+        };
+
+        const isValidURL = (url) => {
+            try {
+                new URL(url);
+                return true;
+            } catch (_) {
+                return false;
+            }
+        };
+
+        const isSameOrigin = (url) => {
+            const currentLocation = window.location;
+            const urlLocation = new URL(url);
+
+            return currentLocation.origin === urlLocation.origin;
+        };
+
     </script>
 </body>
+
 </html>

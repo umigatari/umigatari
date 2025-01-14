@@ -27,16 +27,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-/*属性をattributeなのをaddrivuteと勘違いしています。
- * 使用してるセッション
- * solvedQuizzes解いた問題
- * correct正解した問題
- * answer正解の情報
- * timeセクションごとの時間の情報
- * idユーザーID
- * addrivuteユーザの属性
- * entertime入館時間
- */
+
 @Controller
 
 public class UserController {
@@ -273,7 +264,7 @@ public class UserController {
         }
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
+        String allowedRefererPattern = "^https?://examplepj.f5.si/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -295,7 +286,7 @@ public class UserController {
             return "userpage/nopage";
         }
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
+        String allowedRefererPattern = "^https?://examplepj.f5.si/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -313,13 +304,14 @@ public class UserController {
         return "userpage/ranking";
     }
     
+    //QRコードを読み取る
     @GetMapping("qr")
     public String qrcode(HttpSession session,HttpServletRequest request){
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
+        String allowedRefererPattern = "^https?://examplepj.f5.si/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
