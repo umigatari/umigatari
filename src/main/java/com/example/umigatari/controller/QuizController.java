@@ -30,16 +30,6 @@ import com.example.umigatari.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-/*属性のスペルをattributeなのにaddrivuteと勘違いしています。
- * 使用してるセッション
- * solvedQuizzes解いた問題
- * correct正解した問題
- * answer正解の情報
- * timeセクションごとの時間の情報
- * idユーザーID
- * addrivuteユーザの属性
- * entertime入館時間
- */
 @Controller
 
 public class QuizController {
@@ -91,7 +81,7 @@ public class QuizController {
         }
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080/quiz/\\d+$";
+        String allowedRefererPattern = "^https?://examplepj.f5.si/quiz/\\d+$";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -133,7 +123,7 @@ public class QuizController {
         }
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080/quiz/\\d+$";
+        String allowedRefererPattern = "^https?://examplepj.f5.si/quiz/\\d+$";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -191,7 +181,7 @@ public class QuizController {
         }
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
+        String allowedRefererPattern = "^https?://examplepj.f5.si.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -219,7 +209,7 @@ public class QuizController {
     public String getRule(HttpServletRequest request) {
          //リファラで遷移が正しいかチェック
          String referer = request.getHeader("Referer");
-         String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
+         String allowedRefererPattern = "^https?://examplepj.f5.si/stamp.*";
          if (referer == null || !referer.matches(allowedRefererPattern)) {
              if (referer == null) {
                  return "redirect:/userpage/nopage";

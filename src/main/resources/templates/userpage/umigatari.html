@@ -13,7 +13,7 @@
 
     <div class="popup-container" id="surveyPopup">
         <div class="popup">
-            <h2>アンケートにお答えください</h2>
+            <h2>アンケートにお答えください。本日はどなたとご一緒にお越しですか？</h2>
             <form id="surveyForm" action="addrivute" method="post">
                 <div>
                     <button type="submit" name="answer" value="1">一人</button>
@@ -43,7 +43,7 @@
     </div>
 
     <div class="button-container">
-        <form action="/createaccount/" method="get">
+        <form action="/createaccount/mail" method="get">
             <button id="signup-btn" class="signup-btn">新規登録</button>
         </form>
         <form action="/login" method="get">

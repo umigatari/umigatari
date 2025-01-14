@@ -17,7 +17,7 @@ body {
 }
 
 h1{
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .account-info {
@@ -34,12 +34,12 @@ h1{
     height: 40px;
     background-color: #ccc;
     border-radius: 50%;
-    cursor: pointer; /* タップ可能であることを示す */
+    cursor: pointer;
 }
 
 .account-info span {
     font-size: 15px;
-    white-space: nowrap; /* テキストが改行されないようにする */
+    white-space: nowrap;
 }
 
 .account-dropdown {
@@ -60,7 +60,7 @@ h1{
 }
 
 .account-info:hover .account-dropdown {
-    display: flex;  /* ホバー時に表示 */
+    display: flex;
     position: absolute;
     background-color: #fff;
     padding: 10px;
@@ -69,10 +69,10 @@ h1{
 }
 
 .account-icon {
-    width: 40px; /* アイコンの直径 */
+    width: 40px;
     height: 40px;
     background-color: #4b5eaa; 
-    border-radius: 50%; /* 円形にする */
+    border-radius: 50%;
     display: flex;
     flex-direction: column; 
     justify-content: center; 
@@ -178,7 +178,7 @@ h1{
     height: 100px;
     border-radius: 50%; /* 円形にする */
     background-color: #d3d3d3;
-    border: 2px solid #4682b4;
+    border: 2px solid #628d92;
 }
 
 
@@ -226,7 +226,7 @@ h1{
 }
 
 .ranking-btn,.reward-btn,.rule-btn {
-    background-color: #fcfa73; 
+    background-color: #e7ce53;; 
     color: rgb(27, 24, 24);              
     padding: 10px 20px;        
     width: 200px;
