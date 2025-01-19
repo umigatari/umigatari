@@ -5,27 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/quiz/quiz.css">
     <title>問題作成フォーム</title>
-    <style>
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-    </style>
 </head>
 <body>
     <div class="header">
-        <h1>うみがたり クイズスタンプラリー</h1>
+        <img src="/img/umigatari.png" alt="umigatarilogo">
+        <img src="/img/batu.png" alt="batu">
+        <img src="/img/jjc.png" alt="jjclogo">
     </div>
-    <div>
-        <h1>問題作成</h1>
-        <p>みんなに知ってほしい豆知識や難易度がたかい問題など海の生き物や水族館に関する問題を作ってみてください！</p>
-        <p>１個のクイズにつき正解の回答１つと不正解の回答２つを入力してください</p>
-
+    <div class="content-container">
+        <div class="section fade-in">
+            <p class="title">作成方法</p>
+            <div class="content">
+                <p>問題累計正解数が３問を超えるとクイズ作成機能が解放されます。</p>
+                <p>みんなに知ってほしい豆知識や難易度がたかい問題など海の生き物や水族館に関する問題を作ってみてください！</p>
+                <p>１個のクイズにつき正解の回答１つと不正解の回答２つを入力してください</p>
+                <p>クイズとしてほかの人が不快になるような内容や言葉遣いは避けてください</p>
+            </div>
+        </div>
+        <div class="section fade-in">
+            <p class="title">注意事項</p>
+            <div class="content">
+                <p>問題は、管理者によるチェックの後に、このクイズアプリで実際に使用されます。</p>
+                <p>問題は常にすべての問題の中からランラムで出題されるため、自分が作った問題を必ず解けるという保証はありません。</p>
+            </div>
+        </div>
+    </div>
         <div id="message" th:if="${create}">
             <h2 th:text="${create}" ></h2>
         </div>
@@ -46,15 +50,13 @@
         
                 <input type="hidden" name="confirmation" value="true">
         
-                <button id = "addquiz" type="submit">送信</button>
+                <button id = "addquiz" type="submit" class="solve-button">作成する</button>
             </form>
-        </div>
-        
+        </div>       
         <div class="button-container">
             <form th:action="@{/stamp}" method="get">
-                <button id="stamp-btn" class="stamp-btn">スタンプへ</button>
+                <button id="stamp-btn" class="solve-button">スタンプへ</button>
             </form>
         </div>
-    </div>
 </body>
 </html>

@@ -4,30 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/quiz/quiz.css">
+
     <title>クイズ選択画面</title>
 </head>
 <body>
     <div class="header">
-        <h1>うみがたり クイズスタンプラリー</h1>
-    </div>   
-    <h1>３つの中から１つクイズを選んでね！</h1>
-    <h1 th:text="${soved}">すでにこの問題をといています</h1>
-    <div class="quiz-container">
-        <th:block th:each="quiz : ${quiz}">
-            <form th:action="@{/quiz/{id}(id=${quiz.id})}" method="post">
-                <div class="quiz-item">
-                    <input type="hidden" name="type" id = "type" th:value="${type}">
-                    <button type="submit" class="quiz-button" >
-                        <span th:text="${quiz.question}"></span>
-                    </button>
-                </div>
-            </form>
-        </th:block>
+        <img src="/img/umigatari.png" alt="umigatarilogo">
+        <img src="/img/batu.png" alt="batu">
+        <img src="/img/jjc.png" alt="jjclogo">
     </div>
-
-    <div class="image-container">
-        <img src="/img/ning.jpg" alt="クイズ画像1">
-        <img src="/img/ning.jpg" alt="クイズ画像2">
-    </div>
+ 
+    <p>解きたいと思う問題を一問選んでください</p>
+    <h2 th:text="${soved}"></h2>
+    <hr>
+    <div class="rmd-quiz-container" th:if="${soved == null}">
+        <div class="rmd-quiz-item fade-inshow">
+          <button class="rmd-quiz-button">
+            <p>選択肢１</p>
+            <span th:text="${quiz1.question}">うみがたりがほこる飼育数日本一のペンギンは？🐧</span>
+          </button>
+          <form th:action="@{/quiz/{id}(id=${quiz1.id})}" method="post" class="solve-form">
+            <input type="hidden" name="type" th:value="${type}">
+            <button type="submit" class="solve-button">この問題を解く</button>
+          </form>
+        </div>
+      
+        <div class="rmd-quiz-item fade-inhow">
+          <hr>
+          <button class="rmd-quiz-button">
+            <p>選択肢２</p>
+            <span th:text="${quiz2.question}">冬に寿司ご飯を作る時すぐに硬くなってしまうのを防ぐためには何を少し多めに入れると良いでしょうか？</span>
+          </button>
+          <form th:action="@{/quiz/{id}(id=${quiz2.id})}" method="post" class="solve-form">
+            <input type="hidden" name="type" th:value="${type}">
+            <button type="submit" class="solve-button">この問題を解く</button>
+          </form>
+        </div>
+      
+        <div class="rmd-quiz-item fade-inhow">
+          <hr>
+          <button class="rmd-quiz-button">
+            <p>選択肢３</p>
+            <span th:text="${quiz3.question}">春、夏、秋、冬、</span>
+          </button>
+          <form th:action="@{/quiz/{id}(id=${quiz3.id})}" method="post" class="solve-form">
+            <input type="hidden" name="type" th:value="${type}">
+            <button type="submit" class="solve-button">この問題を解く</button>
+          </form>
+        </div>
+      </div>
+<hr>
+<script src="/js/toggle.js"></script>
 </body>
 </html>

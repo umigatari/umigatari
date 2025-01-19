@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>うみがたりクイズスタンプラリー</title>
+    <link rel="stylesheet" href="/css/userpage/vestibule.css">
+
+</head>
+<body>
+
+    <div class="header">
+        <img src="/img/umigatari.png" alt="umigatarilogo">
+        <img src="/img/batu.png" alt="batu">
+        <img src="/img/jjc.png" alt="jjclogo">
+    </div>
+
+    <div class="popup-container" id="surveyPopup">
+        <div class="popup">
+            <p>アンケートにお答えください。本日はどなたとご一緒にお越しですか？</p>
+            <form id="surveyForm" action="addrivute" method="post">
+                <div>
+                    <button type="submit" name="answer" value="1">一人</button>
+                </div>
+                <div>
+                    <button type="submit" name="answer" value="2">家族</button>
+                </div>
+                <div>
+                    <button type="submit" name="answer" value="3">友達</button>
+                </div>
+                <div>
+                    <button type="submit" name="answer" value="4">恋人</button>
+                </div>
+                <div>
+                    <button type="submit" name="answer" value="5">その他</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="img-class">
+        <div class="slideshow-container">
+            <div class="slide">
+                <img src="/img/ning.jpg" class="img">
+            </div>
+            <div class="slide">
+                <img src="/img/ning.jpg" class="img">
+            </div>
+            <div class="slide">
+                <img src="/img/ning.jpg" class="img">
+            </div>
+        </div>
+        <div class="indicator-container">
+            <span class="indicator" onclick="currentSlide(0)"></span>
+            <span class="indicator" onclick="currentSlide(1)"></span>
+            <span class="indicator" onclick="currentSlide(2)"></span>
+        </div>
+    </div>
+    <div class="info">
+        <p class="headline" data-target="about">このサイトについて</p>
+        <div id="about" class="content">
+            <p>今回私たち上越公務員・情報ビジネス専門学校の情報ITビジネス・大学併修科はうみがたり様とコラボをしてクイズスタンプラリーをつくることになりました。
+                クイズを解いていただく前に新規登録とログインをしていただきたいです。
+                ログインをした後に館内にあるQRコードを読み取ってクイズに答えてみてください。
+            </p>
+        </div>
+    
+        <p class="headline" data-target="start">さっそくはじめる</p>
+        <div id="start" class="content">
+            <p>初めての方は新規登録ボタンから、２回目以降の方はログインからゲームを始めてください</p>
+            <div class="button-container">
+                <form action="/createaccount/mail" method="get">
+                    <button id="signup-btn" class="login-btn">新規登録</button>
+                </form>
+                <form action="/login" method="get">
+                    <button id="login-btn" class="login-btn">ログイン</button>
+                </form>
+            </div>
+        </div>
+    
+        <p class="headline" data-target="notes">注意事項</p>
+        <div id="notes" class="content">
+            <p>注意事項記載予定</p>
+        </div>
+
+    </div>
+    
+    <div class="footer"> 
+        <img src="/img/penguin.png" alt="ペンギン" class="penguin penguin1"> 
+        <img src="/img/penguin1.png" alt="ペンギン" class="penguin penguin2"> 
+        <div class="line">
+        </div> 
+</div>
+
+    <script th:inline="javascript">
+        const showPopup = /*[[${showPopup}]]*/ false;
+
+        if (showPopup) {
+            document.getElementById('surveyPopup').style.display = 'flex';
+        }
+    </script>
+    <script src="/js/slidetoggle.js"></script>
+</body>
+</html>

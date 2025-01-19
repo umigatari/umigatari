@@ -4,27 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/quiz/quiz.css">
+    
     <title>クイズ解答画面</title>
 </head>
 <body>
     <div class="header">
-        <h1>うみがたり クイズスタンプラリー</h1>
+        <img src="/img/umigatari.png" alt="umigatarilogo">
+        <img src="/img/batu.png" alt="batu">
+        <img src="/img/jjc.png" alt="jjclogo">
     </div>
-    <h1>Q: <span th:text="${quiz.question}"></span></h1>
+    <div style="position: relative;"> 
+        <img src="/img/penguin.png" alt="イルカ" class="pennginn"> 
+        <hr>
+    </div>
+    
+    <div> 
+        <p th:text="${quiz.question}">うみがたりがほこる飼育数日本一のペンギンは？🐧</p>
+
     <div class="quiz-container">
-        <th:block th:each="choice : ${choices}">
-            <form th:action="@{/quiz/answer}" method="post" id="quizForm">
-                <input type="hidden" name="type" id="type" th:value="${type}">
-                <div class="quiz-item">
-                    <button type="submit" class="quiz-button" name="choice" th:value="${choice}">
-                        <span th:text="${choice}"></span>
+        <form th:action="@{/quiz/answer}" method="post" id="quizForm">
+            <input type="hidden" name="type" id="type" th:value="${type}">
+            <input type="hidden" name="id" th:value="${quiz.id}">
+            <div class="quiz-item">
+                <hr>
+                <p>解答１</p>
+                <button type="button" class="quiz-button question-button" data-choice="${choice1.choice}">
+                    <span th:text="${choice1.choice}">マゼランペンギン</span>
+                </button>
+                <div class="confirm-container">
+                    <button type="submit" class="confirm-button" name="choice" th:value="${choice1.choice}" style="display: none;">
+                        これにする！
                     </button>
                 </div>
-            </form>
-        </th:block>
+            </div>
+            <div class="quiz-item">
+                <hr>
+                <p>解答２</p>
+                <button type="button" class="quiz-button question-button" data-choice="${choice2.choice}">
+                    <span th:text="${choice2.choice}">エンペラーペンギン</span>
+                </button>
+                <div class="confirm-container">
+                    <button type="submit" class="confirm-button" name="choice" th:value="${choice2.choice}" style="display: none;">
+                        これにする!
+                    </button>
+                </div>
+            </div>
+            <div class="quiz-item">
+                <hr>
+                <p>解答３</p>
+                <button type="button" class="quiz-button question-button" data-choice="${choice3.choice}">
+                    <span th:text="${choice3.choice}">アルティメットファイヤードラゴンマジックジョンソンペネトレーションペンギン</span>
+                </button>
+                <div class="confirm-container">
+                    <button type="submit" class="confirm-button" name="choice" th:value="${choice3.choice}" style="display: none;">
+                        これにする！
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
-    <div>
-        <img src="/img/ning.jpg" alt="正方形の画像" class="square-image">
-    </div>
+    <hr>
+    <script src="/js/fadetoggle.js"></script>
 </body>
 </html>

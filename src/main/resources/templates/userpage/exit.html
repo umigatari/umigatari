@@ -4,23 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>クイズスタンプラリー終了</title>
-    <link rel="stylesheet" href="/css/userpage/umigatari.css">
+    <link rel="stylesheet" href="vestibule.css">
 </head>
 <body>
     <div class="header">
-        <h1>クイズスタンプラリーに参加いただきありがとうございました！</h1>
+        <img src="/img/umigatari.png" alt="umigatarilogo">
+        <img src="/img/batu.png" alt="batu">
+        <img src="/img/jjc.png" alt="jjclogo">
     </div>
-    <div class="content-container">
-        <h2>これでクイズスタンプラリーは終わりです！</h2>
-        <p>楽しんでいただけましたか？</p>
-        <p>下記のボタンより、かわいい生き物たちの画像をダウンロードしてください！</p>
-        <div class="random-image">
-            <img th:src="@{'/img/' + ${img} + '.png'}" th:alt="'かわいい生き物の画像 ' + ${img}" style="max-width: 100%; height: auto;">
+    <img src="ning.jpg" class="img">
+        <img th:src="@{'/img/' + ${img} + '.png'}" th:alt="'かわいい生き物の画像 ' + ${img}" class="img">
+    <div class="message">
+        <div>
+            <p class="title">message</p>
+            <p>楽しんでいただけましたか？</p>
+            <p>ランダムに選ばれたかわいい動物たちの写真をプレゼントします</p>
+            <p>画面上部のダウンロードして写真を獲得してください</p>
         </div>
-        <a th:href="@{'/img/' + ${img} + '.png'}" class="download-btn" download th:text="'画像をダウンロード'">画像をダウンロード</a>
+        <div>
+            <p class="title">ダウンロードの手順</p>
+            <p>画像を長押しし、「画像を保存」または「写真に追加」と表示されたら、それをタップしてください。</p>
+            <p>これで、画像が写真アプリに保存されます。</p>
+        </div>
     </div>
-    <div class="footer">
-        <p>またのご来場をお待ちしております！</p>
-    </div>
+
+    
+        <p>またのご来館をお待ちしております！</p>
+        <div id="fireworks-container"></div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <script src="confetti.js"></script>
+    <script src="b.js"></script>
 </body>
 </html>

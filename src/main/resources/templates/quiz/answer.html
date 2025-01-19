@@ -3,36 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/quiz/answer.css">
+    <link rel="stylesheet" href="/css/quiz/quiz.css">
     <title>正誤判定</title>
 </head>
 <body>
-    <div class="container">
+    <div id="surveyPopup" class="survey-popup">
+        <button id="closePopup" class="close-btn">×</button>
         <h1 th:text="${message}">正解</h1>
-        <h2 th:if="${message != null and message == '正解'}" class="stamp-message">スタンプゲット！！</h2>
-
-        <div class="stamp-card">
-            <div class="stamp-grid">
-                <div class="stamp" id="stamp-1"></div>
-                <div class="stamp" id="stamp-2"></div>
-                <div class="stamp" id="stamp-3"></div>
-                <div class="stamp" id="stamp-4"></div>
-                <div class="stamp" id="stamp-5"></div>
-            </div>
-        </div>
-
-        <div class="button-container">
-            <form action="/stamp" method="get">
-                <button type="submit">スタンプ一覧へ戻る</button>
-            </form>
-        </div>
-    </div>
-    <div>
-        <p th:text="${str}">今までの累計正解数は９９問です</p>
     </div>
 
-    <img src="/img/pengin.jpg" alt="クイズ画像" style="max-width: 100%; height: auto;">
+    <div class="header">
+        <img src="/img/umigatari.png" alt="umigatarilogo">
+        <img src="/img/batu.png" alt="batu">
+        <img src="/img/jjc.png" alt="jjclogo">
+    </div>
+     
+    <p th:text="${str}">累計正解数は99問です</p> 
+    <div class="stamp-card">
+         <div class="stamp-slider">
+            <div class="stamp" id="stamp-1"></div>
+            <div class="stamp" id="stamp-2"></div>
+            <div class="stamp" id="stamp-3"></div>
+            <div class="stamp" id="stamp-4"></div>
+            <div class="stamp" id="stamp-5"></div>
+            <div class="stamp" id="stamp-6"><img src="ning.jpg"></div>
+        </div>
+    </div>
 
+    <div class="answer">
+        <div id="question-container" style="display: none;">
+            <p>問題</p>
+            <p th:text="${qanda.quiz}">うみがたりがほこる飼育数日本一のペンギンは？🐧</p>
+            <p>答え</p>
+            <p th:text="${qanda.answer}">マゼラン🐧</p>
+        </div>
+        <button id="show-answer" class="show-answer-button">答えを見る</button>
+    </div>
+    <div class="button-container">
+        <form action="/stamp" method="get">
+            <button class="special-button">スタンプ一覧へ戻る</button>
+        </form>
+    </div>
+
+   
     <script th:inline="javascript">
         window.onload = function() {
             var correct = /*[[${correct}]]*/ [];
@@ -53,5 +66,6 @@
             }
         };
     </script>
+    <script src="/js/answerpopup.js"></script>
 </body>
 </html>
