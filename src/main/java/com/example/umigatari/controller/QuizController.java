@@ -1,10 +1,8 @@
 package com.example.umigatari.controller;
 
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.umigatari.NotFoundException;
 import com.example.umigatari.model.analysis;
+import com.example.umigatari.model.answer;
+import com.example.umigatari.model.choice;
 import com.example.umigatari.model.quiz;
+import com.example.umigatari.model.rmdquiz;
 import com.example.umigatari.service.AnalysisService;
 import com.example.umigatari.service.QuizService;
 import com.example.umigatari.service.UserService;
@@ -61,9 +62,23 @@ public class QuizController {
             solvedQuizzes.add(type);
             session.setAttribute("solvedQuizzes", solvedQuizzes);
             //クイズを取得
-            System.out.print(type);
             List<quiz> quiz = quizService.randomThreeQuiz();
-            model.addAttribute("quiz", quiz);
+            //クイズを振り分け
+            rmdquiz quiz1 = new rmdquiz();
+            quiz1.setId(quiz.get(0).getId());
+            quiz1.setQuestion(quiz.get(0).getQuestion());
+    
+            rmdquiz quiz2 = new rmdquiz();
+            quiz2.setId(quiz.get(1).getId());
+            quiz2.setQuestion(quiz.get(1).getQuestion());
+    
+            rmdquiz quiz3 = new rmdquiz();
+            quiz3.setId(quiz.get(2).getId());
+            quiz3.setQuestion(quiz.get(2).getQuestion());
+
+            model.addAttribute("quiz1", quiz1);
+            model.addAttribute("quiz2", quiz2);
+            model.addAttribute("quiz3", quiz3);
             model.addAttribute("type",type);
         } else {
             model.addAttribute("soved", "すでに問題を解いています");
@@ -72,71 +87,67 @@ public class QuizController {
     }
 
     //ひとつ選ばれたクイズを表示する
-    @SuppressWarnings("unchecked")
     @PostMapping("quiz/{id}")
     public String showOneQuiz(@PathVariable("id") Long id,Model model,HttpSession session,@RequestParam int type,HttpServletRequest request) {
         //ログインか判断
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
-        //リファラで遷移が正しいかチェック
-        String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://examplepj.f5.si/quiz/\\d+$";
-        if (referer == null || !referer.matches(allowedRefererPattern)) {
-            if (referer == null) {
-                return "redirect:/userpage/nopage";
-            }
-            return "redirect:" + referer;
-        }
+
         //クイズを取得
         quiz quiz = quizService.selectOneById(id);
+
         //選択肢をシャッフル
         List<String> choices = new ArrayList<>(List.of(quiz.getCorrect(), quiz.getOther_one(), quiz.getOther_two()));
         Collections.shuffle(choices);
+        
+        // 解答をセット
+        choice choice1 = new choice();
+        choice1.setChoice(choices.get(0));
+
+        choice choice2 = new choice();
+        choice2.setChoice(choices.get(1));
+        
+        choice choice3 = new choice();
+        choice3.setChoice(choices.get(2));
+
         model.addAttribute("quiz", quiz);
         model.addAttribute("type",type);
-        model.addAttribute("choices", choices);
+        model.addAttribute("choice1", choice1);
+        model.addAttribute("choice2", choice2);
+        model.addAttribute("choice3", choice3);
+        
+
         //セッションに回答をセットセット
         session.setAttribute("answer", quiz.getCorrect());
-        //時間の記録
-        Map<String, Object> timeMap = (Map<String, Object>) session.getAttribute("time");
-        if (timeMap != null) {
-            Object objid = session.getAttribute("id");
-            Long accountid = (Long)objid;
-            Object objaddri = session.getAttribute("addrivute");
-            int addrivute = (int)objaddri;
-            int prevtype = (int) timeMap.get("type");
-            long timestamp2 = (Long) timeMap.get("timestamp");
-            long timestamp = Instant.now().getEpochSecond();
-            analysisService.addSectionTime(id,accountid,addrivute,prevtype,type,timestamp,timestamp2);
-        }
+
         return "quiz/quiz";
     }
 
     //クイズの回答を表示する
     @SuppressWarnings("unchecked")
     @PostMapping("quiz/answer")
-    public String check(@RequestParam String choice,@RequestParam int type, Model model,HttpSession session,HttpServletRequest request) {
+    public String check(@RequestParam String choice,@RequestParam int type, @RequestParam Long id,Model model,HttpSession session,HttpServletRequest request) {
         //ログインしてないなら返す
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
-        //リファラで遷移が正しいかチェック
-        String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://examplepj.f5.si/quiz/\\d+$";
-        if (referer == null || !referer.matches(allowedRefererPattern)) {
-            if (referer == null) {
-                return "redirect:/userpage/nopage";
-            }
-            return "redirect:" + referer;
-        }
+
         //正解を取得
         Object answerobj =session.getAttribute("answer");
         String answer = (String) answerobj;
+
         //正解数を取得
        Object obj = session.getAttribute("id");
-       Long id = (Long)obj;
-        int count = userService.getCount(id);
+       Long uid = (Long)obj;
+        int count = userService.getCount(uid);
+
+        //問題を取得
+        quiz quiz = quizService.selectOneById(id);
+        answer qanda = new answer();
+        qanda.setQuiz(quiz.getQuestion());
+        qanda.setAnswer(quiz.getCorrect());
+
         //正解かどうかを判断
         if (answer.equals(choice)) {
             //カウントアップ
@@ -150,6 +161,7 @@ public class QuizController {
             correct.add(type);
             session.setAttribute("correct", correct);
             model.addAttribute("str",str);
+            model.addAttribute("qanda",qanda);
             model.addAttribute("correct",correct);
         //不正解なら不正解と表示
         } else {
@@ -158,17 +170,10 @@ public class QuizController {
             System.out.println(correct);
             String str = "今までの累計正解数は、" + count + "回です";
             model.addAttribute("str",str);
+            model.addAttribute("qanda",qanda);
             model.addAttribute("correct",correct);
         }
-        //時間の記録
-        Map<String, Object> timeMap = (Map<String, Object>) session.getAttribute("time");
-        if (timeMap == null) {
-            timeMap = new HashMap<>();
-        } 
-        long timestamp = Instant.now().getEpochSecond();
-        timeMap.put("type", type);
-        timeMap.put("timestamp", timestamp);
-        session.setAttribute("time", timeMap);
+
         return "quiz/answer";
     }
 
@@ -181,7 +186,7 @@ public class QuizController {
         }
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://examplepj.f5.si.*";
+        String allowedRefererPattern = "^https?://localhost:8080.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -209,7 +214,7 @@ public class QuizController {
     public String getRule(HttpServletRequest request) {
          //リファラで遷移が正しいかチェック
          String referer = request.getHeader("Referer");
-         String allowedRefererPattern = "^https?://examplepj.f5.si/stamp.*";
+         String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
          if (referer == null || !referer.matches(allowedRefererPattern)) {
              if (referer == null) {
                  return "redirect:/userpage/nopage";
@@ -438,11 +443,10 @@ public class QuizController {
         }
         analysis analysis = new analysis();
         analysis.setStaytime(analysisService.updateStayTime());
-        analysis.setSectionstaytime(analysisService.updateSectionTime());
         String [] arr = {"一人","家族","友人","恋人","その他","全体"};
        // analysis.setAddrivute(arr);
         model.addAttribute("count",userService.getMember());
-        model.addAttribute("analysis", analysisService.raito(analysis));
+        model.addAttribute("analysis", analysis);
         model.addAttribute("attributes", arr);
         return "admin/analysis";
     }

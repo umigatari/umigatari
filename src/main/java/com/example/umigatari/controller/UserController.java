@@ -1,8 +1,6 @@
 package com.example.umigatari.controller;
 
 import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +39,7 @@ public class UserController {
     @GetMapping("/")
     public String umigatari(Model model) {
         model.addAttribute("showPopup",true);
-        return "userpage/umigatari";
+        return "userpage/entrance";
     }
 
     //アンケート結果を設定
@@ -49,11 +47,10 @@ public class UserController {
     public String addrivute(Model model,HttpSession session,@RequestParam int answer){
         model.addAttribute("showPopup",false);
         session.setAttribute("addrivute",answer);
-        return  "userpage/umigatari";
+        return  "userpage/entrance";
     }
 
     //かえり
-    @SuppressWarnings("unchecked")
     @GetMapping("exit")
     public String seeyousoon(HttpSession session,Model model){
         //退館時間の記録
@@ -62,18 +59,6 @@ public class UserController {
         Object objtime = session.getAttribute("entertime");
         Timestamp entertime = (Timestamp) objtime;
         analysisService.exitTime(id,entertime);
-        //セクションごとの時間の記録
-        Map<String, Object> timeMap = (Map<String, Object>) session.getAttribute("time");
-        if (timeMap != null) {
-            Object objid = session.getAttribute("id");
-            Long accountid = (Long)objid;
-            Object objaddri = session.getAttribute("addrivute");
-            int addrivute = (int)objaddri;
-            int type = (int) timeMap.get("type");
-            long timestamp2 = (Long) timeMap.get("timestamp");
-            long timestamp = Instant.now().getEpochSecond();
-            analysisService.addSectionTime(id,accountid,addrivute,type,6,timestamp,timestamp2);
-        }
         String [] img = {"lea1","lea2","lea3","lea4","lea5"};
         Random random = new Random();
         int randomNumber = random.nextInt(5);
@@ -156,12 +141,6 @@ public class UserController {
             analysisService.enterTime(id, addrivute,entertime);
             session.setAttribute("id", id);
             model.addAttribute("login", "ログイン成功しました");
-             //時間の記録
-            Map<String, Object> timeMap = new HashMap<>();
-            long timestamp = Instant.now().getEpochSecond();
-            timeMap.put("type", 0);
-            timeMap.put("timestamp", timestamp);
-            session.setAttribute("time", timeMap);
              // セッションIDのクッキーの有効期限を6時間に設定
             Cookie sessionCookie = new Cookie("JSESSIONID", session.getId());
             sessionCookie.setMaxAge(6 * 60 * 60); // 6時間
@@ -264,7 +243,7 @@ public class UserController {
         }
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://examplepj.f5.si/stamp.*";
+        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -286,7 +265,7 @@ public class UserController {
             return "userpage/nopage";
         }
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://examplepj.f5.si/stamp.*";
+        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -311,7 +290,7 @@ public class UserController {
             return "userpage/nopage";
         }
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://examplepj.f5.si/stamp.*";
+        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
