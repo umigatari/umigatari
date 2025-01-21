@@ -8,18 +8,20 @@
     <script src="/js/validateForm.js" defer></script>
 </head>
 <body>
+    <div class="header">
+        <img src="umigatari.png" alt="umigatarilogo">
+        <img src="batu.png" alt="batu">
+        <img src="jjc.png" alt="jjclogo">
+    </div>
     
     <div class="container">
         <h1>アカウント作成</h1>
-        <!-- エラーメッセージ -->
     <div style="color: red;">
         <p th:text="${error}">そのユーザーネームは既に登録されています。別のユーザーネームを使用してください。</p>
     </div>
         <p>以下の情報を入力してアカウントを作成してください。</p>
-        <!-- clearが設定されている場合は入力フォームを非表示にし、ログインボタンを表示 -->
         <div th:if="${clear == null}">
             <form action="/create" method="post" onsubmit="validateForm(event)">
-                <!-- 受け取ったメールを隠しフィールドに設定 -->
                 <input type="hidden" name="mail" th:value="${mail}">
                 <input type="hidden" name="addrivute" th:value="${addrivute}">
                 <label for="username">ユーザー名</label>
@@ -34,9 +36,8 @@
                 <button type="submit">アカウントを作成する</button>
             </form>
         </div>
-        <!-- clearが設定されている場合は入力フォームを非表示にし、ログインボタンを表示 -->
         <div th:if="${clear != null}">
-            <p>アカウントが作成されました。</p>
+            <p class="message">アカウントが作成されました。</p>
             <a href="/login">
                 <button>ログイン画面へ</button>
             </a>

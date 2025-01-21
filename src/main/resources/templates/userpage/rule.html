@@ -8,8 +8,11 @@
 </head>
 <body>
     <div class="header">
-        <h1>うみがたり クイズスタンプラリー</h1>
-    </div>
+        <img src="/img/umigatari.png" alt="umigatarilogo">
+        <img src="/img/batu.png" alt="batu">
+        <img src="/img/jjc.png" alt="jjclogo">
+        <div class="menu-icon" id="menu-icon">≡</div>
+        </div>
     <div class="content-container">
         <h2>ルール概要</h2>
         <p>このクイズスタンプラリーでは、水族館の中を回り、QRコードを探して読み取ることで、楽しいクイズに挑戦できます。</p>
@@ -46,8 +49,60 @@
             <li>タブを閉じると、正常にアプリが機能しないことがあります。アプリ利用中はタブを閉じないよう気を付けてください</li>
         </ul>
     </div>
+    <div class="dropdown-menu" id="dropdown-menu">
+        <button id="closePopup" class="close-btn">×</button>
+        <a href="/rule">
+            <img src="/img/rule.png" alt="ルール" class="icon">
+            ルール
+        </a>
+        <a href="/reward">
+            <img src="/img/reward.png" alt="プレゼント" class="icon">
+            プレゼント
+        </a>
+        <a href="/ranking">
+            <img src="/img/ranking.png" alt="ランキング" class="icon">
+            ランキング
+        </a>
+        <a href="/quiz/createpage">
+            <img src="/img/createquiz.png" alt="クイズ作成" class="icon">
+            クイズ作成
+        </a>
+        <span>
+            <img src="/img/account.png" alt="アカウント" class="icon">
+            アカウント
+        </span>
+        <span th:text="'アカウント名: ' + ${account} ">アカウント名</span>
+        <span id="logout-link" class="action-link">ログアウト</span>
+        <span id="delete-link" class="action-link">アカウント削除</span>
+    </div>
+    
+    <div id="logout-popup" class="popup">
+        <div class="popup-content">
+            <p>ログアウトしますか？</p>
+            <button id="confirm-logout-yes">はい</button>
+            <button id="confirm-logout-no">いいえ</button>
+    </div>
+    </div>
+
+    <div id="delete-popup" class="popup">
+        <div class="popup-content">
+            <p>アカウントは完全に削除されますが<br>よろしいですか？</p>
+            <button id="confirm-delete-yes">はい</button>
+            <button id="confirm-delete-no">いいえ</button>
+    </div>
+    </div>
+
+    <div id="final-delete-popup" class="popup">
+        <div class="popup-content">
+            <p>本当に削除しますか？</p>
+            <button id="confirm-final-delete-yes">はい</button>
+            <button id="confirm-final-delete-no">いいえ</button>
+    </div>
+    </div>
     <form action="stamp" method="get">
         <button type="submit">スタンプへ</button>
     </form>
+
+    <script src="/js/dropdown.js"></script>
 </body>
 </html>

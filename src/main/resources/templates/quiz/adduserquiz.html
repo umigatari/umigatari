@@ -33,6 +33,9 @@
         <div id="message" th:if="${create}">
             <h2 th:text="${create}" ></h2>
         </div>
+        <div id="message" th:if="${ngword}">
+            <h2 th:text="${ngword}" ></h2>
+        </div>
 
         <div id="quiz-form-container" th:if="${count >= 3}" th:unless="${create}">
             <form action="/quiz/create" method="post">
@@ -52,11 +55,13 @@
         
                 <button id = "addquiz" type="submit" class="solve-button">作成する</button>
             </form>
-        </div>       
+        </div>  
+
         <div class="button-container">
             <form th:action="@{/stamp}" method="get">
                 <button id="stamp-btn" class="solve-button">スタンプへ</button>
             </form>
         </div>
+        <script src="/js/fedein.js"></script>
 </body>
 </html>

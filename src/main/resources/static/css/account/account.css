@@ -1,87 +1,70 @@
-/* 全体のスタイル */
-body {
-    font-family: Arial, sans-serif;
-    background-color: aliceblue;
-    margin: 0;
-    padding: 0;
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+}
+
+h1{
+    margin-top: 50px;
+    padding: 10px;
+}
+
+p{
+    margin: 20px 35px;
+    font-size: 18px;
+}
+
+form, 
+.form-group {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    flex-direction: column;
+    gap: 17px; 
+    width: 300px; 
+    margin: 0 auto; 
 }
 
-/* 見出しスタイル */
-h1 {
-    text-align: center;
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-/* パラグラフスタイル */
-p {
-    text-align: center;
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 20px;
-}
-
-/* ラベルスタイル */
-label {
-    font-size: 14px;
-    margin-bottom: 8px;
-    display: block;
-    color: #333;
-}
-
-/* 入力フィールド */
-input[type="text"], input[type="password"] {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #e0e01ae2;
-    border-radius: 4px;
-    font-size: 16px;
-    box-sizing: border-box;
-}
-
-/* フォーカス時の入力フィールドのスタイル */
-input[type="text"]:focus, input[type="password"]:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-/* 入力フィールド */
-input[type="email"] {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    box-sizing: border-box;
-}
-
-/* フォーカス時の入力フィールドのスタイル */
-input[type="email"]:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-/* ボタンスタイル */
 button {
-    width: 100%;
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    background: linear-gradient(90deg, #0180CC,#0357AF);
+    color: #ffffff; 
+    border: none; 
+    border-radius: 5px; 
+    padding: 10px 20px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    margin-top: 30px;
 }
 
-/* ボタンホバー時のスタイル */
-button:hover {
-    background-color: #0056b3;
+label {
+    font-weight: bold;
+}
+
+input{
+    padding: 10px;
+    border: 1px solid #838282; 
+    border-radius: 5px;
+}
+
+.message{
+    text-align: center;
+}
+
+
+
+.forgot-password{
+    margin-top: 30px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    width: 66.67%;
+    height: 20%;
+    margin: 0;
+    margin-top: 30px;
+    padding-left: 0px;
+}
+
+.header img {
+    flex-shrink: 0;
+    max-height: 100%;
+    margin: 0 10px;
 }

@@ -1,35 +1,47 @@
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    background-color: #f0f8ff;
-    flex-direction: column;
-    align-items: center;
-    margin: 0;
-    padding: 0;
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
 }
- 
+
+.header {
+    display: flex;
+    align-items: center;
+    width: 66.67%;
+    height: 20%;
+    margin: 0;
+    padding-left: 0px;
+}
+
+.header img {
+    flex-shrink: 0;
+    max-height: 100%;
+    margin: 0 10px;
+}
+
+h1{
+    margin-top: 80px;
+    text-align: center;
+}
+
 #video {
     width: 100%;
     height: auto;
     max-width: 400px;
 }
- 
+
 #startButton {
     padding: 15px 30px;
     font-size: 20px;
     margin-top: 20px;
-    background-color: #007BFF;
+    background: linear-gradient(90deg, #0180CC,#0357AF);
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-left: 100px;
 }
- 
-#startButton:hover {
-    background-color: #0056b3;
-}
- 
+
 #result {
     margin-top: 20px;
     font-size: 18px;
@@ -37,14 +49,10 @@ body {
     word-break: break-all;
     max-width: 100%;
 }
-.header {
-    background-color: #92d5dc;
-    padding: 20px;
-    text-align: center;
-    color: #4e493f;
-}
+
 button{
     background-color: #e7ce53;
+    background: linear-gradient(90deg,#e7ce53, #FFC20E);
     color: white;
     padding: 10px 20px;
     font-size: 16px;
@@ -53,11 +61,10 @@ button{
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin: 10px 20px;
+    margin-left: 120px;
+    margin-top: 30px;
 }
-.header h1 {
-    font-size: 24px;
-    margin: 0;
-}
+
 #result {
-    display: none; /* 初期状態では非表示にする */
+    display: none;
 }
