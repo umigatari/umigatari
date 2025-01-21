@@ -1,6 +1,11 @@
 package com.example.umigatari.service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +13,8 @@ import org.springframework.stereotype.Service;
 import com.example.umigatari.NotFoundException;
 import com.example.umigatari.model.quiz;
 import com.example.umigatari.repository.QuizRepository;
+
+import jakarta.annotation.PostConstruct;
 
 @Service
 public class QuizService {
@@ -123,5 +130,45 @@ public class QuizService {
     public int getNotice(){
        return quizRepository.getNotice();
     }
+
+    //csvファイルを読み込む
+    private final Set<String> ngWords = new HashSet<>();
+
+    public Set<String> getNgWords() {
+        return ngWords;
+    }
+
+     @PostConstruct
+    public void loadNgWords() {
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(getClass().getResourceAsStream("/ngwords.csv")))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                ngWords.add(line.trim());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("NGワードのロードに失敗しました", e);
+        }
+    }
+    
+    // テキストを検査するメソッド
+    //NGワード、文字数が４字以下以下、記号のみの文の場合は問題として判断しない
+     public boolean isTextValid(String text) {
+        if (text == null || text.isEmpty()) {
+            return true;
+        }
+        for (String ngWord : ngWords) {
+             if (text.contains(ngWord)) {
+                 return false;
+             }
+         }
+
+         if (text.length() < 5) {
+            return false;
+        }
+    
+         return !text.matches("[!-/:-@\\[-`{-~\\s]*");
+        }
+
     
 }

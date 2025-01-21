@@ -3,50 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/userpage/userpage.css">
+    <link rel="stylesheet" href="/css/userpage/reward.css">
     <title>報酬ページ</title>
 </head>
 <div class="header">
-    <h1>うみがたり クイズスタンプラリー</h1>
-</div>
+    <img src="/img/umigatari.png" alt="umigatarilogo">
+    <img src="/img/batu.png" alt="batu">
+    <img src="/img/jjc.png" alt="jjclogo">
+
+    <div class="menu-icon" id="menu-icon">≡</div>
+    
+    </div>
 <body>
-        <h2>プレゼント！！</h2>
+        <form action="stamp" method="get">
+            <button type="submit">スタンプへ</button>
+        </form>
         <p>累計正答数が **3問、5問、7問、9問、11問** に到達するごとに、可愛い海洋生物たちの画像をプレゼント！</p>
         <p>以下のリストから、ポイント数に応じた画像をダウンロードしてください。</p>
     <h2 th:text="'現在のポイント: ' + ${count}">現在のポイント:7</h2>
 
     <div>
-        <ul>
-            <li th:if="${count >= 3}">
-                <img src="/img/ning.jpg" alt="画像1" width="200">
+        <ul class="image-slider" data-count="5">
+            <li th:if="${count >= 3}" class="image-item">
+                <img src="rule.png" alt="画像1" width="200" class="image">
                 <br>
                 <a href="/img/ning.jpg" download="/img/ning.jpg">画像1をダウンロード</a>
             </li>
-            <li th:if="${count >= 5}">
-                <img src="/img/ning.jpg" alt="画像1" width="200">
+            <li th:if="${count >= 5}" class="image-item">
+                <img src="ranking.png" alt="画像2" width="200" class="image">
                 <br>
                 <a href="/img/ning.jpg" download="/img/ning.jpg">画像2をダウンロード</a>
             </li>
-            <li th:if="${count >= 7}">
-                <img src="/img/ning.jpg" alt="画像1" width="200">
+            <li th:if="${count >= 7}" class="image-item">
+                <img src="ranking.png" alt="画像3" width="200" class="image">
                 <br>
                 <a href="/img/ning.jpg" download="/img/ning.jpg">画像3をダウンロード</a>
             </li>
-            <li th:if="${count >= 9}">
-                <img src="/img/ning.jpg" alt="画像1" width="200">
+            <li th:if="${count >= 9}" class="image-item">
+                <img src="ranking.png" alt="画像4" width="200" class="image">
                 <br>
                 <a href="/img/ning.jpg" download="/img/ning.jpg">画像4をダウンロード</a>
             </li>
-            <li th:if="${count >= 11}">
-                <img src="/img/ning.jpg" alt="画像1" width="200">
+            <li th:if="${count >= 11}" class="image-item">
+                <img src="ranking.png" alt="画像5" width="200" class="image">
                 <br>
                 <a href="/img/ning.jpg" download="/img/ning.jpg">画像5をダウンロード</a>
             </li>
         </ul>
+        
+    </div>
+    <div class="dropdown-menu" id="dropdown-menu">
+        <button id="closePopup" class="close-btn">×</button>
+        <a href="/rule">
+            <img src="rule.png" alt="ルール" class="icon">
+            ルール
+        </a>
+        <a href="/reward">
+            <img src="reward.png" alt="プレゼント" class="icon">
+            プレゼント
+        </a>
+        <a href="/ranking">
+            <img src="ranking.png" alt="ランキング" class="icon">
+            ランキング
+        </a>
+        <a href="/quiz/createpage">
+            <img src="createquiz.png" alt="クイズ作成" class="icon">
+            クイズ作成
+        </a>
+        <span>
+            <img src="account.png" alt="アカウント" class="icon">
+            アカウント
+        </span>
+        <span th:text="'アカウント名: ' + ${account} ">アカウント名</span>
+        <span id="logout-link" class="action-link">ログアウト</span>
+        <span id="delete-link" class="action-link">アカウント削除</span>
+    </div>
+    
+    <div id="logout-popup" class="popup">
+        <div class="popup-content">
+            <p>ログアウトしますか？</p>
+            <button id="confirm-logout-yes">はい</button>
+            <button id="confirm-logout-no">いいえ</button>
+    </div>
     </div>
 
-    <div>
-        <button onclick="location.href='/stamp'">ホームに戻る</button>
+    <div id="delete-popup" class="popup">
+        <div class="popup-content">
+            <p>アカウントは完全に削除されますが<br>よろしいですか？</p>
+            <button id="confirm-delete-yes">はい</button>
+            <button id="confirm-delete-no">いいえ</button>
     </div>
+    </div>
+
+    <div id="final-delete-popup" class="popup">
+        <div class="popup-content">
+            <p>本当に削除しますか？</p>
+            <button id="confirm-final-delete-yes">はい</button>
+            <button id="confirm-final-delete-no">いいえ</button>
+    </div>
+    </div>
+    <div>
+        <form th:action="@{/qr}" method="get">
+            <button id="qr-btn" class="qr-btn">QRコードを読み取る</button>
+        </form>
+    </div>
+    <script src="/js/reward.js"></script>
 </body>
 </html>

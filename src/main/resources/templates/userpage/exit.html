@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>クイズスタンプラリー終了</title>
-    <link rel="stylesheet" href="vestibule.css">
+    <link rel="stylesheet" href="/css/userpage/vestibule.css">
 </head>
 <body>
     <div class="header">
@@ -12,8 +12,7 @@
         <img src="/img/batu.png" alt="batu">
         <img src="/img/jjc.png" alt="jjclogo">
     </div>
-    <img src="ning.jpg" class="img">
-        <img th:src="@{'/img/' + ${img} + '.png'}" th:alt="'かわいい生き物の画像 ' + ${img}" class="img">
+        <img th:src="@{'/img/' + ${img} + '.jpg'}" th:alt="'かわいい生き物の画像 ' + ${img}" class="img">
     <div class="message">
         <div>
             <p class="title">message</p>
@@ -32,7 +31,8 @@
         <p>またのご来館をお待ちしております！</p>
         <div id="fireworks-container"></div>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
-    <script src="confetti.js"></script>
-    <script src="b.js"></script>
+    <script src="/js/confetti.js"></script>
+    <script src="/js/b.js"></script>
+    
 </body>
 </html>

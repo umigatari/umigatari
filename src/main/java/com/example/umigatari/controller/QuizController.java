@@ -184,6 +184,7 @@ public class QuizController {
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
+
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
         String allowedRefererPattern = "^https?://localhost:8080.*";
@@ -193,6 +194,7 @@ public class QuizController {
             }
             return "redirect:" + referer;
         }
+
         //正解数を取得
         Object obj = session.getAttribute("id");
         Long id = (Long)obj;
@@ -204,8 +206,12 @@ public class QuizController {
     //クイズ作成機能
     @PostMapping("quiz/create")
     public String createQuiz(@ModelAttribute quiz quiz, Model model, HttpSession session) {
-        quizService.insertQuiz(quiz);
-        model.addAttribute("create", "問題を作成しました!");
+        boolean ngword = quizService.isTextValid(quiz.getQuestion());
+        if(ngword){
+            quizService.insertQuiz(quiz);
+            model.addAttribute("create", "問題を作成しました!");
+        }
+        model.addAttribute("ngword", "不適切な言葉が含まれています");
         return "quiz/adduserquiz";
     }
 
@@ -385,7 +391,6 @@ public class QuizController {
         redirectUrl += "?p_cocid=" + p_cocid;
     }
     if (dord != null && !dord.isEmpty()) {
-        // パラメータを&で繋げて追加
         redirectUrl += (redirectUrl.contains("?") ? "&" : "?") + "dord=" + dord;
     }
 
@@ -404,7 +409,6 @@ public class QuizController {
         redirectUrl += "?p_cocid=" + p_cocid;
     }
     if (dord != null && !dord.isEmpty()) {
-        // パラメータを&で繋げて追加
         redirectUrl += (redirectUrl.contains("?") ? "&" : "?") + "dord=" + dord;
     }
 
@@ -444,7 +448,6 @@ public class QuizController {
         analysis analysis = new analysis();
         analysis.setStaytime(analysisService.updateStayTime());
         String [] arr = {"一人","家族","友人","恋人","その他","全体"};
-       // analysis.setAddrivute(arr);
         model.addAttribute("count",userService.getMember());
         model.addAttribute("analysis", analysis);
         model.addAttribute("attributes", arr);

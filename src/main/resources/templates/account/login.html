@@ -7,6 +7,11 @@
     <title>ログイン</title>
 </head>
 <body>
+    <div class="header">
+        <img src="umigatari.png" alt="umigatarilogo">
+        <img src="batu.png" alt="batu">
+        <img src="jjc.png" alt="jjclogo">
+    </div>
     <div class="container">
         <h1>ログイン</h1>
         <div style="color: red;">
@@ -14,20 +19,16 @@
         </div>
 
         <form action="/password" method="post">
-            <!-- ユーザー名 -->
             <div class="form-group">
-                <label for="name">ユーザー名</label>
-                <input type="text" id="name" name="name" placeholder="ユーザー名" required>
+                <label for="name">ニックネーム</label>
+                <input type="text" id="name" name="name" placeholder="ニックネーム" required>
             </div>
-            <!-- パスワード -->
             <div class="form-group">
                 <label for="password">パスワード</label>
                 <input type="password" id="password" name="password" placeholder="パスワード" required>
             </div>
-            <!-- ログインボタン -->
             <button type="submit">ログイン</button>
         </form>
-        <!-- パスワードを忘れた場合のリンク -->
         <div class="forgot-password">
             <a href="login/forgotpassword">パスワード変更</a>
     </div>
