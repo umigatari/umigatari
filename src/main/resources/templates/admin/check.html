@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>クイズ管理画面</title>
-    <link rel="stylesheet" href="/css/admin/check.css">
+    <title>問題管理画面</title>
+    <link rel="stylesheet" href="/css/admin/checklist.css">
     <script src="/js/check.js"></script>
 </head>
 <body>
     <div class="container">
         <header class="header">
             <h1>問題チェック</h1>
-        </header>
-        <form action="http://localhost:8080/admin/check" method="get" onsubmit="removeEmptyParams()">
-            <label for="dord">問題作成日で並び替える:</label>
-            <select id="dord" name="dord">
-                <option value="asc">昇順</option>
-                <option value="desc">降順</option>
-            </select>
-            <br><br>     
-            <button type="submit">並び替え</button>
-        </form>
-        <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
+    </header>
+    <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
+    <form action="/admin/quizlist" method="get" onsubmit="removeEmptyParams()">
+        <br><br>  
+        <label for="dord">問題作成日で並び替える:</label>
+        <select id="dord" name="dord">
+            <option value="asc">昇順</option>
+            <option value="desc">降順</option>
+        </select>
+        <br><br>
+        <button type="submit">並び替え</button>
+    </form>
         <p th:text="${errorMessage}" class="error-message"> 問題ありません</p>
         <ul>
             <li th:each="quiz : ${quiz}">

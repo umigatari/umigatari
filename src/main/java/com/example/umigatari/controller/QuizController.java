@@ -187,7 +187,7 @@ public class QuizController {
 
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080.*";
+        String allowedRefererPattern = "^https?://18.178.60.234:8080.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -210,8 +210,9 @@ public class QuizController {
         if(ngword){
             quizService.insertQuiz(quiz);
             model.addAttribute("create", "問題を作成しました!");
-        }
+        }else{
         model.addAttribute("ngword", "不適切な言葉が含まれています");
+        }
         return "quiz/adduserquiz";
     }
 
@@ -220,7 +221,7 @@ public class QuizController {
     public String getRule(HttpServletRequest request) {
          //リファラで遷移が正しいかチェック
          String referer = request.getHeader("Referer");
-         String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
+         String allowedRefererPattern = "^https?://18.178.60.234:8080/stamp.*";
          if (referer == null || !referer.matches(allowedRefererPattern)) {
              if (referer == null) {
                  return "redirect:/userpage/nopage";

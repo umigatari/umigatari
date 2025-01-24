@@ -1,0 +1,157 @@
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;   
+}
+
+.header {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 50px;
+    color: #333;
+}
+
+.button-container {
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-button {
+    display: block; 
+    width: 280px; 
+    height: 70px; 
+    margin: 30px 0; 
+    padding: 20px; 
+    text-align: center; 
+    font-size: 25px; 
+    font-weight: bold; 
+    color: #4b5eaa; 
+    background-color: #ffffe0; 
+    border-radius: 6px; 
+    text-decoration: none; 
+    box-sizing: border-box; 
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: all 0.3s ease; 
+}
+
+.admin-button:hover {
+    box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.notification-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-container[data-noticen=0] {
+    display: none; 
+}
+
+h2{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 90px;
+    margin-bottom: 50px; 
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #333;
+    text-align: left;
+    width: 800px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 800px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+button {
+    background-color: #4b5eaa;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 6px;
+    width: auto;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    right: 20px; 
+    top: 20px;   
+}
+
+button:hover {
+    background-color: #3b4b8a;
+}
+
+.back-button,
+.list-button,
+.check-button,
+.update-button {
+    background-color: #4b5eaa;
+    color: white;
+    border: none;
+    padding: 12px 20px; 
+    font-size: 16px;   
+    font-weight: bold;
+    width: auto; 
+    max-width: 200px;  
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    left: 20px;
+    top: 20px;  
+}
+
+.back-button:hover {
+    background-color: C;
+}
+
+.list-button{
+    left: 240px; 
+}
+
+.check-button{
+    left: 460px;
+}
+
+.update-button {
+    left: 1220px;
+}
+
+.update-button:hover {
+    background-color: #3b4b8a;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

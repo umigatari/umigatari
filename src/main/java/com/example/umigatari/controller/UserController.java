@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -59,7 +58,7 @@ public class UserController {
         Object objtime = session.getAttribute("entertime");
         Timestamp entertime = (Timestamp) objtime;
         analysisService.exitTime(id,entertime);
-        String [] img = {"lea1","lea2","lea3","lea4","lea5"};
+        String [] img = {"6","7","8","9","10"};
         Random random = new Random();
         int randomNumber = random.nextInt(5);
         model.addAttribute("img",img[randomNumber]);
@@ -102,15 +101,17 @@ public class UserController {
 
     //アカウント登録機能 ok
     @PostMapping("create")
-    public String createAccount(@ModelAttribute account account, @RequestParam String password, Model model,HttpSession session) {
+    public String createAccount(@RequestParam String mail,@RequestParam String name,@RequestParam int addrivute, @RequestParam String password, Model model,HttpSession session) {
     try {
-        int addrivute = account.getAddrivute();
+        account account = new account();
         session.setAttribute("addrivute", addrivute);
+       account.setName(name);
+       account.setAddrivute(addrivute);
+       account.setMail(mail);
+       account.setPassword(password);
         userService.createAccount(account);
         model.addAttribute("clear", "登録しました");
     } catch (NotFoundException e) {
-        String mail =account.getMail();
-        int addrivute = account.getAddrivute();
         model.addAttribute("addrivute", addrivute);
         model.addAttribute("mail", mail);
         model.addAttribute("error", e.getMessage());
@@ -243,7 +244,7 @@ public class UserController {
         }
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
+        String allowedRefererPattern = "^https?://18.178.60.234:8080/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -265,7 +266,7 @@ public class UserController {
             return "userpage/nopage";
         }
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
+        String allowedRefererPattern = "^https?://18.178.60.234:8080/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -290,7 +291,7 @@ public class UserController {
             return "userpage/nopage";
         }
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
+        String allowedRefererPattern = "^https?://18.178.60.234:8080/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
