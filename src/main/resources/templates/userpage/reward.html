@@ -6,72 +6,72 @@
     <link rel="stylesheet" href="/css/userpage/reward.css">
     <title>報酬ページ</title>
 </head>
-<div class="header">
-    <img src="/img/umigatari.png" alt="umigatarilogo">
-    <img src="/img/batu.png" alt="batu">
-    <img src="/img/jjc.png" alt="jjclogo">
-
-    <div class="menu-icon" id="menu-icon">≡</div>
-    
-    </div>
 <body>
-        <form action="stamp" method="get">
-            <button type="submit">スタンプへ</button>
-        </form>
-        <p>累計正答数が **3問、5問、7問、9問、11問** に到達するごとに、可愛い海洋生物たちの画像をプレゼント！</p>
-        <p>以下のリストから、ポイント数に応じた画像をダウンロードしてください。</p>
+    <div class="header">
+        <img src="umigatari.png" alt="umigatarilogo">
+        <img src="batu.png" alt="batu">
+        <img src="jjc.png" alt="jjclogo">
+        <div class="menu-icon" id="menu-icon">≡</div>
+    </div>
+
+    <form action="stamp" method="get">
+        <button type="submit">スタンプへ</button>
+    </form>
+    <div class="info">
+        <p class="headline" data-target="about">説明</p>
+        <div id="about" class="content">
+            <p>累計正答数が **3問、5問、7問、9問、11問** と達成するごとに、可愛い海洋生物たちの画像をプレゼント！</p>
+            <p>以下から、ポイント数に応じた画像を長押ししてしてダウンロードしてください。</p>
+        </div>
+    </div>
     <h2 th:text="'現在のポイント: ' + ${count}">現在のポイント:7</h2>
 
     <div>
-        <ul class="image-slider" data-count="5">
-            <li th:if="${count >= 3}" class="image-item">
-                <img src="rule.png" alt="画像1" width="200" class="image">
-                <br>
-                <a href="/img/ning.jpg" download="/img/ning.jpg">画像1をダウンロード</a>
-            </li>
-            <li th:if="${count >= 5}" class="image-item">
-                <img src="ranking.png" alt="画像2" width="200" class="image">
-                <br>
-                <a href="/img/ning.jpg" download="/img/ning.jpg">画像2をダウンロード</a>
-            </li>
-            <li th:if="${count >= 7}" class="image-item">
-                <img src="ranking.png" alt="画像3" width="200" class="image">
-                <br>
-                <a href="/img/ning.jpg" download="/img/ning.jpg">画像3をダウンロード</a>
-            </li>
-            <li th:if="${count >= 9}" class="image-item">
-                <img src="ranking.png" alt="画像4" width="200" class="image">
-                <br>
-                <a href="/img/ning.jpg" download="/img/ning.jpg">画像4をダウンロード</a>
-            </li>
-            <li th:if="${count >= 11}" class="image-item">
-                <img src="ranking.png" alt="画像5" width="200" class="image">
-                <br>
-                <a href="/img/ning.jpg" download="/img/ning.jpg">画像5をダウンロード</a>
-            </li>
-        </ul>
+        <div class="image-slider" data-count="5">
+            <div class="image-item" th:if="${count >= 3}">
+                <img src="/img/6.png" alt="画像1" width="200" class="image">
+                <p th:if="${count < 3}" th:text="'あと ' + (3 - ${count}) + ' 問でこの画像をゲット！'">あと3問で画像をゲット！</p>
+            </div>
+            <div class="image-item" th:if="${count >= 5}">
+                <img src="/img/7.png" alt="画像2" width="200" class="image">
+                <p th:if="${count < 5}" th:text="'あと ' + (5 - ${count}) + ' 問でこの画像をゲット！'">あと5問で画像をゲット！</p>
+            </div>
+            <div class="image-item" th:if="${count >= 7}">
+                <img src="/img/8.png" alt="画像3" width="200" class="image">
+                <p th:if="${count < 7}" th:text="'あと ' + (7 - ${count}) + ' 問でこの画像をゲット！'">あと7問で画像をゲット！</p>
+            </div>
+            <div class="image-item" th:if="${count >= 9}">
+                <img src="/img/9.png" alt="画像4" width="200" class="image">
+                <p th:if="${count < 9}" th:text="'あと ' + (9 - ${count}) + ' 問でこの画像をゲット！'">あと9問で画像をゲット！</p>
+            </div>
+            <div class="image-item" th:if="${count >= 11}">
+                <img src="/img/10.png" alt="画像5" width="200" class="image">
+                <p th:if="${count < 11}" th:text="'あと ' + (11 - ${count}) + ' 問でこの画像をゲット！'">あと11問で画像をゲット！</p>
+            </div>
+        </div>
         
     </div>
+    
     <div class="dropdown-menu" id="dropdown-menu">
         <button id="closePopup" class="close-btn">×</button>
         <a href="/rule">
-            <img src="rule.png" alt="ルール" class="icon">
+            <img src="/img/rule.png" alt="ルール" class="icon">
             ルール
         </a>
         <a href="/reward">
-            <img src="reward.png" alt="プレゼント" class="icon">
+            <img src="/img/reward.png" alt="プレゼント" class="icon">
             プレゼント
         </a>
         <a href="/ranking">
-            <img src="ranking.png" alt="ランキング" class="icon">
+            <img src="/img/ranking.png" alt="ランキング" class="icon">
             ランキング
         </a>
         <a href="/quiz/createpage">
-            <img src="createquiz.png" alt="クイズ作成" class="icon">
+            <img src="/img/createquiz.png" alt="クイズ作成" class="icon">
             クイズ作成
         </a>
         <span>
-            <img src="account.png" alt="アカウント" class="icon">
+            <img src="/img/account.png" alt="アカウント" class="icon">
             アカウント
         </span>
         <span th:text="'アカウント名: ' + ${account} ">アカウント名</span>
@@ -108,5 +108,6 @@
         </form>
     </div>
     <script src="/js/reward.js"></script>
+    <script src="/js/dropdown.js"></script>
 </body>
 </html>

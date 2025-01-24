@@ -27,19 +27,6 @@
         </tbody>
     </table>
 
-    <h2>セクションごとの滞在時間(割合)</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>属性</th>
-                <th>０～１</th>
-                <th>１～２</th>
-                <th>２～３</th>
-                <th>３～４</th>
-                <th>４～５</th>
-                <th>５～６</th>
-            </tr>
-        </thead>
         <tbody>
             <tr th:each="row, rowStat : ${analysis.sectionstaytime}">
                 <td th:text="${attributes[rowStat.index]}"></td>

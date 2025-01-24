@@ -1,0 +1,165 @@
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+}
+
+.header {
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 10px; 
+    color: #333;
+}
+
+.container {
+    padding: 20px;
+    width: 100%;
+    max-width: 900px;
+    position: relative;
+}
+
+button[type="submit"]{
+    background-color: #4b5eaa;
+    color: white; 
+    padding: 10px 20px; 
+    font-size: 16px; 
+    border: none; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
+    margin: 10px 0px;
+}
+
+button[type="submit"]:hover {
+    background-color: #4b5eaa
+}
+
+button.back-button {
+    background-color: #4b5eaa;
+    color: white; 
+    padding: 10px 20px;
+    font-size: 16px; 
+    border: none; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+}
+
+button.back-button:hover {
+    background-color: #4b5eaa; 
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.quiz-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+span {
+    font-size: 16px;
+    color: #333;
+}
+
+
+.quiz-buttons {
+    display: flex;
+    gap: 15px; 
+    justify-content: flex-end; 
+    align-items: center;
+}
+
+
+button {
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+    font-weight: normal;  
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+button.unpost-button,
+button.post-button,
+button.update-button, 
+button.delete-button {
+    min-width: 15px; 
+    height: 50px;
+    text-align: center; 
+}
+
+button:hover {
+    opacity: 0.8;  
+}
+
+button.unpost-button,button.post-button{
+    background-color: #035bba;
+}
+button.unpost-button:hover,button.post-button:hover{
+    background-color: #0357AF;
+}
+
+button.update-button {
+    background-color: #0389d6;  
+}
+
+button.update-button:hover {
+    background-color: #0389d6;  
+}
+
+button.delete-button {
+    background-color: #039cf5;  
+}
+
+button.delete-button:hover {
+    background-color: #039cf5;  
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    text-align: center;
+}
+
+.popup button {
+    color: black;
+    background-color: #b6b3b3;
+    margin: 5px;
+}
+
+.error-message {
+    font-size: 30px; 
+    color: black; 
+    text-align: center; 
+    margin: 20px auto; 
+    width: 80%; 
+}
+
+.container-form{
+    text-align: center;
+}
+
