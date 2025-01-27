@@ -3,6 +3,8 @@ package com.example.umigatari.repository;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -86,10 +88,18 @@ public class UserRepository {
     }
 
     //メールアドレスに対応する名前を取得
-    public String mailToName(String mail){
-        String sql = "select name from account where mail = ?";
-        return  jdbcTemplate.queryForObject(sql,String.class,mail);    
+public String mailToName(String mail) {
+    String sql = "SELECT name FROM account WHERE mail = ?";
+    try {
+        return jdbcTemplate.queryForObject(sql, String.class, mail);
+    } catch (EmptyResultDataAccessException e) {
+        // メールアドレスに対応する名前がない場合
+        return null; // または特定の値や例外を返す
+    } catch (DataAccessException e) {
+        // その他のデータベースアクセスエラー
+        throw new RuntimeException("データベースエラーが発生しました", e);
     }
+}
 
     //カウントに+１する
     public void countUp(Long id){

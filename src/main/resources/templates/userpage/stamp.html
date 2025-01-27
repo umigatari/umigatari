@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div>
+    <div class="qr-container">
         <form th:action="@{/qr}" method="get">
             <button id="qr-btn" class="qr-btn">QRコードを読み取る</button>
         </form>
@@ -57,7 +57,7 @@
             <img src="/img/account.png" alt="アカウント" class="icon">
             アカウント
         </span>
-        <span th:text="'アカウント名: ' + ${account} ">アカウント名</span>
+        <span th:text="'ニックネーム: ' + ${account} ">ニックネーム</span>
         <span id="logout-link" class="action-link">ログアウト</span>
         <span id="delete-link" class="action-link">アカウント削除</span>
     </div>

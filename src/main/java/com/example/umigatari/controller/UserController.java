@@ -127,8 +127,8 @@ public class UserController {
 
     //ログインパスワードを比較 ok
     @PostMapping("password")
-    public String loginPassword(@RequestParam String name,@RequestParam String password,HttpSession session, Model model,HttpServletResponse response){
-        //メールアドレスに変更予定。今は、開発環境でメールアドレスうつのだるいんでユーザーネーム使います。変数名mailだけど開発中はnameが入ります。
+    public String loginPassword(@RequestParam String mail,@RequestParam String password,HttpSession session, Model model,HttpServletResponse response){
+        String name = userService.mailToName(mail);
         Map<String, Object> result = userService.readPassword(name, password);
         boolean checkpassword = result != null && (boolean) result.get("passwordMatch");
         Long id = result != null ? (Long) result.get("id") : null;
@@ -153,7 +153,7 @@ public class UserController {
             session.setAttribute("correct", correct);
             return "redirect:stamp";
         }else{
-            model.addAttribute("failure", "パスワードもしくはユーザーネームが間違っています");
+            model.addAttribute("failure", "パスワードもしくはメールアドレスが間違っています");
             return "account/login";
         }      
     }
@@ -162,7 +162,7 @@ public class UserController {
     @PostMapping("logout")
     public String logout(HttpSession session) {
         session.invalidate(); 
-        return "redirect:";
+        return "redirect:/";
     }
     
 
@@ -242,17 +242,10 @@ public class UserController {
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
-        //リファラで遷移が正しいかチェック
-        String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://18.178.60.234:8080/stamp.*";
-        if (referer == null || !referer.matches(allowedRefererPattern)) {
-            if (referer == null) {
-                return "redirect:/userpage/nopage";
-            }
-            return "redirect:" + referer;
-        }
+
         Object obj = session.getAttribute("id");
        Long id = (Long)obj;
+       model.addAttribute("account", userService.getName(id));
         model.addAttribute("count",userService.getCount(id) ); 
         return "userpage/reward";
 
@@ -265,20 +258,14 @@ public class UserController {
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
-        String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://18.178.60.234:8080/stamp.*";
-        if (referer == null || !referer.matches(allowedRefererPattern)) {
-            if (referer == null) {
-                return "redirect:/userpage/nopage";
-            }
-            return "redirect:" + referer;
-        }
+
         int limit = 5;
         Object obj = session.getAttribute("id");
        Long id = (Long)obj;
         Map<String,Object> result=userService.ranking(limit,id);
         List<account> ranking =  (List<account>) result.get("rankingList");
         int myRanking= (int) result.get("myRanking");
+        model.addAttribute("account", userService.getName(id));
         model.addAttribute("ranking", ranking);
         model.addAttribute("myranking", myRanking);
         return "userpage/ranking";
@@ -291,14 +278,25 @@ public class UserController {
             return "userpage/nopage";
         }
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://18.178.60.234:8080/stamp.*";
+        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
             }
             return "redirect:" + referer;
         }
-        return"userpage/QR";
+        return"userpage/qr";
     }
+
+    
     
 }
+
+/*        String referer = request.getHeader("Referer");
+        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
+        if (referer == null || !referer.matches(allowedRefererPattern)) {
+            if (referer == null) {
+                return "redirect:/userpage/nopage";
+            }
+            return "redirect:" + referer;
+        } */

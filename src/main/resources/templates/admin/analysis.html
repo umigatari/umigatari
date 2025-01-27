@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>分析結果</title>
     <link rel="stylesheet" href="/css/admin/analysis.css">
@@ -25,14 +26,6 @@
                 <td th:text="${time + '分'}"></td>
             </tr>
         </tbody>
-    </table>
-
-        <tbody>
-            <tr th:each="row, rowStat : ${analysis.sectionstaytime}">
-                <td th:text="${attributes[rowStat.index]}"></td>
-                <td th:each="col : ${row}" th:text="${col + '%'}"></td>
-            </tr>
-        </tbody>
-    </table>
+        <p><a href="/download-staytime" download="staytime.csv">CSVファイルをダウンロード</a></p>
 </body>
 </html>
