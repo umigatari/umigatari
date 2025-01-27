@@ -33,7 +33,18 @@ hr {
     left: 50%;
     transform: translateX(-50%);
 }
-
+button{
+    background: linear-gradient(90deg, #4fade3, #196ec9);
+    box-shadow: 0 2px 4px #00000080;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+    color: #fffdfd;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border-radius: 4px;
+    padding: 10px 20px;
+}
 
 /* ログインボタン */
 .login-btn {

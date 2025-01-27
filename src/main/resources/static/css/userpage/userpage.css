@@ -239,3 +239,16 @@ h2 {
     color: #e7ce53;
 }
 
+.qr-container {
+    width: 100%;
+    text-align: center;
+}
+ 
+.qr-btn {
+    margin: 60px auto 0;
+    height: 80px;
+    width: 370px;
+    font-size: 20px;
+    display: block;
+    text-align: center;
+}

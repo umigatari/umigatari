@@ -1,6 +1,8 @@
 package com.example.umigatari.controller;
 
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -10,6 +12,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +32,9 @@ import com.example.umigatari.service.AnalysisService;
 import com.example.umigatari.service.QuizService;
 import com.example.umigatari.service.UserService;
 
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -187,7 +193,7 @@ public class QuizController {
 
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://18.178.60.234:8080.*";
+        String allowedRefererPattern = "^https?://localhost:8080.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -211,23 +217,18 @@ public class QuizController {
             quizService.insertQuiz(quiz);
             model.addAttribute("create", "問題を作成しました!");
         }else{
-        model.addAttribute("ngword", "不適切な言葉が含まれています");
+        model.addAttribute("ngword", "不適切な問題です。");
         }
         return "quiz/adduserquiz";
     }
 
     //ルールを表示
     @GetMapping("rule")
-    public String getRule(HttpServletRequest request) {
-         //リファラで遷移が正しいかチェック
-         String referer = request.getHeader("Referer");
-         String allowedRefererPattern = "^https?://18.178.60.234:8080/stamp.*";
-         if (referer == null || !referer.matches(allowedRefererPattern)) {
-             if (referer == null) {
-                 return "redirect:/userpage/nopage";
-             }
-             return "redirect:" + referer;
-         }
+    public String getRule(HttpServletRequest request,HttpSession session,Model model) {
+
+         Object obj = session.getAttribute("id");
+       Long id = (Long)obj;
+       model.addAttribute("account", userService.getName(id));
         return "userpage/rule";
     }
 
@@ -251,11 +252,11 @@ public class QuizController {
                 session.setAttribute("id", id);
                 return "redirect:admin";
             }else{
-                return "userpage/umigatari";
+                return "admin/adminlogin";
             }
         }else{
             model.addAttribute("failure", "パスワードもしくはユーザーネームが間違っています");
-            return "account/login";
+            return "admin/adminlogin";
         }      
     }
     
@@ -453,6 +454,20 @@ public class QuizController {
         model.addAttribute("analysis", analysis);
         model.addAttribute("attributes", arr);
         return "admin/analysis";
+    }
+
+        @GetMapping("/download-staytime")
+    public ResponseEntity<Void> downloadStayTime(HttpServletResponse response) throws IOException {
+
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"staytime.csv\"");
+        response.setContentType("text/csv");
+
+        try (ServletOutputStream outputStream = response.getOutputStream();
+             OutputStreamWriter writer = new OutputStreamWriter(outputStream)) {
+            analysisService.exportStayTimeToCsv(writer);
+        }
+
+        return ResponseEntity.ok().build();
     }
     
 }
