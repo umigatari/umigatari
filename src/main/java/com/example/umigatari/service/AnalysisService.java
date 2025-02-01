@@ -38,13 +38,13 @@ public class AnalysisService {
         for(int i=0;i<5;i++){
             double stime = analysisRepository.getStayTimeAddrivute(i+1);
             BigDecimal bd = new BigDecimal(stime/60);
-            bd = bd.setScale(2, RoundingMode.HALF_UP);
+            bd = bd.setScale(0, RoundingMode.HALF_UP);
             staytime[i] = bd.doubleValue();
         }
 
         double stime =analysisRepository.getStayTime();
         BigDecimal bd = new BigDecimal(stime/60);
-            bd = bd.setScale(2, RoundingMode.HALF_UP);
+            bd = bd.setScale(0, RoundingMode.HALF_UP);
             staytime[5] = bd.doubleValue();
 
         return staytime;
@@ -71,7 +71,6 @@ public class AnalysisService {
             } catch (IOException e) {
                 System.err.println("Error processing stayTime record: " + stayTime);
                 e.printStackTrace();
-                // Continue to the next record even if there's an error
             }
         }
         writer.flush();

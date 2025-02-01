@@ -156,8 +156,6 @@ public class QuizController {
 
         //正解かどうかを判断
         if (answer.equals(choice)) {
-            //カウントアップ
-            count = count+1;
             String str = "今までの累計正解数は、" + count + "回です";
             model.addAttribute("count", str);
             userService.countUp(id);
@@ -193,7 +191,7 @@ public class QuizController {
 
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080.*";
+        String allowedRefererPattern = "^https?://18.178.60.234:8080.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -444,6 +442,7 @@ public class QuizController {
     @GetMapping("admin/analysis")
     public String analysis(Model model,HttpSession session,HttpServletRequest request) {
         Long obj = 19L;//管理者のIDが入る
+        //管理者はもっと複雑にするべき
         if(!Objects.equals(session.getAttribute("id"), obj)){
             return "admin/adminlogin";
         }
@@ -456,7 +455,8 @@ public class QuizController {
         return "admin/analysis";
     }
 
-        @GetMapping("/download-staytime")
+    //CSVファイルダウンロード
+    @GetMapping("/download-staytime")
     public ResponseEntity<Void> downloadStayTime(HttpServletResponse response) throws IOException {
 
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"staytime.csv\"");

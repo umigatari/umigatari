@@ -6,9 +6,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.umigatari.NotFoundException;
 import com.example.umigatari.model.account;
 import com.example.umigatari.repository.UserRepository;
 
@@ -61,17 +63,17 @@ public class UserService {
 
     //アカウント作成
     public void createAccount(account account) {
-        //try {
+        try {
             String hashedPassword = passwordEncoder.encode(account.getPassword());
             account.setPassword(hashedPassword);
 
             userRepository.createAccount(account);
 
-        /* } catch (DuplicateKeyException e) {
+        } catch (DuplicateKeyException e) {
             throw new NotFoundException("そのユーザーネームは既に登録されています。別のユーザーネームを使用してください。");
-        }*/
-    }
 
+    }
+    }
     //メールアドレスチェック
     public boolean chekMail(String mail){
         int count = userRepository.checkMail(mail);

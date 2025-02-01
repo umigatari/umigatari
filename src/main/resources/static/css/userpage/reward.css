@@ -9,13 +9,20 @@ body{
     width: 66.67%;
     height: 20%;
     margin: 0;
-    padding-left: 0px;
+    padding-left: 0;
 }
-
+ 
 .header img {
     flex-shrink: 0;
     max-height: 100%;
     margin: 0 10px;
+}
+ 
+.menu-icon {
+    font-size: 55px;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
 }
 
 .menu-icon {
@@ -143,15 +150,30 @@ button {
     content: "▼ ";
     transform: rotate(0deg);
     color: #fbd52b;
+    text-shadow:
+        -1px -1px 0 #007bff,
+        1px -1px 0 #007bff,
+        -1px 1px 0 #007bff,
+        1px 1px 0 #007bff;
 }
-
+ 
 .headline:hover {
     color: #fbd52b;
     transform: scale(1.1);
+    text-shadow:
+        -1px -1px 0 #007bff,
+        1px -1px 0 #007bff,
+        -1px 1px 0 #007bff,
+        1px 1px 0 #007bff;
 }
-
+ 
 .headline:hover::before {
     color: #fbd52b;
+    text-shadow:
+        -1px -1px 0#007bff,
+        1px -1px 0 #007bff,
+        -1px 1px 0 #007bff,
+        1px 1px 0 #007bff;
 }
 
 .qr-btn{
