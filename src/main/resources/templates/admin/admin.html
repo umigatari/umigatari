@@ -11,12 +11,12 @@
         <h1>管理者画面</h1>
     </header>
     <div class="notification-container" th:attr="data-notice=${notice}">
-        <span class="notification-badge" th:text="'新規で ' + ${notice} + ' 件。'">新規が1件</span>
+        <span class="notification-badge" th:text="'ユーザーが新しく作成した問題が ' + ${notice} + ' 件。'">新規が1件</span>
     </div>
     <div class="button-container">
         <a href="/admin/create" class="admin-button">クイズ作成</a>
-        <a href="/admin/quizlist" class="admin-button">クイズ一覧</a>
-        <a href="/admin/check" class="admin-button">問題チェック</a>
+        <a href="/admin/quizlist?dord=asc" class="admin-button">クイズ一覧</a>
+        <a href="/admin/check?dord=asc" class="admin-button">問題チェック</a>
         <a href="/admin/analysis" class="admin-button">分析</a>
     </div>
 </body>

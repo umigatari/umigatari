@@ -1,16 +1,22 @@
-// ポップアップを表示する
-document.getElementById('surveyPopup').style.display = 'flex';
-
-// ×ボタンでポップアップを閉じる
-document.getElementById('closePopup').addEventListener('click', function() {
-    document.getElementById('surveyPopup').style.display = 'none';
-});
-
 document.addEventListener('DOMContentLoaded', () => {
-    const answerContainer = document.getElementById('answer-container');
+    const surveyPopup = document.getElementById('surveyPopup');
     const questionContainer = document.getElementById('question-container');
     const showAnswerButton = document.getElementById('show-answer');
-    
+
+    // ポップアップを表示する
+    surveyPopup.style.display = 'flex';
+
+    // ポップアップ全体をクリックすると閉じる
+    surveyPopup.addEventListener('click', () => {
+        surveyPopup.style.display = 'none';
+    });
+
+    // モーダル内部をクリックした場合は閉じない
+    surveyPopup.querySelector('h1').addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    // 答えを表示/非表示切り替え
     showAnswerButton.addEventListener('click', () => {
         if (questionContainer.style.display === 'none') {
             // 問題と答えを表示

@@ -7,46 +7,42 @@
     <link rel="stylesheet" href="/css/admin/admin.css">
 </head>
 <body>
-    <header class="header">
-        <h1>クイズ作成</h1>
-    </header>
+    <h2>クイズ作成・編集</h2>
     <div th:if="${create}">
-       <p th:text="${create}"></p>
-   </div>
-   <div th:if="${posting}">
-       <p th:text="${posting}"></p>
-       <form th:action="@{/admin/update}" method="post">
-           <input type="hidden" name="id" th:value="${id}" />
-           <button type="submit" class="update-button">このクイズを投稿する</button>
-       </form>
-   </div>
-    <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
-    <button type="button" class="list-button" onclick="location.href='/admin/quizlist'">一覧に戻る</button>
-    <button type="button" class="check-button" onclick="location.href='/admin/check'">問題チェックに戻る</button>
+        <p th:text="${create}"></p>
+    </div>
     <form action="/admin/create" method="post">
         <label for="question">クイズ:</label>
-        <input type="text" id="question" name="question" maxlength="100" required 
-               th:value="${quiz != null ? quiz.question : ''}">
-    
+        <input type="text" id="question" name="question" maxlength="100" required
+            th:value="${quiz != null ? quiz.question : ''}">
+   
         <label for="correct">正解の回答:</label>
-        <input type="text" id="correct" name="correct" maxlength="100" required 
-               th:value="${quiz != null ? quiz.correct : ''}">
-    
+        <input type="text" id="correct" name="correct" maxlength="100" required
+            th:value="${quiz != null ? quiz.correct : ''}">
+   
         <label for="otherone">不正解の回答1:</label>
-        <input type="text" id="other_one" name="other_one" maxlength="100" required 
-               th:value="${quiz != null ? quiz.other_one : ''}">
-    
+        <input type="text" id="other_one" name="other_one" maxlength="100" required
+            th:value="${quiz != null ? quiz.other_one : ''}">
+   
         <label for="othertwo">不正解の回答2:</label>
-        <input type="text" id="other_two" name="other_two" maxlength="100" required 
-               th:value="${quiz != null ? quiz.other_two : ''}">
+        <input type="text" id="other_two" name="other_two" maxlength="100" required
+            th:value="${quiz != null ? quiz.other_two : ''}">
         <input type="hidden" name="id" th:value="${quiz != null ? quiz.id : ''}">
-
-        <input type="hidden" name="confirmation" 
-               th:value="${quiz != null && quiz.confirmation != null ? quiz.confirmation : false}">
-    
+ 
+        <input type="hidden" name="confirmation"
+            th:value="${quiz != null && quiz.confirmation != null ? quiz.confirmation : false}">
+   
         <button type="submit">送信</button>
+        <div th:if="${posting}">
+            <p th:text="${posting}"></p>
+            <form th:action="@{/admin/update}" method="post">
+                <input type="hidden" name="id" th:value="${id}" />
+                <button type="submit" class="update-button">このクイズを投稿する</button>
+            </form>
+        </div>
+        <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
     </form>
-    
+   
 </body>
 </html>
-
+ 

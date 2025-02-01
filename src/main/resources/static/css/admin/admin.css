@@ -6,7 +6,7 @@ body{
 .header {
     text-align: center;
     font-size: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     color: #333;
 }
 
@@ -91,36 +91,22 @@ button {
     font-size: 18px;
     font-weight: bold;
     border-radius: 6px;
-    width: auto;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    position: absolute;
-    right: 20px; 
-    top: 20px;   
+    width: 100%;
+    max-width: 220px;
+    height: 50px;
+    box-sizing: border-box;
 }
-
+ 
 button:hover {
     background-color: #3b4b8a;
 }
 
-.back-button,
-.list-button,
-.check-button,
-.update-button {
-    background-color: #4b5eaa;
-    color: white;
-    border: none;
-    padding: 12px 20px; 
-    font-size: 16px;   
-    font-weight: bold;
-    width: auto; 
-    max-width: 200px;  
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    position: absolute;
-    left: 20px;
-    top: 20px;  
+button.back-button {
+    display: block;        
+    margin: 20px auto;    
+    text-align: center;    
 }
 
 .back-button:hover {

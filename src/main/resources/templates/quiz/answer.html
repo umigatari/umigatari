@@ -8,8 +8,8 @@
 </head>
 <body>
     <div id="surveyPopup" class="survey-popup">
-        <button id="closePopup" class="close-btn">×</button>
-        <h1 th:text="${message}">正解</h1>
+        <div><h1 th:text="${message}">正解</h1></div>
+        <div><p>画面をタップで次に進みます</p></div>
     </div>
 
     <div class="header">
@@ -17,7 +17,11 @@
         <img src="/img/batu.png" alt="batu">
         <img src="/img/jjc.png" alt="jjclogo">
     </div>
-     
+    <div class="button-container">
+        <form action="/stamp" method="get">
+            <button class="special-button">スタンプ一覧へ戻る</button>
+        </form>
+    </div>
     <p th:text="${str}">累計正解数は99問です</p> 
     <div class="stamp-card">
          <div class="stamp-slider">
@@ -26,7 +30,7 @@
             <div class="stamp" id="stamp-3"></div>
             <div class="stamp" id="stamp-4"></div>
             <div class="stamp" id="stamp-5"></div>
-            <div class="stamp" id="stamp-6"><img src="ning.jpg"></div>
+            <div class="stamp" id="stamp-6"><button id="mapButton">館内MAP</button></div>
         </div>
     </div>
 
@@ -39,11 +43,21 @@
         </div>
         <button id="show-answer" class="show-answer-button">答えを見る</button>
     </div>
-    <div class="button-container">
-        <form action="/stamp" method="get">
-            <button class="special-button">スタンプ一覧へ戻る</button>
-        </form>
-    </div>
+    <p>次のQRコードを探して読み込んでね！！</p>
+
+    <div class="modal" id="mapModal">
+        <div class="modal-content">
+          <button class="close-btn" id="closeButton">×</button>
+          <div class="maps">
+            <p>1階</p>
+            <img src="/img/map1.jpg" alt="Map 1">
+            <p>2階</p>
+            <img src="/img/map2.jpg" alt="Map 2">
+            <p>3階</p>
+            <img src="/img/map3.jpg" alt="Map 3">
+          </div>
+        </div>
+      </div>
 
    
     <script th:inline="javascript">
@@ -67,5 +81,6 @@
         };
     </script>
     <script src="/js/answerpopup.js"></script>
+    <script src="/js/showmap.js"></script>
 </body>
 </html>

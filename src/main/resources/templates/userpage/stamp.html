@@ -26,15 +26,27 @@
             <div class="stamp" id="stamp-3"></div>
             <div class="stamp" id="stamp-4"></div>
             <div class="stamp" id="stamp-5"></div>
-            <div class="stamp" id="stamp-6"><img src="ning.jpg"></div>
+            <div class="stamp" id="stamp-6"><button id="mapButton">館内MAP</button></div>
         </div>
     </div>
-
     <div class="qr-container">
         <form th:action="@{/qr}" method="get">
             <button id="qr-btn" class="qr-btn">QRコードを読み取る</button>
         </form>
     </div>
+    <div class="modal" id="mapModal">
+        <div class="modal-content">
+          <button class="close-btn" id="closeButton">×</button>
+          <div class="maps">
+            <p>1階</p>
+            <img src="/img/map1.jpg" alt="Map 1">
+            <p>2階</p>
+            <img src="/img/map2.jpg" alt="Map 2">
+            <p>3階</p>
+            <img src="/img/map3.jpg" alt="Map 3">
+          </div>
+        </div>
+      </div>
     <div class="dropdown-menu" id="dropdown-menu">
         <button id="closePopup" class="close-btn">×</button>
         <a href="/rule">
@@ -109,7 +121,7 @@
     };
 
 </script>
-
+<script src="/js/showmap.js"></script>
 <script src="/js/dropdown.js"></script>
 
 </body>

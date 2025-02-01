@@ -37,7 +37,7 @@
                         </form>
                         <form th:action="@{/editing}" method="post">
                             <input type="hidden" name="id" th:value="${quiz.id}" />
-                            <button type="submit" class="update-button">更新</button>
+                            <button type="submit" class="update-button">編集</button>
                         </form>
                         <form id="delete-form-${quiz.id}" th:action="@{/admin/delete}" method="post">
                             <input type="hidden" name="id" th:value="${quiz.id}" />

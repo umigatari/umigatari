@@ -9,13 +9,20 @@ body{
     width: 66.67%;
     height: 20%;
     margin: 0;
-    padding-left: 0px;
+    padding-left: 0;
 }
-
+ 
 .header img {
     flex-shrink: 0;
     max-height: 100%;
     margin: 0 10px;
+}
+ 
+.menu-icon {
+    font-size: 55px;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
 }
 
 h1{
