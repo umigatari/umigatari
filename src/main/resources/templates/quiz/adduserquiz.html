@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/quiz/quiz.css">
+    <link rel="stylesheet" href="/css/quiz/modal.css">
     <title>問題作成フォーム</title>
 </head>
 <body>
@@ -37,9 +38,8 @@
         <div id="message" th:if="${ngword}">
             <h2 th:text="${ngword}" ></h2>
         </div>
-
         <div id="quiz-form-container" th:if="${count >= 3}" th:unless="${create}">
-            <form action="/quiz/create" method="post">
+            <form id="quiz-form">
                 <label for="question">クイズ:</label>
                 <input type="text" id="question" name="question" maxlength="100" required>
         
@@ -54,9 +54,22 @@
         
                 <input type="hidden" name="confirmation" value="true">
         
-                <button id = "addquiz" type="submit" class="solve-button">作成する</button>
+                <button id="addquiz" type="button" class="solve-button">作成する</button>
             </form>
         </div>  
+
+        <div id="confirmation-modal" class="modal">
+            <div class="modal-content">
+                <h3>クイズ内容を確認してね！</h3>
+                <p><strong>クイズ:</strong> <span id="modal-question"></span></p>
+                <p><strong>正解の回答:</strong> <span id="modal-correct"></span></p>
+                <p><strong>不正解の回答1:</strong> <span id="modal-other-one"></span></p>
+                <p><strong>不正解の回答2:</strong> <span id="modal-other-two"></span></p>
+        
+                <button id="confirm-submit" class="solve-button">送信する</button>
+                <button id="cancel-modal" class="cancel-button">キャンセル</button>
+            </div>
+        </div>
 
         <div class="button-container">
             <form th:action="@{/stamp}" method="get">
@@ -64,5 +77,6 @@
             </form>
         </div>
         <script src="/js/fedein.js"></script>
+        <script src="/js/modal.js"></script>
 </body>
 </html>

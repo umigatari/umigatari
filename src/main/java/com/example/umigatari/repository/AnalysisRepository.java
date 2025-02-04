@@ -31,7 +31,7 @@ public class AnalysisRepository {
 
     //退館時間の平均（全体）
     public double getStayTime(){
-        String sql = "SELECT AVG(EXTRACT(EPOCH FROM (exittime - entrytime))) FROM staytime WHERE exittime IS NOT NULL";
+        String sql = "SELECT AVG(EXTRACT(EPOCH FROM (exittime - entrytime))) FROM staytime WHERE exittime IS NOT NULL AND addrivute != 0";
         Double stayTime = jdbcTemplate.queryForObject(sql, Double.class);
         return stayTime != null ? stayTime : 0.0;     
     }
@@ -47,4 +47,5 @@ public class AnalysisRepository {
         String sql = "SELECT * FROM staytime";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(staytime.class));
     }
+
 }

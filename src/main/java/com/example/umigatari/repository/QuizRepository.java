@@ -143,4 +143,12 @@ public class QuizRepository {
         return jdbcTemplate.queryForObject(sql, Integer.class,id);
     }
 
+    //キーワードをもとにクイズを参照
+    @SuppressWarnings("deprecation")
+    public List<quiz> serchBykeyword(String keyword, String dord) {
+        String searchKeyword = "%" + keyword + "%";  // 検索キーワードをパラメータ化
+        String sql = "SELECT * FROM quiz WHERE question LIKE ? ORDER BY creationday " + dord;  // プレースホルダ使用
+        return jdbcTemplate.query(sql, new Object[]{searchKeyword}, new BeanPropertyRowMapper<>(quiz.class));  // パラメータを渡して実行
+    }
+    
 }
