@@ -17,6 +17,12 @@
     </div>
     <div class="score-box">
         <p>今までの累計正解数：<span id="count" th:text="${count}">0</span></p>
+        <p th:if="${solvedCount > 0}">
+            今日はのこり<span th:text="${solvedCount}">5</span>問解くことができます!
+        </p>
+        <p th:if="${solvedCount == 0}">
+            今日はすべての問題を解きました！おつかれ〜☆
+        </p>
     </div>
 
     <div class="stamp-card">

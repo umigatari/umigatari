@@ -11,7 +11,7 @@
             <h1>問題チェック</h1>
     </header>
     <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
-    <form action="/admin/quizlist" method="get" onsubmit="removeEmptyParams()">
+    <form action="/admin/check" method="get" onsubmit="removeEmptyParams()">
         <br><br>  
         <label for="dord">問題作成日で並び替える:</label>
         <select id="dord" name="dord">
@@ -33,7 +33,7 @@
                     <div class="quiz-buttons">
                         <form th:action="@{/admin/update}" method="post">
                             <input type="hidden" name="id" th:value="${quiz.id}" />
-                            <button type="submit" class="post-button">投稿</button>
+                            <button type="submit" class="post-button">公開</button>
                         </form>
                         <form th:action="@{/editing}" method="post">
                             <input type="hidden" name="id" th:value="${quiz.id}" />

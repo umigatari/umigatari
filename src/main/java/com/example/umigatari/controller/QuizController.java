@@ -154,6 +154,17 @@ public class QuizController {
         qanda.setQuiz(quiz.getQuestion());
         qanda.setAnswer(quiz.getCorrect());
 
+        //次の問題へのメッセージ
+
+        switch (type) {
+            case 1 -> model.addAttribute("nextmessage", "次は○○に移動してね");
+            case 2 -> model.addAttribute("nextmessage", "次は○○で問題が解けるよ");
+            case 3 -> model.addAttribute("nextmessage", "次は○○だよ");
+            case 4 -> model.addAttribute("nextmessage", "次が最後の場所だよ");
+                default -> model.addAttribute("nextmessage", "お疲れ様。帰りのQR読み込んで画像ゲットしてね");
+            }
+
+
         //正解かどうかを判断
         if (answer.equals(choice)) {
             String str = "今までの累計正解数は、" + count + "回です";
@@ -191,7 +202,7 @@ public class QuizController {
 
         //リファラで遷移が正しいかチェック
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://18.178.60.234:8080.*";
+        String allowedRefererPattern = "^https?://localhost:8080.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -303,7 +314,7 @@ public class QuizController {
         }else{
         quizService.updateQuiz(quiz);
         if(quiz.isConfirmation()==true){
-            model.addAttribute("posting", "編集したのでこの問題を投稿しますか？");
+            model.addAttribute("posting", "編集したのでこの問題を公開しますか？");
             model.addAttribute("id", quiz.getId());
         //一覧画面からの遷移の場合    
         }else{
@@ -350,21 +361,21 @@ public class QuizController {
 
     //クイズ一覧
     @GetMapping("admin/quizlist")
-    public String quizListPage(Model model,@RequestParam(value = "p_cocid", required = false) Integer pCocid,
+    public String quizListPage(Model model,@RequestParam(value = "keyword", required = false) String keyword,
     @RequestParam(value = "dord", required = false) String dord,HttpSession session,HttpServletRequest request){
         Long obj = 19L;//管理者のIDが入る
         if(!Objects.equals(session.getAttribute("id"), obj)){
             return "admin/adminlogin";
         }
-        System.out.print(dord);
-        if (pCocid != null && dord != null) {
+        
+        if (keyword != null && dord != null) {
             // 両方のパラメータがある場合の処理
-            List<quiz> quiz= quizService.readOrderTypeQuiz(dord,pCocid);
+            List<quiz> quiz= quizService.serchBykeyword(keyword, dord);
             model.addAttribute("quiz",quiz);
             return "admin/quizlist";
-        } else if (pCocid != null) {
+        } else if (keyword != null) {
             // p_cocidのみがある場合の処理
-            List<quiz> quiz= quizService.selectByType(pCocid);
+            List<quiz> quiz= quizService.serchBykeyword(keyword,"ASC");
             model.addAttribute("quiz",quiz);
             return "admin/quizlist";
         } else if (dord != null) {

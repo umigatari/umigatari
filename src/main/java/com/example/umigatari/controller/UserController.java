@@ -49,6 +49,15 @@ public class UserController {
         return  "userpage/entrance";
     }
 
+    //途中参加
+    @GetMapping("midway")
+    public String midway(Model model,HttpSession session) {
+        model.addAttribute("showPopup",false);
+        session.setAttribute("addrivute",0);//途中参加者は属性を0にする
+        return "userpage/entrance";
+    }
+
+
     //かえり
     @GetMapping("exit")
     public String seeyousoon(HttpSession session,Model model){
@@ -226,9 +235,17 @@ public class UserController {
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
+        Set<Integer> solvedQuizzes = (Set<Integer>) session.getAttribute("solvedQuizzes");
+        if (solvedQuizzes == null) {
+            model.addAttribute("solvedCount",5);
+        }else{
+            int solvedCount = solvedQuizzes.size();
+            solvedCount = 5 - solvedCount;    
+            model.addAttribute("solvedCount",solvedCount);
+        }
         Object obj = session.getAttribute("id");
-       Long id = (Long)obj;
-       int count = userService.getCount(id);
+        Long id = (Long)obj;
+        int count = userService.getCount(id);
         model.addAttribute("count", count);
         Set<Integer> correct = (Set<Integer>) session.getAttribute("correct");
         model.addAttribute("correct", correct);
@@ -292,7 +309,7 @@ public class UserController {
     
 }
 
-/*        String referer = request.getHeader("Referer");
+/*String referer = request.getHeader("Referer");
         String allowedRefererPattern = "^https?://18.178.60.234:8080/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {

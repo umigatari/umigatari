@@ -1,21 +1,27 @@
-function removeEmptyParams() {
-    // 'p_cocid'と'dord'の選択された値を取得
-    const pCocid = document.getElementById('p_cocid').value;
-    const dord = document.getElementById('dord').value;
+function combineParams(event) {
+    event.preventDefault();
+    
+    var keyword = document.getElementById('search').value;
+    var dord = document.getElementById('dord').value;
 
-    // 'p_cocid'が空なら、このパラメータを削除（送信しない）
-    if (pCocid === "") {
-        const pCocidParam = document.querySelector('select[name="p_cocid"]');
-        pCocidParam.removeAttribute('name'); // 'p_cocid'パラメータを送信しない
+    var query = '';
+
+    if (keyword) {
+        query += 'keyword=' + encodeURIComponent(keyword);
     }
 
-    // 'dord'が空なら、このパラメータを削除（送信しない）
-    if (dord === "") {
-        const dordParam = document.querySelector('select[name="dord"]');
-        dordParam.removeAttribute('name'); // 'dord'パラメータを送信しない
+    if (dord) {
+        if (query.length > 0) {
+            query += '&';
+        }
+        query += 'dord=' + encodeURIComponent(dord);
     }
+
+    var action = event.target.action;
+    var finalUrl = action + (query.length > 0 ? '?' + query : '');
+
+    window.location.href = finalUrl;
 }
-
 let formIdToDelete = null; // 削除するフォームのIDを保持
 
 function confirmDeletion(formId) {

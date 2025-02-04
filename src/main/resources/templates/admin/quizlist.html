@@ -8,19 +8,30 @@
 <body>
     <div class="container">
         <header class="header">
-        <h1>一覧</h1>
-    </header>
-    <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
-    <form action="/admin/quizlist" method="get" onsubmit="removeEmptyParams()">
-        <br><br>  
-        <label for="dord">問題作成日で並び替える:</label>
-        <select id="dord" name="dord">
-            <option value="asc">昇順</option>
-            <option value="desc">降順</option>
-        </select>
-        <br><br>
-        <button type="submit">並び替え</button>
-    </form>
+            <h1>一覧</h1>
+        </header>
+        
+        <!-- トップページに戻るボタン -->
+        <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
+        <!-- キーワード検索フォーム -->
+        <form id="searchForm" action="/admin/quizlist" method="get" onsubmit="combineParams(event)">
+            <label for="search">キーワード検索:</label>
+            <input type="text" id="search" name="keyword" placeholder="キーワードを入力" th:value="${param.keyword}">
+            <button type="submit">検索</button>
+        </form>
+        
+        <!-- 並び替えフォーム -->
+        <form id="sortForm" action="/admin/quizlist" method="get" onsubmit="combineParams(event)">
+            <br><br>
+            <label for="dord">問題作成日で並び替える:</label>
+            <select id="dord" name="dord">
+                <option value="asc">昇順</option>
+                <option value="desc">降順</option>
+            </select>
+            <br><br>
+            <button type="submit">並び替え</button>
+        </form>
+        <!-- クイズ一覧 -->
         <ul>
             <li th:each="quiz : ${quiz}">
                 <div class="quiz-details">
@@ -29,7 +40,7 @@
                     <span th:text="'正解: ' + ${quiz.correct} ">正解</span>
                     <span th:text="'不正解１: ' + ${quiz.other_one}">不正解1</span>
                     <span th:text="'不正解２: ' + ${quiz.other_two}">不正解2</span>
-                    <span th:text="${quiz.confirmation} ? '問題チェック中' : '投稿中'">ジャンル</span>
+                    <span th:text="${quiz.confirmation} ? '非公開' : '公開'">ジャンル</span>
                     <div class="quiz-buttons">
                         <form th:action="@{/admin/unpost}" method="post">
                             <input type="hidden" name="id" th:value="${quiz.id}" />
@@ -46,9 +57,11 @@
                         </form>
                         <button type="button" class="delete-button" onclick="confirmDeletion('${quiz.id}')">削除</button>
                     </div>          
+                </div>
             </li>
         </ul>
     </div>
+
     <div id="confirmation-dialog" class="popup" style="display: none;">
         <p>本当に削除してもよろしいですか？</p>
         <button type="button" onclick="proceedDeletion()">はい</button>

@@ -37,7 +37,7 @@
             <p th:text="${posting}"></p>
             <form th:action="@{/admin/update}" method="post">
                 <input type="hidden" name="id" th:value="${id}" />
-                <button type="submit" class="update-button">このクイズを投稿する</button>
+                <button type="submit" class="update-button">このクイズを公開する</button>
             </form>
         </div>
         <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>

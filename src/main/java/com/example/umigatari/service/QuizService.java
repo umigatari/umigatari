@@ -170,5 +170,10 @@ public class QuizService {
          return !text.matches("[!-/:-@\\[-`{-~\\s]*");
         }
 
+    //キーワード検索
+    public List<quiz> serchBykeyword(String keyword,String dord){
+        return quizRepository.serchBykeyword(keyword,dord);
+    }
+
     
 }
