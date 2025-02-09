@@ -1,57 +1,133 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>問題管理画面</title>
-    <link rel="stylesheet" href="/css/admin/checklist.css">
-    <script src="/js/check.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>問題チェック</title>
+    <link rel="stylesheet"href="/css/admin/check.css">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
             <h1>問題チェック</h1>
+            <button type="button" class="back-button" onclick="location.href='/admin'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m12 19-7-7 7-7"/>
+                    <path d="M19 12H5"/>
+                </svg>
+                トップページに戻る
+            </button>
+        </div>
     </header>
-    <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
-    <form action="/admin/check" method="get" onsubmit="removeEmptyParams()">
-        <br><br>  
-        <label for="dord">問題作成日で並び替える:</label>
-        <select id="dord" name="dord">
-            <option value="asc">昇順</option>
-            <option value="desc">降順</option>
-        </select>
-        <br><br>
-        <button type="submit">並び替え</button>
-    </form>
-        <p th:text="${errorMessage}" class="error-message"> 問題ありません</p>
-        <ul>
-            <li th:each="quiz : ${quiz}">
-                <div class="quiz-details">
-                    <span th:text="'ID: ' + ${quiz.id} ">問題</span>
-                    <span th:text="'問題: ' + ${quiz.question} ">問題</span>
-                    <span th:text="'正解: ' + ${quiz.correct} ">正解</span>
-                    <span th:text="'不正解１: ' + ${quiz.other_one}">不正解1</span>
-                    <span th:text="'不正解２: ' + ${quiz.other_two}">不正解2</span>
-                    <div class="quiz-buttons">
-                        <form th:action="@{/admin/update}" method="post">
-                            <input type="hidden" name="id" th:value="${quiz.id}" />
-                            <button type="submit" class="post-button">公開</button>
-                        </form>
-                        <form th:action="@{/editing}" method="post">
-                            <input type="hidden" name="id" th:value="${quiz.id}" />
-                            <button type="submit" class="update-button">編集</button>
-                        </form>
-                        <form id="delete-form-${quiz.id}" th:action="@{/admin/delete}" method="post">
-                            <input type="hidden" name="id" th:value="${quiz.id}" />
-                            <button type="submit" class="delete-button" onclick="confirmDeletion('${quiz.id}', event)">削除</button>
-                        </form>
+
+    <main>
+       <!-- Search and Sort Form -->
+       <div class="search-container">
+        <form id="searchForm" th:action="@{/admin/quizlist}" method="get" class="search-form">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="search" class="form-label">キーワード検索:</label>
+                    <div class="search-input-container">
+                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.3-4.3"/>
+                        </svg>
+                        <input
+                            type="text"
+                            id="search"
+                            name="keyword"
+                            th:value="${param.keyword}"
+                            placeholder="キーワードを入力"
+                            class="search-input"
+                        >
                     </div>
                 </div>
-            </li>
-        </ul>
+                <div class="form-group">
+                    <label for="dord" class="form-label">問題作成日で並び替える:</label>
+                    <select id="dord" name="dord" class="sort-select">
+                        <option value="asc" th:selected="${param.dord == 'asc'}">昇順</option>
+                        <option value="desc" th:selected="${param.dord == 'desc'}">降順</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="submit-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.3-4.3"/>
+                </svg>
+                検索
+            </button>
+        </form>
     </div>
-    <div id="confirmation-dialog" class="popup" style="display: none;">
-        <p>本当に削除してもよろしいですか？</p>
-        <button type="button" onclick="proceedDeletion()">はい</button>
-        <button type="button" onclick="cancelDeletion()">いいえ</button>
+
+        <!-- Error Message -->
+        <div class="message-container" th:if="${errorMessage}">
+            <p class="error-message" th:text="${errorMessage}">問題ありません</p>
+        </div>
+
+        <!-- Quiz Grid -->
+        <div class="quiz-grid">
+            <div th:each="quiz : ${quiz}" class="quiz-card">
+                <div class="quiz-content">
+                    <div class="quiz-header">
+                        <div><span class="quiz-label">ID:</span> <span th:text="${quiz.id}">ID</span></div>
+                    </div>
+                    <div>
+                        <span class="quiz-label">問題:</span>
+                        <div class="quiz-field quiz-question" th:text="${quiz.question}">問題</div>
+                    </div>
+                    <div>
+                        <span class="quiz-label">正解:</span>
+                        <div class="quiz-field" th:text="${quiz.correct}">正解</div>
+                    </div>
+                    <div>
+                        <span class="quiz-label">不正解1:</span>
+                        <div class="quiz-field" th:text="${quiz.other_one}">不正解1</div>
+                    </div>
+                    <div>
+                        <span class="quiz-label">不正解2:</span>
+                        <div class="quiz-field" th:text="${quiz.other_two}">不正解2</div>
+                    </div>
+                </div>
+                
+                <div class="quiz-actions">
+                    <form th:action="@{/admin/update}" method="post" style="flex: 1;">
+                        <input type="hidden" name="id" th:value="${quiz.id}" />
+                        <button type="submit" class="action-button button-edit">公開</button>
+                    </form>
+                    <form th:action="@{/editing}" method="post" style="flex: 1;">
+                        <input type="hidden" name="id" th:value="${quiz.id}" />
+                        <button type="submit" class="action-button button-edit">編集</button>
+                    </form>
+                    <form th:id="'delete-form-' + ${quiz.id}" th:action="@{/admin/delete}" method="post" style="flex: 1;">
+                        <input type="hidden" name="id" th:value="${quiz.id}" />
+                        <button type="button" class="action-button button-delete" th:data-quiz-id="${quiz.id}">削除</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Confirmation Dialog -->
+    <div id="confirmationDialog" class="dialog-overlay">
+        <div class="dialog">
+            <div class="dialog-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <h2 class="dialog-title">確認</h2>
+            </div>
+            <p class="dialog-content">本当に削除してもよろしいですか？</p>
+            <div class="dialog-actions">
+                <button type="button" id="cancelDelete" class="dialog-button button-cancel">いいえ</button>
+                <button type="button" id="confirmDelete" class="dialog-button button-confirm">はい</button>
+            </div>
+        </div>
     </div>
+
+    <script src="/js/check.js"></script>
 </body>
 </html>

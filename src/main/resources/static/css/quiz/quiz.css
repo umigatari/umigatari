@@ -245,7 +245,7 @@ input {
 }
 
 .rmd-quiz-button{
-    font-size: 12px;
+    font-size: 24px;
     background: #ffffff;
     color: #000;
     border: none;
@@ -436,3 +436,9 @@ input {
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
+
+  /*画像*/
+  .icon {
+    display: block;
+    margin: auto;
+}

@@ -1,82 +1,154 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/quiz/quiz.css">
-    <link rel="stylesheet" href="/css/quiz/modal.css">
-    <title>問題作成フォーム</title>
+    <title>海がたり - クイズ作成</title>
+    <link rel="stylesheet" href="/css/quiz/userquiz.css">
 </head>
 <body>
     <div class="header">
         <img src="/img/umigatari.png" alt="umigatarilogo">
         <img src="/img/batu.png" alt="batu">
         <img src="/img/jjc.png" alt="jjclogo">
+        <div class="menu-icon" id="menu-icon">≡</div>
     </div>
-    <div class="content-container">
-        <div class="section fade-in">
-            <p class="title">作成方法</p>
-            <div class="content">
-                <p>問題累計正解数が３問を超えるとクイズ作成機能が解放されます。</p>
-                <p>みんなに知ってほしい豆知識や難易度がたかい問題など海の生きものや水族館に関する問題を作成してください！</p>
-                <p>１個のクイズにつき正解の回答１つと不正解の回答２つを入力してください</p>
+    <div id="message" th:if="${create}">
+        <h2 th:text="${create}" ></h2>
+    </div>
+    <div id="message" th:if="${ngword}">
+        <h2 th:text="${ngword}" ></h2>
+    </div>
 
+    <main class="main">
+        <div class="content-card">
+            <div class="tabs">
+                <button class="tab-button active" data-section="explanation">説明</button>
+                <button class="tab-button" data-section="quiz-form">クイズ作成</button>
+            </div>
+
+            <div class="content-sections">
+                <div class="content-section active" id="explanation">
+                    <section class="section">
+                        <h2 class="section-title">作成方法</h2>
+                        <div class="section-content">
+                            <p>問題累計正解数が３問を超えるとクイズ作成機能が解放されます。</p>
+                            <p>みんなに知ってほしい豆知識や難易度がたかい問題など海の生きものや水族館に関する問題を作成してください！</p>
+                            <p>１個のクイズにつき正解の回答１つと不正解の回答２つを入力してください。</p>
+                        </div>
+                    </section>
+
+                    <section class="section">
+                        <h2 class="section-title">注意事項</h2>
+                        <div class="section-content">
+                            <p>問題は、管理者によるチェックの後に、このクイズアプリで実際に使用されます。</p>
+                            <p>問題は常にすべての問題の中からランダムで出題されるため、自分が作成した問題が必ず採用されるものではありません。</p>
+                            <p>クイズとしてほかの人が不快になるような内容や言葉遣いは避けてください。</p>
+                        </div>
+                    </section>
+
+                    <div class="stamp-button-container">
+                        <form action="/stamp" method="get">
+                            <button type="submit" class="stamp-button">
+                                <span class="stamp-button-text">スタンプページへ</span>
+                                <svg class="stamp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="content-section" id="quiz-form">
+                    <div id="quiz-form-content">
+                        <form id="quiz-form">
+                            <div class="form-group">
+                                <input type="text" id="question" required maxlength="100" placeholder=" ">
+                                <label for="question">クイズ</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="correct" required maxlength="100" placeholder=" ">
+                                <label for="correct">正解の回答</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="other_one" required maxlength="100" placeholder=" ">
+                                <label for="other_one">不正解の回答1</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="other_two" required maxlength="100" placeholder=" ">
+                                <label for="other_two">不正解の回答2</label>
+                            </div>
+                            <div class="button-container">
+                                <button type="button" id="submit-button" disabled>作成する</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="section fade-in">
-            <p class="title">注意事項</p>
-            <div class="content">
-                <p>問題は、管理者によるチェックの後に、このクイズアプリで実際に使用されます。</p>
-                <p>問題は常にすべての問題の中からランダムで出題されるため、自分が作成した問題が必ず採用されるものではありません。</p>
-                <p>クイズとしてほかの人が不快になるような内容や言葉遣いは避けてください</p>
-            </div>
-        </div>
-    </div>
-        <div id="message" th:if="${create}">
-            <h2 th:text="${create}" ></h2>
-        </div>
-        <div id="message" th:if="${ngword}">
-            <h2 th:text="${ngword}" ></h2>
-        </div>
-        <div id="quiz-form-container" th:if="${count >= 3}" th:unless="${create}">
-            <form id="quiz-form">
-                <label for="question">クイズ:</label>
-                <input type="text" id="question" name="question" maxlength="100" required>
-        
-                <label for="correct">正解の回答:</label>
-                <input type="text" id="correct" name="correct" maxlength="100" required>
-        
-                <label for="otherone">不正解の回答1:</label>
-                <input type="text" id="other_one" name="other_one" maxlength="100" required>
-        
-                <label for="othertwo">不正解の回答2:</label>
-                <input type="text" id="other_two" name="other_two" maxlength="100" required>
-        
-                <input type="hidden" name="confirmation" value="true">
-        
-                <button id="addquiz" type="button" class="solve-button">作成する</button>
-            </form>
-        </div>  
+    </main>
 
-        <div id="confirmation-modal" class="modal">
+    <dialog id="confirmation-modal" class="modal">
+        <form method="post" action="/quiz/create" id="confirmation-form">
             <div class="modal-content">
                 <h3>クイズ内容を確認してね！</h3>
-                <p><strong>クイズ:</strong> <span id="modal-question"></span></p>
-                <p><strong>正解の回答:</strong> <span id="modal-correct"></span></p>
-                <p><strong>不正解の回答1:</strong> <span id="modal-other-one"></span></p>
-                <p><strong>不正解の回答2:</strong> <span id="modal-other-two"></span></p>
-        
-                <button id="confirm-submit" class="solve-button">送信する</button>
-                <button id="cancel-modal" class="cancel-button">キャンセル</button>
-            </div>
-        </div>
+                <div class="confirmation-details">
+                    <p><strong>クイズ:</strong> <span id="modal-question"></span></p>
+                    <p><strong>正解の回答:</strong> <span id="modal-correct"></span></p>
+                    <p><strong>不正解の回答1:</strong> <span id="modal-other-one"></span></p>
+                    <p><strong>不正解の回答2:</strong> <span id="modal-other-two"></span></p>
+                </div>
 
-        <div class="button-container">
-            <form th:action="@{/stamp}" method="get">
-                <button id="stamp-btn" class="solve-button">スタンプへ</button>
-            </form>
+                <input type="hidden" name="question" id="hidden-question">
+                <input type="hidden" name="correct" id="hidden-correct">
+                <input type="hidden" name="other_one" id="hidden-other-one">
+                <input type="hidden" name="other_two" id="hidden-other-two">
+
+                <div class="modal-buttons">
+                    <button type="button" id="cancelButton">キャンセル</button>
+                    <button type="submit" id="submitButton">送信する</button>
+                </div>
+            </div>
+        </form>
+    </dialog>
+
+    <div class="dropdown-menu" id="dropdown-menu">
+        <button id="closePopup" class="close-btn">×</button>
+        <a href="/rule"><img src="/img/rule.png" alt="ルール" class="icon">ルール</a>
+        <a href="/reward"><img src="/img/reward.png" alt="プレゼント" class="icon">プレゼント</a>
+        <a href="/ranking"><img src="/img/ranking.png" alt="ランキング" class="icon">ランキング</a>
+        <a href="/quiz/createpage"><img src="/img/createquiz.png" alt="クイズ作成" class="icon">クイズ作成</a>
+        <span><img src="/img/account.png" alt="アカウント" class="icon">アカウント</span>
+        <span th:text="'ニックネーム: ' + ${account}">ニックネーム</span>
+        <span id="logout-link" class="action-link">ログアウト</span>
+        <span id="delete-link" class="action-link">アカウント削除</span>
+    </div>
+
+    <div id="logout-popup" class="popup">
+        <div class="popup-content">
+            <p>ログアウトしますか？</p>
+            <button id="confirm-logout-yes">はい</button>
+            <button id="confirm-logout-no">いいえ</button>
         </div>
-        <script src="/js/fedein.js"></script>
-        <script src="/js/modal.js"></script>
+    </div>
+
+    <div id="delete-popup" class="popup">
+        <div class="popup-content">
+            <p>アカウントは完全に削除されますが<br>よろしいですか？</p>
+            <button id="confirm-delete-yes">はい</button>
+            <button id="confirm-delete-no">いいえ</button>
+        </div>
+    </div>
+
+    <div id="final-delete-popup" class="popup">
+        <div class="popup-content">
+            <p>本当に削除しますか？</p>
+            <button id="confirm-final-delete-yes">はい</button>
+            <button id="confirm-final-delete-no">いいえ</button>
+        </div>
+    </div>
+    <script src="/js/dropdown.js"></script>
+    <script src="/js/userquiz.js"></script>
 </body>
 </html>
+

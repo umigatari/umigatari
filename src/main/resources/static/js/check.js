@@ -1,40 +1,44 @@
-let formIdToDelete = null; // 削除するフォームのIDを保持
+document.addEventListener('DOMContentLoaded', function() {
+    // Delete confirmation dialog
+    let selectedQuizId = null;
+    const dialogOverlay = document.getElementById('confirmationDialog');
+    const deleteButtons = document.querySelectorAll('.button-delete');
 
-function confirmDeletion(formId, event) {
-    event.preventDefault();
-    formIdToDelete = `delete-form-${formId}`; // フォームのIDを保存
-    const dialog = document.getElementById('confirmation-dialog');
-    dialog.style.display = 'block'; // ポップアップを表示
-}
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            selectedQuizId = this.closest('form').querySelector('input[name="id"]').value;
+            dialogOverlay.classList.add('active');
+        });
+    });
 
-function proceedDeletion() {
-    if (formIdToDelete) {
-    const form = document.getElementById(formIdToDelete);
-    form.submit(); // 保存したフォームを送信
-}
-cancelDeletion(); // ポップアップを閉じる
-}
-
-function cancelDeletion() {
-formIdToDelete = null; // フォームIDをリセット
-const dialog = document.getElementById('confirmation-dialog');
-dialog.style.display = 'none'; // ポップアップを非表示
-}
-
-function removeEmptyParams() {
-    // 'p_cocid'と'dord'の選択された値を取得
-    const pCocid = document.getElementById('p_cocid').value;
-    const dord = document.getElementById('dord').value;
-
-    // 'p_cocid'が空なら、このパラメータを削除（送信しない）
-    if (pCocid === "") {
-        const pCocidParam = document.querySelector('select[name="p_cocid"]');
-        pCocidParam.removeAttribute('name'); // 'p_cocid'パラメータを送信しない
+    // Dialog buttons
+    const cancelButton = document.getElementById('cancelDelete');
+    if (cancelButton) {
+        cancelButton.addEventListener('click', function() {
+            dialogOverlay.classList.remove('active');
+            selectedQuizId = null;
+        });
     }
 
-    // 'dord'が空なら、このパラメータを削除（送信しない）
-    if (dord === "") {
-        const dordParam = document.querySelector('select[name="dord"]');
-        dordParam.removeAttribute('name'); // 'dord'パラメータを送信しない
+    const confirmButton = document.getElementById('confirmDelete');
+    if (confirmButton) {
+        confirmButton.addEventListener('click', function() {
+            if (selectedQuizId) {
+                const form = document.querySelector(`#delete-form-${selectedQuizId}`);
+                if (form) {
+                    form.submit();
+                }
+            }
+            dialogOverlay.classList.remove('active');
+        });
     }
-}
+
+    // Close dialog when clicking outside
+    dialogOverlay.addEventListener('click', function(e) {
+        if (e.target === dialogOverlay) {
+            dialogOverlay.classList.remove('active');
+            selectedQuizId = null;
+        }
+    });
+});

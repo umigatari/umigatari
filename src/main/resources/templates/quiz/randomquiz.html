@@ -20,7 +20,7 @@
     <div class="rmd-quiz-container" th:if="${soved == null}">
         <div class="rmd-quiz-item fade-inshow">
           <button class="rmd-quiz-button">
-            <p>選択肢１</p>
+            <img src="/img/createquiz.png" alt="createquiz" class="icon">
             <span th:text="${quiz1.question}">うみがたりがほこる飼育数日本一のペンギンは？🐧</span>
           </button>
           <form th:action="@{/quiz/{id}(id=${quiz1.id})}" method="post" class="solve-form">
@@ -32,7 +32,7 @@
         <div class="rmd-quiz-item fade-inhow">
           <hr>
           <button class="rmd-quiz-button">
-            <p>選択肢２</p>
+            <img src="/img/createquiz.png" alt="createquiz" class="icon">
             <span th:text="${quiz2.question}">冬に寿司ご飯を作る時すぐに硬くなってしまうのを防ぐためには何を少し多めに入れると良いでしょうか？</span>
           </button>
           <form th:action="@{/quiz/{id}(id=${quiz2.id})}" method="post" class="solve-form">
@@ -44,7 +44,7 @@
         <div class="rmd-quiz-item fade-inhow">
           <hr>
           <button class="rmd-quiz-button">
-            <p>選択肢３</p>
+            <img src="/img/createquiz.png" alt="createquiz" class="icon">
             <span th:text="${quiz3.question}">春、夏、秋、冬、</span>
           </button>
           <form th:action="@{/quiz/{id}(id=${quiz3.id})}" method="post" class="solve-form">

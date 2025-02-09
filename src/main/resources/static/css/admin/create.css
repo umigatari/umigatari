@@ -9,6 +9,8 @@
     --text-secondary: #9ca3af;
     --accent-color: #10a37f;
     --accent-hover: #0e906f;
+    --success-color: #059669;
+    --success-bg: rgba(5, 150, 105, 0.1);
 }
 
 body {
@@ -28,7 +30,7 @@ body {
 }
 
 .header-content {
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -60,15 +62,38 @@ body {
 
 /* Main content */
 .main-content {
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 0 1.5rem;
     display: grid;
     gap: 2rem;
 }
 
-/* Analytics card */
-.analytics-card {
+/* Message styles */
+.message {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.message.success {
+    background-color: var(--success-bg);
+    color: var(--success-color);
+}
+
+.message svg {
+    color: var(--success-color);
+}
+
+.message p {
+    margin: 0;
+}
+
+/* Form card */
+.form-card, .posting-card {
     background-color: var(--bg-tertiary);
     border-radius: 0.5rem;
     padding: 1.5rem;
@@ -91,76 +116,77 @@ body {
     margin: 0;
 }
 
-/* Count display */
-.count-display {
-    display: flex;
-    align-items: baseline;
+/* Form styles */
+.quiz-form {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: grid;
     gap: 0.5rem;
-    justify-content: center;
-    padding: 2rem;
 }
 
-.count-display h3 {
-    font-size: 3.5rem;
-    font-weight: bold;
-    margin: 0;
-    color: var(--accent-color);
-}
-
-.count-label {
-    font-size: 1.5rem;
+.form-group label {
+    font-size: 0.875rem;
     color: var(--text-secondary);
 }
 
-/* Table styles */
-.table-container {
-    overflow-x: auto;
-    margin-bottom: 1.5rem;
-}
-
-.analytics-table {
+.form-group input {
+    padding: 0.75rem 1rem;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    color: var(--text-primary);
+    font-size: 1rem;
     width: 100%;
-    border-collapse: collapse;
-    text-align: left;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.analytics-table th,
-.analytics-table td {
-    padding: 1rem;
-    border-bottom: 1px solid var(--border-color);
+.form-group input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(16, 163, 127, 0.2);
 }
 
-.analytics-table th {
-    background-color: var(--bg-secondary);
-    font-weight: 600;
+.form-group input::placeholder {
     color: var(--text-secondary);
 }
 
-.analytics-table tr:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-/* Download section */
-.download-section {
+/* Button styles */
+.form-actions {
     display: flex;
-    justify-content: center;
-    margin-top: 1.5rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
 }
 
-.download-button {
+.submit-button, .publish-button {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
     background-color: var(--accent-color);
     color: var(--text-primary);
-    text-decoration: none;
+    border: none;
     border-radius: 0.375rem;
+    font-size: 1rem;
+    cursor: pointer;
     transition: background-color 0.2s;
 }
 
-.download-button:hover {
+.submit-button:hover, .publish-button:hover {
     background-color: var(--accent-hover);
+}
+
+/* Posting section */
+.posting-card {
+    text-align: center;
+}
+
+.posting-message {
+    margin: 1rem 0;
+    color: var(--text-secondary);
 }
 
 /* Responsive design */
@@ -171,16 +197,13 @@ body {
         text-align: center;
     }
 
-    .analytics-table th,
-    .analytics-table td {
-        padding: 0.75rem;
+    .form-actions {
+        flex-direction: column;
+        gap: 1rem;
     }
 
-    .count-display h3 {
-        font-size: 2.5rem;
-    }
-
-    .count-label {
-        font-size: 1.25rem;
+    .submit-button, .publish-button {
+        width: 100%;
+        justify-content: center;
     }
 }
