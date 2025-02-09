@@ -4,12 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ログイン</title>
-    <link rel="stylesheet" href="/css/userpage/error.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h2>ログインがされていないか、不正なリクエストです。</h2>
-    <form action="/" method="get">
-        <button type="submit">トップページへ</button>
-    </form>
-</body>
-</html>
+    <div class="container">
+        <div class="error-card">
+            <div class="icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+            </div>
+            <h2>ログインがされていないか、不正なリクエストです。</h2>
+            <p>セッションが切れたか、アクセス権限がありません。<br>トップページから再度ログインしてください。</p>
+            <form action="/" method="get">
+                <button type="submit">トップページへ</button>
+            </form>
+        </div>
+    </div>

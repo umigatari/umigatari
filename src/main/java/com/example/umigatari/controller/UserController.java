@@ -162,7 +162,7 @@ public class UserController {
             session.setAttribute("correct", correct);
             return "redirect:stamp";
         }else{
-            model.addAttribute("failure", "パスワードもしくはメールアドレスが間違っています");
+            model.addAttribute("failure", "メールアドレスもしくはパスワードが間違っています");
             return "account/login";
         }      
     }
@@ -227,30 +227,38 @@ public class UserController {
 
     //以下ユーザーページ
 
-    //スタンプを表示
+    // スタンプを表示
     @SuppressWarnings("unchecked")
     @GetMapping("stamp")
-    public String getStamp(HttpSession session,Model model){
-        
-        if(session.getAttribute("id")==null){
-            return "userpage/nopage";
+    public String getStamp(HttpSession session, Model model) {
+        try {
+            // セッションIDの確認
+            Object obj = session.getAttribute("id");
+            if (obj == null) {
+                return "userpage/nopage";
+            }
+
+            Long id = (Long) obj;
+            Set<Integer> solvedQuizzes = (Set<Integer>) session.getAttribute("solvedQuizzes");
+            if (solvedQuizzes == null) {
+                model.addAttribute("solvedCount", 5);
+            } else {
+                int solvedCount = 5 - solvedQuizzes.size();
+                model.addAttribute("solvedCount", solvedCount);
+            }
+
+            int count = userService.getCount(id);
+            model.addAttribute("count", count);
+
+            Set<Integer> correct = (Set<Integer>) session.getAttribute("correct");
+            model.addAttribute("correct", correct != null ? correct : Set.of());
+
+            model.addAttribute("account", userService.getName(id));
+            return "userpage/stamp";
+        } catch (Exception e) {
+            // 予期しないエラーが発生した場合もタイムアウト画面へ遷移
+            return "error/timeout";
         }
-        Set<Integer> solvedQuizzes = (Set<Integer>) session.getAttribute("solvedQuizzes");
-        if (solvedQuizzes == null) {
-            model.addAttribute("solvedCount",5);
-        }else{
-            int solvedCount = solvedQuizzes.size();
-            solvedCount = 5 - solvedCount;    
-            model.addAttribute("solvedCount",solvedCount);
-        }
-        Object obj = session.getAttribute("id");
-        Long id = (Long)obj;
-        int count = userService.getCount(id);
-        model.addAttribute("count", count);
-        Set<Integer> correct = (Set<Integer>) session.getAttribute("correct");
-        model.addAttribute("correct", correct);
-        model.addAttribute("account", userService.getName(id));
-        return "userpage/stamp";
     }
 
     //報酬を表示　　
