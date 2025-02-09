@@ -1,48 +1,138 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>クイズ追加</title>
-    <link rel="stylesheet" href="/css/admin/admin.css">
+    <link rel="stylesheet" href="/css/admin/create.css">
 </head>
 <body>
-    <h2>クイズ作成・編集</h2>
-    <div th:if="${create}">
-        <p th:text="${create}"></p>
-    </div>
-    <form action="/admin/create" method="post">
-        <label for="question">クイズ:</label>
-        <input type="text" id="question" name="question" maxlength="100" required
-            th:value="${quiz != null ? quiz.question : ''}">
-   
-        <label for="correct">正解の回答:</label>
-        <input type="text" id="correct" name="correct" maxlength="100" required
-            th:value="${quiz != null ? quiz.correct : ''}">
-   
-        <label for="otherone">不正解の回答1:</label>
-        <input type="text" id="other_one" name="other_one" maxlength="100" required
-            th:value="${quiz != null ? quiz.other_one : ''}">
-   
-        <label for="othertwo">不正解の回答2:</label>
-        <input type="text" id="other_two" name="other_two" maxlength="100" required
-            th:value="${quiz != null ? quiz.other_two : ''}">
-        <input type="hidden" name="id" th:value="${quiz != null ? quiz.id : ''}">
- 
-        <input type="hidden" name="confirmation"
-            th:value="${quiz != null && quiz.confirmation != null ? quiz.confirmation : false}">
-   
-        <button type="submit">送信</button>
-        <div th:if="${posting}">
-            <p th:text="${posting}"></p>
-            <form th:action="@{/admin/update}" method="post">
-                <input type="hidden" name="id" th:value="${id}" />
-                <button type="submit" class="update-button">このクイズを公開する</button>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1>クイズ作成・編集</h1>
+            <button type="button" class="back-button" onclick="location.href='/admin'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m12 19-7-7 7-7"/>
+                    <path d="M19 12H5"/>
+                </svg>
+                トップページに戻る
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Success Message -->
+        <div th:if="${create}" class="message success">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            <p th:text="${create}"></p>
+        </div>
+
+        <!-- Quiz Form Card -->
+        <div class="form-card">
+            <div class="card-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
+                    <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
+                    <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
+                    <line x1="2" y1="2" x2="22" y2="22"/>
+                </svg>
+                <h2>クイズ情報入力</h2>
+            </div>
+
+            <form action="/admin/create" method="post" class="quiz-form">
+                <div class="form-group">
+                    <label for="question">クイズ:</label>
+                    <input 
+                        type="text" 
+                        id="question" 
+                        name="question" 
+                        maxlength="100" 
+                        required
+                        th:value="${quiz != null ? quiz.question : ''}"
+                        placeholder="クイズの問題文を入力してください"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="correct">正解の回答:</label>
+                    <input 
+                        type="text" 
+                        id="correct" 
+                        name="correct" 
+                        maxlength="100" 
+                        required
+                        th:value="${quiz != null ? quiz.correct : ''}"
+                        placeholder="正解を入力してください"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="other_one">不正解の回答1:</label>
+                    <input 
+                        type="text" 
+                        id="other_one" 
+                        name="other_one" 
+                        maxlength="100" 
+                        required
+                        th:value="${quiz != null ? quiz.other_one : ''}"
+                        placeholder="不正解の選択肢を入力してください"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="other_two">不正解の回答2:</label>
+                    <input 
+                        type="text" 
+                        id="other_two" 
+                        name="other_two" 
+                        maxlength="100" 
+                        required
+                        th:value="${quiz != null ? quiz.other_two : ''}"
+                        placeholder="不正解の選択肢を入力してください"
+                    >
+                </div>
+
+                <input type="hidden" name="id" th:value="${quiz != null ? quiz.id : ''}">
+                <input type="hidden" name="confirmation" th:value="${quiz != null && quiz.confirmation != null ? quiz.confirmation : false}">
+
+                <div class="form-actions">
+                    <button type="submit" class="submit-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                            <polyline points="17 21 17 13 7 13 7 21"/>
+                            <polyline points="7 3 7 8 15 8"/>
+                        </svg>
+                        送信
+                    </button>
+                </div>
             </form>
         </div>
-        <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
-    </form>
-   
+
+        <!-- Posting Section -->
+        <div th:if="${posting}" class="posting-card">
+            <div class="card-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                </svg>
+                <h2>クイズの公開</h2>
+            </div>
+            <p th:text="${posting}" class="posting-message"></p>
+            <form th:action="@{/admin/update}" method="post">
+                <input type="hidden" name="id" th:value="${id}" />
+                <button type="submit" class="publish-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                        <polyline points="17 21 17 13 7 13 7 21"/>
+                        <polyline points="7 3 7 8 15 8"/>
+                    </svg>
+                    このクイズを公開する
+                </button>
+            </form>
+        </div>
+    </main>
 </body>
 </html>
- 

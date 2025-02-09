@@ -295,7 +295,7 @@ public class UserController {
             return "userpage/nopage";
         }
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://18.178.60.234:8080/stamp.*";
+        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";
@@ -310,7 +310,7 @@ public class UserController {
 }
 
 /*String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://18.178.60.234:8080/stamp.*";
+        String allowedRefererPattern = "^https?://localhost:8080/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";

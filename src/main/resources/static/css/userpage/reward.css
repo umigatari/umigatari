@@ -187,17 +187,17 @@ button {
 .image-slider {
     display: flex;
     overflow-x: scroll;
-    gap: 20px;
+    gap: 10px;
     scroll-snap-type: x proximity;
     -webkit-overflow-scrolling: touch;
     margin: 10px 10px;
-    padding: 20px 80px;
+    padding: 10px 25px;
     position: relative;
 }
-
+ 
 .image-item {
     flex-shrink: 0;
-    width: 200px;
+    width: 310px;
     position: relative;
     opacity: 1;
     transform: scale(1);
@@ -249,6 +249,10 @@ button {
     opacity: 1;
 }
 
-
-
-
+.character {
+    width: 200px;  
+    height: auto;
+    display: block;
+    margin: auto;
+    margin-top: 40px;
+}

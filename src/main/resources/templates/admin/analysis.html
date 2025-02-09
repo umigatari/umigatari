@@ -1,31 +1,80 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>分析結果</title>
     <link rel="stylesheet" href="/css/admin/analysis.css">
 </head>
 <body>
-    <h1>分析結果</h1>
-    <button type="button" class="back-button" onclick="location.href='/admin'">トップページに戻る</button>
-    <h2>ユーザー登録人数（うち管理者2名）</h2>
-    <h3 th:text="${count}">30</h3>
-    <h2>滞在時間</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>属性</th>
-                <th>滞在時間</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="time, iterStat : ${analysis.staytime}">
-                <td th:text="${attributes[iterStat.index]}"></td>
-                <td th:text="${time + '分'}"></td>
-            </tr>
-        </tbody>
-        <p><a href="/download-staytime" download="staytime.csv">CSVファイルをダウンロード</a></p>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1>分析結果</h1>
+            <button type="button" class="back-button" onclick="location.href='/admin'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m12 19-7-7 7-7"/>
+                    <path d="M19 12H5"/>
+                </svg>
+                トップページに戻る
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- User Count Card -->
+        <div class="analytics-card">
+            <div class="card-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <h2>ユーザー登録人数（うち管理者2名）</h2>
+            </div>
+            <div class="count-display">
+                <h3 th:text="${count}">30</h3>
+                <span class="count-label">名</span>
+            </div>
+        </div>
+
+        <!-- Stay Time Card -->
+        <div class="analytics-card">
+            <div class="card-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                </svg>
+                <h2>滞在時間</h2>
+            </div>
+            <div class="table-container">
+                <table class="analytics-table">
+                    <thead>
+                        <tr>
+                            <th>属性</th>
+                            <th>滞在時間</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="time, iterStat : ${analysis.staytime}">
+                            <td th:text="${attributes[iterStat.index]}"></td>
+                            <td th:text="${time + '分'}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="download-section">
+                <a href="/download-staytime" download="staytime.csv" class="download-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    CSVファイルをダウンロード
+                </a>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

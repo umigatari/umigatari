@@ -1,45 +1,58 @@
-function combineParams(event) {
-    event.preventDefault();
-    
-    var keyword = document.getElementById('search').value;
-    var dord = document.getElementById('dord').value;
-
-    var query = '';
-
-    if (keyword) {
-        query += 'keyword=' + encodeURIComponent(keyword);
+document.addEventListener('DOMContentLoaded', function() {
+    // Form handling
+    const searchForm = document.getElementById('searchForm');
+    if (searchForm) {
+      searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const keyword = document.getElementById('search').value;
+        const sortOrder = document.getElementById('dord').value;
+        
+        // Here you would typically make an AJAX call or submit the form
+        console.log('Search:', keyword, 'Sort Order:', sortOrder);
+        this.submit();
+      });
     }
-
-    if (dord) {
-        if (query.length > 0) {
-            query += '&';
+  
+    // Delete confirmation dialog
+    let selectedQuizId = null;
+    const dialogOverlay = document.getElementById('confirmationDialog');
+    const deleteButtons = document.querySelectorAll('.button-delete');
+  
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        selectedQuizId = this.dataset.quizId;
+        dialogOverlay.classList.add('active');
+      });
+    });
+  
+    // Dialog buttons
+    const cancelButton = document.getElementById('cancelDelete');
+    if (cancelButton) {
+      cancelButton.addEventListener('click', function() {
+        dialogOverlay.classList.remove('active');
+        selectedQuizId = null;
+      });
+    }
+  
+    const confirmButton = document.getElementById('confirmDelete');
+    if (confirmButton) {
+      confirmButton.addEventListener('click', function() {
+        if (selectedQuizId) {
+          const form = document.querySelector(`#delete-form-${selectedQuizId}`);
+          if (form) {
+            form.submit();
+          }
         }
-        query += 'dord=' + encodeURIComponent(dord);
+        dialogOverlay.classList.remove('active');
+      });
     }
-
-    var action = event.target.action;
-    var finalUrl = action + (query.length > 0 ? '?' + query : '');
-
-    window.location.href = finalUrl;
-}
-let formIdToDelete = null; // 削除するフォームのIDを保持
-
-function confirmDeletion(formId) {
-    formIdToDelete = `delete-form-${formId}`; // フォームのIDを保存
-    const dialog = document.getElementById('confirmation-dialog');
-    dialog.style.display = 'block'; // ポップアップを表示
-}
-
-function proceedDeletion() {
-    if (formIdToDelete) {
-        const form = document.getElementById(formIdToDelete);
-        form.submit(); // 保存したフォームを送信
-    }
-    cancelDeletion(); // ポップアップを閉じる
-}
-
-function cancelDeletion() {
-    formIdToDelete = null; // フォームIDをリセット
-    const dialog = document.getElementById('confirmation-dialog');
-    dialog.style.display = 'none'; // ポップアップを非表示
-}
+  
+    // Close dialog when clicking outside
+    dialogOverlay.addEventListener('click', function(e) {
+      if (e.target === dialogOverlay) {
+        dialogOverlay.classList.remove('active');
+        selectedQuizId = null;
+      }
+    });
+  });
