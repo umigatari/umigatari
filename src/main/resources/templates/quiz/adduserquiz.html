@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>海がたり - クイズ作成</title>
+    <title>クイズ作成</title>
     <link rel="stylesheet" href="/css/quiz/userquiz.css">
 </head>
 <body>
@@ -13,11 +13,16 @@
         <img src="/img/jjc.png" alt="jjclogo">
         <div class="menu-icon" id="menu-icon">≡</div>
     </div>
-    <div id="message" th:if="${create}">
-        <h2 th:text="${create}" ></h2>
+    <div th:if="${create}">
+        <script th:inline="javascript">
+            alert(/*[[${create}]]*/);
+        </script>
     </div>
-    <div id="message" th:if="${ngword}">
-        <h2 th:text="${ngword}" ></h2>
+    
+    <div th:if="${ngword}">
+        <script th:inline="javascript">
+            alert(/*[[${ngword}]]*/);
+        </script>
     </div>
 
     <main class="main">

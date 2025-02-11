@@ -134,38 +134,52 @@ public class UserController {
         return "account/login";
     }
 
-    //ログインパスワードを比較 ok
     @PostMapping("password")
-    public String loginPassword(@RequestParam String mail,@RequestParam String password,HttpSession session, Model model,HttpServletResponse response){
-        String name = userService.mailToName(mail);
-        Map<String, Object> result = userService.readPassword(name, password);
-        boolean checkpassword = result != null && (boolean) result.get("passwordMatch");
-        Long id = result != null ? (Long) result.get("id") : null;
-        if(checkpassword&&id!=null){
-            //入館時間の記録
-            long currentMillis = System.currentTimeMillis();
-            Timestamp entertime = new Timestamp(currentMillis);
-            session.setAttribute("entertime", entertime);
-            Object objadd = session.getAttribute("addrivute");
-            int addrivute = (int) objadd;
-            analysisService.enterTime(id, addrivute,entertime);
-            session.setAttribute("id", id);
-            model.addAttribute("login", "ログイン成功しました");
-             // セッションIDのクッキーの有効期限を6時間に設定
-            Cookie sessionCookie = new Cookie("JSESSIONID", session.getId());
-            sessionCookie.setMaxAge(6 * 60 * 60); // 6時間
-            sessionCookie.setPath("/");
-            sessionCookie.setHttpOnly(true);
-            response.addCookie(sessionCookie);
-            Set<Integer> correct = new LinkedHashSet<>();
-            correct.add(0);
-            session.setAttribute("correct", correct);
-            return "redirect:stamp";
-        }else{
-            model.addAttribute("failure", "メールアドレスもしくはパスワードが間違っています");
-            return "account/login";
-        }      
+    public String loginPassword(@RequestParam String mail, @RequestParam String password, HttpSession session, Model model, HttpServletResponse response) {
+        try {
+            String name = userService.mailToName(mail);
+            Map<String, Object> result = userService.readPassword(name, password);
+            boolean checkpassword = result != null && (boolean) result.get("passwordMatch");
+            Long id = result != null ? (Long) result.get("id") : null;
+    
+            if (checkpassword && id != null) {
+                // 入館時間の記録
+                long currentMillis = System.currentTimeMillis();
+                Timestamp entertime = new Timestamp(currentMillis);
+                session.setAttribute("entertime", entertime);
+    
+                Object objadd = session.getAttribute("addrivute");
+                int addrivute = (int) objadd;  // nullなら例外発生
+    
+                analysisService.enterTime(id, addrivute, entertime);
+                session.setAttribute("id", id);
+                model.addAttribute("login", "ログイン成功しました");
+    
+                // セッションIDのクッキーの有効期限を6時間に設定
+                Cookie sessionCookie = new Cookie("JSESSIONID", session.getId());
+                sessionCookie.setMaxAge(6 * 60 * 60); // 6時間
+                sessionCookie.setPath("/");
+                sessionCookie.setHttpOnly(true);
+                response.addCookie(sessionCookie);
+    
+                Set<Integer> correct = new LinkedHashSet<>();
+                correct.add(0);
+                session.setAttribute("correct", correct);
+    
+                return "redirect:stamp";
+            } else {
+                model.addAttribute("failure", "メールアドレスもしくはパスワードが間違っています");
+                return "account/login";
+            }
+        } catch (NullPointerException e) {
+            model.addAttribute("error", "セッションタイムアウト、または不正なアクセスです。再度ログインしてください。");
+            return "error/timeout";  // timeout.htmlへ遷移
+        } catch (Exception e) {
+            model.addAttribute("error", "予期しないエラーが発生しました。管理者にお問い合わせください。");
+            return "error/timeout"; 
+        }
     }
+    
 
     //ログアウト ok
     @PostMapping("logout")

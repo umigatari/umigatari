@@ -1,25 +1,52 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ログイン</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>セッションタイムアウト</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .timeout-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #dc3545;
+            margin-bottom: 1rem;
+        }
+        p {
+            margin-bottom: 1.5rem;
+            color: #6c757d;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="error-card">
-            <div class="icon-wrapper">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"/>
-                    <line x1="12" y1="8" x2="12" y2="12"/>
-                    <line x1="12" y1="16" x2="12.01" y2="16"/>
-                </svg>
-            </div>
-            <h2>ログインがされていないか、不正なリクエストです。</h2>
-            <p>セッションが切れたか、アクセス権限がありません。<br>トップページから再度ログインしてください。</p>
-            <form action="/" method="get">
-                <button type="submit">トップページへ</button>
-            </form>
-        </div>
+    <div class="timeout-container">
+        <h1>セッションタイムアウトしました</h1>
+        <p>一定時間操作がないか、ログアウトされたためセッションが終了しました。</p>
+        <a href="/" class="btn">ログイン画面へ戻る</a>
     </div>
+</body>
+</html>

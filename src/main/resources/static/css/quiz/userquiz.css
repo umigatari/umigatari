@@ -37,7 +37,7 @@ body {
 }
 
 .tab-button.active {
-  background-color: #4f46e5;
+  background: linear-gradient(90deg, #0180CC,#0357AF);
   color: white;
 }
 
@@ -235,7 +235,7 @@ body {
   justify-content: center;
   width: 100%;
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(to right, #4f46e5, #3b82f6);
+  background: linear-gradient(90deg, #0180CC,#0357AF);
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -248,7 +248,7 @@ body {
 
 .stamp-button:hover {
   transform: scale(1.02);
-  background: linear-gradient(to right, #4338ca, #2563eb);
+  background: linear-gradient(90deg, #0180CC,#0357AF);
 }
 
 .stamp-button-text {
