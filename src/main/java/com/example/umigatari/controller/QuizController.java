@@ -64,9 +64,10 @@ public class QuizController {
             solvedQuizzes = new LinkedHashSet<>();
         }
         //すでに解いているか判断。解いていれば、問題は表示されない。
-        if (!solvedQuizzes.contains(type)) {
-            solvedQuizzes.add(type);
-            session.setAttribute("solvedQuizzes", solvedQuizzes);
+        if (!solvedQuizzes.contains(type)) {  
+            //これがあるからクイズがリロードすると溶けなくなる
+            //solvedQuizzes.add(type);
+            //session.setAttribute("solvedQuizzes", solvedQuizzes);
             //クイズを取得
             List<quiz> quiz = quizService.randomThreeQuiz();
             //クイズを振り分け
@@ -138,6 +139,13 @@ public class QuizController {
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
+        
+        Set<Integer> solvedQuizzes = (Set<Integer>) session.getAttribute("solvedQuizzes");
+        if (solvedQuizzes == null) {
+            solvedQuizzes = new LinkedHashSet<>();
+        }
+        solvedQuizzes.add(type);
+        session.setAttribute("solvedQuizzes", solvedQuizzes);
 
         //正解を取得
         Object answerobj =session.getAttribute("answer");
