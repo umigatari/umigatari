@@ -13,10 +13,6 @@
         <img src="/img/jjc.png" alt="jjclogo">
         <div class="menu-icon" id="menu-icon">≡</div>
     </div>
-
-    <form action="stamp" method="get">
-        <button type="submit">スタンプへ</button>
-    </form>
     <div class="info">
         <p class="headline" data-target="about">説明</p>
         <div id="about" class="content">
@@ -53,6 +49,16 @@
                     th:style="${count >= 11} ? 'filter: none;' : 'filter: blur(15px);'">
                 <p th:if="${count < 11}" th:text="'あと ' + (11 - ${count}) + ' 問でこの画像をゲット！'">あと11問で画像をゲット！</p>
             </div>
+        </div>
+        <div class="stamp-button-container">
+            <form action="/stamp" method="get">
+                <button type="submit" class="stamp-button">
+                    <span class="stamp-button-text">スタンプページへ</span>
+                    <svg class="stamp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+            </form>
         </div>
     
     <div class="dropdown-menu" id="dropdown-menu">

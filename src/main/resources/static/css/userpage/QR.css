@@ -35,18 +35,17 @@ h1{
     height: auto;
     max-width: 400px;
 }
-
+/*変更箇所*/
 #startButton {
-    padding: 15px 30px;
-    font-size: 20px;
-    margin-top: 20px;
-    background: linear-gradient(90deg, #0180CC,#0357AF);
-    color: white;
+    background: linear-gradient(90deg,#e7ce53, #FFC20E);
+    color: #ffffff;
     border: none;
     border-radius: 5px;
+    padding: 20px 30px;
+    font-size: 20px;
     cursor: pointer;
-    transition: background-color 0.3s;
-    margin-left: 100px;
+    display: block;
+    margin: auto;
 }
 
 #result {
@@ -56,20 +55,18 @@ h1{
     word-break: break-all;
     max-width: 100%;
 }
-
+/*変更箇所*/
 button{
-    background-color: #e7ce53;
-    background: linear-gradient(90deg,#e7ce53, #FFC20E);
-    color: white;
+    background: linear-gradient(90deg, #0180CC,#0357AF);
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
     padding: 10px 20px;
     font-size: 16px;
-    border: none;
-    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin: 10px 20px;
-    margin-left: 120px;
-    margin-top: 30px;
+    display: block;
+    margin: auto;
+    margin-top: 40px;
 }
 
 #result {

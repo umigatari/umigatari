@@ -48,7 +48,7 @@ public class QuizRepository {
 
     //一覧を表示する
     public List<quiz> listQuiz(){
-    String sql = "SELECT * FROM quiz";
+    String sql = "SELECT * FROM quiz WHERE confirmation = false";
     return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
     }
 
@@ -66,7 +66,7 @@ public class QuizRepository {
 
     //一覧を表示するASC
     public List<quiz> readOrderAscQuiz(){
-        String sql = "SELECT * FROM quiz order by creationday ASC";
+        String sql = "SELECT * FROM quiz WHERE confirmation = false order by creationday ASC";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
     }
 
@@ -78,7 +78,7 @@ public class QuizRepository {
     
     //一覧を表示するdesc
     public List<quiz> readOrderDescQuiz(){
-        String sql = "SELECT * FROM quiz order by creationday Desc";
+        String sql = "SELECT * FROM quiz WHERE confirmation = false order by creationday Desc";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
     }
 
@@ -147,7 +147,7 @@ public class QuizRepository {
     @SuppressWarnings("deprecation")
     public List<quiz> serchBykeyword(String keyword, String dord) {
         String searchKeyword = "%" + keyword + "%";  // 検索キーワードをパラメータ化
-        String sql = "SELECT * FROM quiz WHERE question LIKE ? ORDER BY creationday " + dord;  // プレースホルダ使用
+        String sql = "SELECT * FROM quiz WHERE question LIKE ? AND confirmation = false ORDER BY creationday " + dord;  // プレースホルダ使用
         return jdbcTemplate.query(sql, new Object[]{searchKeyword}, new BeanPropertyRowMapper<>(quiz.class));  // パラメータを渡して実行
     }
     
