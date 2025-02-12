@@ -13,10 +13,10 @@
             <h1>管理者画面</h1>
         </div>
     </header>
-        <!-- 変更箇所 -->
-        <div class="logout-container">
-            <button id="logout-link" class="action-link">ログアウト</button>
-        </div>
+    <!-- ログアウトボタン -->
+    <div class="logout-container">
+        <button id="logout-link" class="action-link">ログアウト</button>
+    </div>
 
     <main class="main-content">
         <!-- Notification Card -->
@@ -87,22 +87,28 @@
             </a>
         </div>
     </main>
-        <!-- 変更箇所 -->
-        <div id="confirmationDialog" class="dialog-overlay">
-            <div class="dialog">
-                <div class="dialog-header">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="12" y1="8" x2="12" y2="12"/>
-                        <line x1="12" y1="16" x2="12.01" y2="16"/>
-                    </svg>
-                    <h2 class="dialog-title">確認</h2>
-                </div>
-        <p id="logoutMessage" class="dialog-content">ログアウトしてよろしいですか？</p>
-            <div class="dialog-actions">
-                <button type="button" id="cancelDelete" class="dialog-button button-cancel">いいえ</button>
-                <button type="button" id="confirmDelete" class="dialog-button button-confirm">はい</button>
+    <!-- モーダル（確認ダイアログ） -->
+    <div id="confirmationDialog" class="dialog-overlay">
+        <div class="dialog">
+            <div class="dialog-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <h2 class="dialog-title">確認</h2>
             </div>
-        <script src="/js/quizlist.js"></script>
+            <p class="dialog-content">ログアウトしてよろしいですか？</p>
+            <div class="dialog-actions">
+                <button type="button" id="cancelLogout" class="dialog-button button-cancel">いいえ</button>
+
+                <!-- POSTでログアウトするフォーム -->
+                <form id="logoutForm" method="POST" action="/logout">
+                    <button type="submit" class="dialog-button button-confirm">はい</button>
+                </form>
+            </div>
+        </div>
+    </div>
+        <script src="/js/logout.js"></script>
 </body>
 </html>
