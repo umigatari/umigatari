@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 
@@ -184,6 +185,11 @@ public class UserController {
     //ログアウト ok
     @PostMapping("logout")
     public String logout(HttpSession session) {
+                Long obj = 19L;//管理者のIDが入る
+        if(Objects.equals(session.getAttribute("id"), obj)){
+            session.invalidate(); 
+            return "admin/adminlogin";
+        }
         session.invalidate(); 
         return "redirect:/";
     }
