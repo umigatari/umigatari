@@ -226,12 +226,13 @@ body {
   align-items: center; /* 追加 */
   justify-content: center; /* 追加 */
 }
+/* 変更箇所 */
 .button-unpost {
-  background-color: var(--border-color);
+  background-color: var(--danger-color);
 }
-
+/* 変更箇所 */
 .button-unpost:hover {
-  background-color: #4A4B57;
+  background-color: var(--danger-hover);
 }
 
 .button-edit {

@@ -208,21 +208,12 @@ public class QuizController {
             return "userpage/nopage";
         }
 
-        //リファラで遷移が正しいかチェック
-        String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://localhost:8080.*";
-        if (referer == null || !referer.matches(allowedRefererPattern)) {
-            if (referer == null) {
-                return "redirect:/userpage/nopage";
-            }
-            return "redirect:" + referer;
-        }
-
         //正解数を取得
         Object obj = session.getAttribute("id");
         Long id = (Long)obj;
         int count = userService.getCount(id);
         model.addAttribute("count", count);
+        model.addAttribute("account", userService.getName(id));
         return "quiz/adduserquiz";
     }
 

@@ -90,7 +90,8 @@
                 <div class="quiz-actions">
                     <form th:action="@{/admin/unpost}" method="post" style="flex: 1;">
                         <input type="hidden" name="id" th:value="${quiz.id}" />
-                        <button type="submit" class="action-button button-unpost">投稿解除</button>
+                <!--変更箇所-->
+                        <button type="submit" class="action-button button-unpost" th:data-quiz-id="${quiz.id}">非公開</button>
                     </form>
                     <form th:action="@{/editing}" method="post" style="flex: 1;">
                         <input type="hidden" name="id" th:value="${quiz.id}" />
@@ -118,7 +119,9 @@
                 </svg>
                 <h2 class="dialog-title">確認</h2>
             </div>
-            <p class="dialog-content">本当に削除してもよろしいですか？</p>
+            <!--変更箇所-->
+            <p id="deleteMessage" class="dialog-content">本当に削除してもよろしいですか？</p>
+            <p id="unpostMessage" class="dialog-content">非公開にしてよろしいですか？</p>
             <div class="dialog-actions">
                 <button type="button" id="cancelDelete" class="dialog-button button-cancel">いいえ</button>
                 <button type="button" id="confirmDelete" class="dialog-button button-confirm">はい</button>
