@@ -1,8 +1,13 @@
 package com.example.umigatari.service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -164,4 +169,70 @@ public class UserService {
     public int getMember(){
         return userRepository.getMember();
     }
+
+    //解いているか判断
+    public Set<Integer> solvedquiz(Long id){
+        LocalDateTime quizDay = userRepository.getQuizDayById(id);
+        
+        // quiz_dayが存在しない場合は何もしない
+        if (quizDay == null) {
+            userRepository.addSolvedEntry(id);
+            Set<Integer> solvedQuizzes = new LinkedHashSet<>();
+            return solvedQuizzes;
+        }
+
+        LocalDateTime today = ZonedDateTime.now(ZoneId.of("Asia/Tokyo")).toLocalDate().atStartOfDay();
+        LocalDateTime quizDayDate = quizDay.atZone(ZoneId.of("Asia/Tokyo")).toLocalDate().atStartOfDay();
+        
+        if (!quizDayDate.isEqual(today)) {
+            userRepository.deleteById(id);
+            userRepository.addSolvedEntry(id);
+            Set<Integer> solvedQuizzes = new LinkedHashSet<>();
+            return solvedQuizzes;
+        }
+
+        Map<String, Object> solvedData = userRepository.getS1ToS5ById(id);
+        Set<Integer> solvedQuizzes = new LinkedHashSet<>();
+        for(int i=1; i <= 5;i++){
+            String key = "s" + i;
+            if (solvedData.containsKey(key) && Boolean.TRUE.equals(solvedData.get(key))) {
+                solvedQuizzes.add(i);
+            }
+        }
+        return solvedQuizzes;
+    }
+
+    public void setSStatus(Long id, String quizColumn, boolean status) {
+        // 引数のquizColumnが"s1", "s2", ..., "s5"かチェックして、無効なカラムが指定されていないかを確認
+        if (quizColumn.equals("s1") || quizColumn.equals("s2") || quizColumn.equals("s3") || quizColumn.equals("s4") || quizColumn.equals("s5")) {
+            userRepository.updateStatus(id, quizColumn, status);
+        } else {
+            throw new IllegalArgumentException("Invalid quiz column: " + quizColumn);
+        }
+    }
+    //正解したクイズを取得
+    public  Set<Integer> answerquiz(Long id){
+        Map<String, Object> solvedData = userRepository.getquiz1Toquiz5ById(id);
+        Set<Integer> corecct = new LinkedHashSet<>();
+        for(int i=1; i <= 5;i++){
+            String key = "quiz" + i;
+            if (solvedData.containsKey(key) && Boolean.TRUE.equals(solvedData.get(key))) {
+                corecct.add(i);
+            }
+        }
+        return corecct;
+    }
+
+    //スタンプ保持
+    public void setQuizStatus(Long id, String quizColumn, boolean status) {
+        if (quizColumn.equals("quiz1") || quizColumn.equals("quiz2") || quizColumn.equals("quiz3") || quizColumn.equals("quiz4") || quizColumn.equals("quiz5")) {
+            userRepository.updateStatus(id, quizColumn, status);
+        } else {
+            throw new IllegalArgumentException("Invalid quiz column: " + quizColumn);
+        }
+    }
+    
+
+    
+
 }

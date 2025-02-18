@@ -30,7 +30,7 @@ document.getElementById('delete-link').addEventListener('touchstart', function(e
 // ログアウトの「はい」ボタンが押されたとき
 document.getElementById('confirm-logout-yes').addEventListener('click', function() {
 fetch('/logout', { method: 'POST' });
-window.location.href = '/login'; // ログアウト後、ログイン画面にリダイレクト
+window.location.href = '/'; // ログアウト後、ログイン画面にリダイレクト
 });
 
 // ログアウトの「いいえ」ボタンが押されたとき

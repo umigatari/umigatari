@@ -150,7 +150,7 @@ public class UserController {
                 session.setAttribute("entertime", entertime);
     
                 Object objadd = session.getAttribute("addrivute");
-                int addrivute = (int) objadd;  // nullなら例外発生
+                int addrivute = (int) objadd;
     
                 analysisService.enterTime(id, addrivute, entertime);
                 session.setAttribute("id", id);
@@ -163,10 +163,21 @@ public class UserController {
                 sessionCookie.setHttpOnly(true);
                 response.addCookie(sessionCookie);
     
-                Set<Integer> correct = new LinkedHashSet<>();
-                correct.add(0);
+                
+
+                Set<Integer> solvedQuizzes = userService.solvedquiz(id);
+                session.setAttribute("solvedQuizzes", solvedQuizzes);
+                
+                if(solvedQuizzes.isEmpty()){
+                    Set<Integer> correct = new LinkedHashSet<>();
+                    correct.add(0);
+                    session.setAttribute("correct", correct);   
+                }else{
+                    Set<Integer> correct = userService.answerquiz(id);
+                    correct.add(0);
                 session.setAttribute("correct", correct);
-    
+                }
+
                 return "redirect:stamp";
             } else {
                 model.addAttribute("failure", "メールアドレスもしくはパスワードが間違っています");
@@ -174,12 +185,13 @@ public class UserController {
             }
         } catch (NullPointerException e) {
             model.addAttribute("error", "セッションタイムアウト、または不正なアクセスです。再度ログインしてください。");
-            return "error/timeout";  // timeout.htmlへ遷移
-        } catch (Exception e) {
+            return "error/timeout";
+          } catch (Exception e) {
             model.addAttribute("error", "予期しないエラーが発生しました。管理者にお問い合わせください。");
             return "error/timeout"; 
         }
-    }
+    
+}
     
 
     //ログアウト ok
@@ -191,7 +203,7 @@ public class UserController {
             return "admin/adminlogin";
         }
         session.invalidate(); 
-        return "redirect:/";
+        return "redirect:quiz/1";
     }
     
 

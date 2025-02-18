@@ -22,7 +22,7 @@
     </div>
     <div class="button-container">
         <form action="/stamp" method="get">
-            <button class="special-button">スタンプページへ</button>
+            <button class="special-button">TOPページへ</button>
         </form>
     </div>
     <p th:text="${str}">累計正解数は99問です</p> 
@@ -63,27 +63,28 @@
       </div>
 
    
-    <script th:inline="javascript">
+      <script th:inline="javascript">
         window.onload = function() {
+            // サーバーから渡されたcorrectの値を受け取る
             var correct = /*[[${correct}]]*/ [];
+    
             var images = {
-                1: '/img/1.png',
-                2: '/img/2.png',
-                3: '/img/3.png',
-                4: '/img/4.png',
-                5: '/img/5.png'
+            1: '/img/1.png',
+            2: '/img/2.png',
+            3: '/img/3.png',
+            4: '/img/4.png',
+            5: '/img/5.png'
             };
             for (var i = 0; i < correct.length; i++) {
                 var stampId = "stamp-" + correct[i];
                 var stampElement = document.getElementById(stampId);
                 if (stampElement && images[correct[i]]) {
-                    stampElement.style.backgroundImage = "url('" + images[correct[i]] + "')";
+                    stampElement.style.backgroundImage = "url('" + images[correct[i]] + "')"; 
                     stampElement.style.backgroundSize = "cover";
                 }
             }
         };
     </script>
-    <script src="/js/backblock.js"></script>
     <script src="/js/answerpopup.js"></script>
     <script src="/js/showmap.js"></script>
 </body>
