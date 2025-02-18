@@ -164,13 +164,13 @@ public class QuizController {
         qanda.setAnswer(quiz.getCorrect());
 
         //次の問題へのメッセージ
-
-        switch (type) {
-            case 1 -> model.addAttribute("nextmessage", "次は○○に移動してね");
-            case 2 -> model.addAttribute("nextmessage", "次は○○で問題が解けるよ");
-            case 3 -> model.addAttribute("nextmessage", "次は○○だよ");
-            case 4 -> model.addAttribute("nextmessage", "次が最後の場所だよ");
-                default -> model.addAttribute("nextmessage", "お疲れ様。帰りのQR読み込んで画像ゲットしてね");
+        int solvedQuizzesCount = solvedQuizzes.size();
+        switch (solvedQuizzesCount) {
+            case 1 -> model.addAttribute("nextmessage", "次に移動しよう！詳しくは館内MAPを見てね");
+            case 2 -> model.addAttribute("nextmessage", "次に移動しよう！詳しくは館内MAPを見てね");
+            case 3 -> model.addAttribute("nextmessage", "次に移動しよう！詳しくは館内MAPを見てね");
+            case 4 -> model.addAttribute("nextmessage", "次に移動しよう！詳しくは館内MAPを見てね");
+                default -> model.addAttribute("nextmessage", "最後にゴールの二次元コードを読み込んでね！");
             }
 
 
