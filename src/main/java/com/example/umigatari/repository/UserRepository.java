@@ -1,6 +1,10 @@
 package com.example.umigatari.repository;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -149,5 +153,45 @@ public String mailToName(String mail) {
         return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
-    
-}
+    //IDをもとにログインしたかどうかチェックする
+    public LocalDateTime getQuizDayById(Long id) {
+        String sql = "SELECT quiz_day FROM solved WHERE account_id = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, LocalDateTime.class, id);
+       } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+    // IDに基づいて行を削除
+    public void deleteById(Long id) {
+        String Sql = "DELETE FROM solved WHERE account_id = ?";
+        jdbcTemplate.update(Sql, id);
+    }
+
+    public Map<String, Object> getS1ToS5ById(Long id) {
+        String sql = "SELECT s1, s2, s3, s4, s5 FROM solved WHERE account_id = ?";
+        return jdbcTemplate.queryForMap(sql, id);
+    }
+
+    public Map<String, Object> getquiz1Toquiz5ById(Long id) {
+        String sql = "SELECT quiz1, quiz2, quiz3, quiz4, quiz5 FROM solved WHERE account_id = ?";
+        return jdbcTemplate.queryForMap(sql, id);
+    }
+    // 引数で指定されたクイズ番号（s1からs5）をtrueに更新
+    public void updateStatus(Long id, String quizColumn, boolean status) {
+        String sql = "UPDATE solved SET " + quizColumn + " = ? WHERE account_id = ?";
+        jdbcTemplate.update(sql, status, id);
+    } 
+
+    public void addSolvedEntry(Long accountId) {
+        String sql = "INSERT INTO solved (account_id,quiz_day,s1, s2, s3, s4, s5, quiz1, quiz2, quiz3, quiz4, quiz5) " +
+                     "VALUES (?,?, false, false, false, false, false, false, false, false, false, false)";
+        LocalDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Tokyo")).toLocalDateTime(); 
+        jdbcTemplate.update(sql, accountId,now);
+    } 
+    // 引数で指定されたクイズ番号（quiz1からquiz5）をtrueに更新
+    public void updateQuizStatus(Long id, String quizColumn, boolean status) {
+        String sql = "UPDATE solved SET " + quizColumn + " = ? WHERE account_id = ?";
+        jdbcTemplate.update(sql, status, id);
+    } 
+    }

@@ -18,10 +18,10 @@
     <div class="score-box">
         <p>今までの累計正解数：<span id="count" th:text="${count}">0</span></p>
         <p th:if="${solvedCount > 0}">
-            今日はのこり<span th:text="${solvedCount}">5</span>問解くことができます!
+            今日はのこり<span th:text="${solvedCount}">5</span>問解答できます！
         </p>
         <p th:if="${solvedCount == 0}">
-            帰りにQRコードを読み込んで画像をゲットしてね
+            帰りにQRコードを読み込んで画像をゲットしてね！<br>お疲れさまでした☆
         </p>
     </div>
 

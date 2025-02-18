@@ -139,22 +139,23 @@ public class QuizController {
         if(session.getAttribute("id")==null){
             return "userpage/nopage";
         }
-        
+        Object obj = session.getAttribute("id");
+        Long uid = (Long)obj;
+
+        //解いたクイズ
         Set<Integer> solvedQuizzes = (Set<Integer>) session.getAttribute("solvedQuizzes");
         if (solvedQuizzes == null) {
             solvedQuizzes = new LinkedHashSet<>();
         }
+        boolean repeat = !solvedQuizzes.contains(type);
+        String update = "s" + type;
+        userService.setSStatus(uid,update,true);
         solvedQuizzes.add(type);
         session.setAttribute("solvedQuizzes", solvedQuizzes);
 
         //正解を取得
         Object answerobj =session.getAttribute("answer");
         String answer = (String) answerobj;
-
-        //正解数を取得
-       Object obj = session.getAttribute("id");
-       Long uid = (Long)obj;
-        int count = userService.getCount(uid);
 
         //問題を取得
         quiz quiz = quizService.selectOneById(id);
@@ -175,14 +176,24 @@ public class QuizController {
 
         //正解かどうかを判断
         if (answer.equals(choice)) {
-            String str = "今までの累計正解数は、" + count + "回です";
+            if(repeat){
+                userService.countUp(uid);
+            }
+            
+            int count = userService.getCount(uid);
+            
+            String str = "今までの累計正解数は、" + count + "問です";
             model.addAttribute("count", str);
-            userService.countUp(id);
+            
             model.addAttribute("message", "正解!");
+
+            //コレクトをどうするかセッションのやつだよね～
             Set<Integer> correct = (Set<Integer>) session.getAttribute("correct");
-            System.out.println(correct);
             correct.add(type);
             session.setAttribute("correct", correct);
+            String quiz1 = "quiz" + type;
+            userService.setQuizStatus(uid,quiz1,true);
+
             model.addAttribute("str",str);
             model.addAttribute("qanda",qanda);
             model.addAttribute("correct",correct);
@@ -190,7 +201,7 @@ public class QuizController {
         } else {
             model.addAttribute("message", "不正解");
             Set<Integer> correct = (Set<Integer>) session.getAttribute("correct");
-            System.out.println(correct);
+            int count = userService.getCount(uid);
             String str = "今までの累計正解数は、" + count + "回です";
             model.addAttribute("str",str);
             model.addAttribute("qanda",qanda);
@@ -263,7 +274,7 @@ public class QuizController {
                 return "admin/adminlogin";
             }
         }else{
-            model.addAttribute("failure", "パスワードもしくはユーザーネームが間違っています");
+            model.addAttribute("failure", "ユーザーネームもしくはパスワードが間違っています");
             return "admin/adminlogin";
         }      
     }

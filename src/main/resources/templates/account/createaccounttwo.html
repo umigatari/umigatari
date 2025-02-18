@@ -24,9 +24,9 @@
             <form action="/create" method="post" onsubmit="validateForm(event)">
                 <input type="hidden" name="mail" th:value="${mail}">
                 <input type="hidden" name="addrivute" th:value="${addrivute}">
-                <label for="username">ユーザー名</label>
-                <input type="text" id="name" name="name" required placeholder="ユーザー名">
-
+                <label for="username">ニックネーム</label>
+                <input type="text" id="name" name="name" required placeholder="ニックネーム">
+                <p>ニックネームはランキングに表示されます。個人が特定されるような情報は入力しないようご注意ください。</p>
                 <label for="password">パスワード</label>
                 <input type="password" id="password" name="password" required placeholder="パスワード" minlength="8">
 

@@ -4,35 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>クイズスタンプラリー終了</title>
-    <link rel="stylesheet" href="/css/userpage/vestibule.css">
+    <link rel="stylesheet" href="/css/userpage/exit.css">
 </head>
 <body>
-    <div class="header">
-        <img src="/img/umigatari.png" alt="umigatarilogo">
-        <img src="/img/batu.png" alt="batu">
-        <img src="/img/jjc.png" alt="jjclogo">
-    </div>
-        <img th:src="@{'/img/' + ${img} + '.png'}" th:alt="'かわいい生き物の画像 ' + ${img}" class="img">
-    <div class="message">
-        <div>
-            <p class="title">message</p>
-            <p>楽しんでいただけましたか？</p>
-            <p>ランダムに選ばれたかわいい動物たちの写真をプレゼントします</p>
-            <p>画面上部のダウンロードして写真を獲得してください</p>
-        </div>
-        <div>
-            <p class="title">ダウンロードの手順</p>
-            <p>画像を長押しし、「画像を保存」または「写真に追加」と表示されたら、それをタップしてください。</p>
-            <p>これで、画像が写真アプリに保存されます。</p>
-        </div>
-    </div>
-
     
-        <p>またのご来館をお待ちしております！</p>
-        <div id="fireworks-container"></div>
+    <div class="container">
+        <div class="header">
+            <img src="/img/umigatari.png" alt="umigatarilogo">
+            <img src="/img/batu.png" alt="batu">
+            <img src="/img/jjc.png" alt="jjclogo">
+        </div>
+
+        <div class="content">
+            <!-- Image Section -->
+            <div class="image-container">
+                <img th:src="@{'/img/' + ${img} + '.png'}" th:alt="'かわいい生き物の画像 ' + ${img}" class="main-image">
+                <div class="image-overlay"></div>
+            </div>
+            <!-- Message Section -->
+            <div class="message-section">
+                <div class="party-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="party-popper">
+                        <path d="M5.8 11.3 2 22l10.7-3.79"></path>
+                        <path d="M4 3h.01"></path>
+                        <path d="M22 8h.01"></path>
+                        <path d="M15 2h.01"></path>
+                        <path d="M22 20h.01"></path>
+                        <path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12v0c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"></path>
+                        <path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11v0c-.11.7-.72 1.22-1.43 1.22H17"></path>
+                        <path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98v0C9.52 4.9 9 5.52 9 6.23V7"></path>
+                        <path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z"></path>
+                    </svg>
+                </div>
+                
+                <h1 class="title">おつかれさまでした</h1>
+                <div class="message-text">
+                    <p>楽しんでいただけましたか？</p>
+                    <p>最後に生きものの画像をランダムでプレゼントします</p>
+                    <p>タブを閉じて、終了してください。</p>
+                    <p>またのご参加お待ちしています</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- fireworks-container を追加 -->
+    <div id="fireworks-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></div>
+    
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
     <script src="/js/confetti.js"></script>
-    <script src="/js/b.js"></script>
-    
+    <script src="/js/fireworksStart.js"></script>
 </body>
 </html>
