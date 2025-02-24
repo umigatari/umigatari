@@ -30,7 +30,9 @@ body{
     cursor: pointer;
     margin-left: 70px;
 }
-
+.info h1 {
+    text-align: center;
+}
 .dropdown-menu {
     display: none;
     position: fixed;

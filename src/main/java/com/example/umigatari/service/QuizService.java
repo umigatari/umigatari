@@ -151,29 +151,33 @@ public class QuizService {
         }
     }
     
-    // テキストを検査するメソッド
-    //NGワード、文字数が４字以下以下、記号のみの文の場合は問題として判断しない
-     public boolean isTextValid(String text) {
-        if (text == null || text.isEmpty()) {
-            return true;
-        }
-        for (String ngWord : ngWords) {
-             if (text.contains(ngWord)) {
-                 return false;
-             }
-         }
-
-         if (text.length() < 5) {
+// テキストを検査するメソッド
+// NGワード、文字数が4字以下、記号のみの文、絵文字が含まれている場合は問題として判断しない
+public boolean isTextValid(String text) {
+    if (text == null || text.isEmpty()) {
+        return true;
+    }
+    for (String ngWord : ngWords) {
+        if (text.contains(ngWord)) {
             return false;
         }
-    
-         return !text.matches("[!-/:-@\\[-`{-~\\s]*");
-        }
+    }
+
+    if (text.length() < 5) {
+        return false;
+    }
+        // 記号のみの文をチェック
+
+    return !text.matches("[!-/:-@\\[-`{-~\\s\uFF01-\uFF5E]*");
+}
 
     //キーワード検索
     public List<quiz> serchBykeyword(String keyword,String dord){
         return quizRepository.serchBykeyword(keyword,dord);
     }
 
-    
+    //キーワード検索
+    public List<quiz> serchBykeyword1(String keyword,String dord){
+        return quizRepository.serchBykeyword1(keyword,dord);
+    }
 }

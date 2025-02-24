@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/userpage/reward.css">
-    <title>報酬ページ</title>
+    <title>プレゼントページ</title>
 </head>
 <body>
     <div class="header">
@@ -14,13 +14,12 @@
         <div class="menu-icon" id="menu-icon">≡</div>
     </div>
     <div class="info">
-        <p class="headline" data-target="about">説明</p>
-        <div id="about" class="content">
+        <h1>プレゼント</h1>
             <p>累計正答数ごとに、かわいい生きものたちの画像をプレゼント！</p>
-            <p>以下から、ポイント数に応じた画像を長押ししてしてダウンロードしてください。</p>
+            <p>以下から、正解数に応じた画像を長押ししてしてダウンロードしてください。</p>
         </div>
     </div>
-    <h2 th:text="'現在のポイント: ' + ${count}">現在のポイント:7</h2>
+    <h2 th:text="'現在の正解数: ' + ${count}">現在のポイント:7</h2>
 
     <div>
         <div class="image-slider" data-count="5">
@@ -112,7 +111,7 @@
     </div>
     </div>
     <img src="/img/chara.png" alt="character" class="character">
-    <script src="/js/reward.js"></script>
+
     <script src="/js/dropdown.js"></script>
 </body>
 </html>

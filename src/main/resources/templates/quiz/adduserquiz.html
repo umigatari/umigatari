@@ -40,6 +40,8 @@
                             <p>問題累計正答数が15問を超えるとクイズ作成権が付与されます。</p>
                             <p>海の生きものに関する問題を作成してください！</p>
                             <p>１個のクイズにつき正解の回答１つと不正解の回答２つを入力してください。</p>
+                            <p>なお、問題文が５字以下だったり、記号のみだったりする問題は作成できません。
+                            </p>
                         </div>
                     </section>
 
@@ -108,6 +110,7 @@
                 <input type="hidden" name="correct" id="hidden-correct">
                 <input type="hidden" name="other_one" id="hidden-other-one">
                 <input type="hidden" name="other_two" id="hidden-other-two">
+                <input type="hidden" name="confirmation" value="true">
 
                 <div class="modal-buttons">
                     <button type="button" id="cancelButton">キャンセル</button>

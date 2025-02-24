@@ -18,10 +18,10 @@
     <div class="score-box">
         <p>今までの累計正解数：<span id="count" th:text="${count}">0</span></p>
         <p th:if="${solvedCount > 0}">
-            今日はのこり<span th:text="${solvedCount}">5</span>問解答できます！
+            今日はのこり<span th:text="${solvedCount}">5</span>問回答できます！
         </p>
         <p th:if="${solvedCount == 0}">
-            帰りにQRコードを読み込んで画像をゲットしてね！<br>お疲れさまでした☆
+            帰りに二次元コードを読み込んで画像をゲットしてね！<br>お疲れさまでした☆
         </p>
     </div>
 
@@ -37,7 +37,7 @@
     </div>
     <div class="qr-container">
         <form th:action="@{/qr}" method="get">
-            <button id="qr-btn" class="qr-btn">QRコードを読み取る</button>
+            <button id="qr-btn" class="qr-btn">二次元コードを読み取る</button>
         </form>
     </div>
     <div class="modal" id="mapModal">

@@ -328,7 +328,7 @@ public class UserController {
         return "userpage/ranking";
     }
     
-    //QRコードを読み取る
+    //二次元コードを読み取る
     @GetMapping("qr")
     public String qrcode(HttpSession session,HttpServletRequest request){
         if(session.getAttribute("id")==null){

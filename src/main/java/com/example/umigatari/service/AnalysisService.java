@@ -54,7 +54,7 @@ public class AnalysisService {
         public void exportStayTimeToCsv( Writer writer) throws IOException {
         List<staytime> stayTimes = analysisRepository.getStayTimeData();
         // CSVのヘッダーを書き込み
-        writer.write("アカウントID, 入館時間, 退館時間, 属性\n");
+        writer.write("accountID, entertime, exittime, attribute\n");
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
