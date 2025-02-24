@@ -17,7 +17,7 @@ public class QuizRepository {
     
     //ランダムにクイズを3つ表示する
     public List<quiz> randomThreeQuiz() {
-        String sql = "SELECT * FROM quiz ORDER BY RANDOM() LIMIT 3";
+        String sql = "SELECT * FROM quiz WHERE confirmation = false ORDER BY RANDOM() LIMIT 3";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(quiz.class));
     }
 
@@ -150,5 +150,11 @@ public class QuizRepository {
         String sql = "SELECT * FROM quiz WHERE question LIKE ? AND confirmation = false ORDER BY creationday " + dord;  // プレースホルダ使用
         return jdbcTemplate.query(sql, new Object[]{searchKeyword}, new BeanPropertyRowMapper<>(quiz.class));  // パラメータを渡して実行
     }
-    
+    //キーワードをもとにクイズを参照
+    @SuppressWarnings("deprecation")
+    public List<quiz> serchBykeyword1(String keyword, String dord) {
+        String searchKeyword = "%" + keyword + "%";  // 検索キーワードをパラメータ化
+        String sql = "SELECT * FROM quiz WHERE question LIKE ? AND confirmation = true ORDER BY creationday " + dord;  // プレースホルダ使用
+        return jdbcTemplate.query(sql, new Object[]{searchKeyword}, new BeanPropertyRowMapper<>(quiz.class));  // パラメータを渡して実行
+    }
 }

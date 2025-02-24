@@ -19,7 +19,6 @@
             <!-- Image Section -->
             <div class="image-container">
                 <img th:src="@{'/img/' + ${img} + '.png'}" th:alt="'かわいい生き物の画像 ' + ${img}" class="main-image">
-                <div class="image-overlay"></div>
             </div>
             <!-- Message Section -->
             <div class="message-section">
@@ -41,6 +40,7 @@
                 <div class="message-text">
                     <p>楽しんでいただけましたか？</p>
                     <p>最後に生きものの画像をランダムでプレゼントします</p>
+                    <p>長押しして、画像を保存してください。</p>
                     <p>タブを閉じて、終了してください。</p>
                     <p>またのご参加お待ちしています</p>
                 </div>
@@ -50,8 +50,7 @@
     <!-- fireworks-container を追加 -->
     <div id="fireworks-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></div>
     
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
-    <script src="/js/confetti.js"></script>
-    <script src="/js/fireworksStart.js"></script>
+
+
 </body>
 </html>

@@ -29,6 +29,10 @@ body {
 }
 
 /* Image styles */
+.image {
+    /* 他のスタイル */
+    pointer-events: auto; /* これを追加して、クリックを有効にする */
+}
 .image-container {
     position: relative;
     aspect-ratio: 4/3;
@@ -43,11 +47,7 @@ body {
     object-fit: cover;
 }
 
-.image-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
-}
+
 
 /* Message section styles */
 .message-section {

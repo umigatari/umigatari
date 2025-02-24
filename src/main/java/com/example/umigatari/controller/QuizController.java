@@ -51,7 +51,7 @@ public class QuizController {
     private AnalysisService analysisService;
 
 
-    //QRコードごとのクイズを表示する
+    //二次元コードごとのクイズを表示する
     @SuppressWarnings("unchecked")
     @GetMapping("quiz/{type}")
     public String randomThreeQuiz(@PathVariable int type, Model model,HttpSession session) {
@@ -223,6 +223,11 @@ public class QuizController {
         Object obj = session.getAttribute("id");
         Long id = (Long)obj;
         int count = userService.getCount(id);
+        Object created = session.getAttribute("created");
+        if(created!=null){
+            count=0;
+        }
+        session.setAttribute("created", obj);
         model.addAttribute("count", count);
         model.addAttribute("account", userService.getName(id));
         return "quiz/adduserquiz";
@@ -232,11 +237,19 @@ public class QuizController {
     @PostMapping("quiz/create")
     public String createQuiz(@ModelAttribute quiz quiz, Model model, HttpSession session) {
         boolean ngword = quizService.isTextValid(quiz.getQuestion());
+        Object obj = session.getAttribute("id");
+        Long id = (Long)obj;
         if(ngword){
             quizService.insertQuiz(quiz);
             model.addAttribute("create", "問題を作成しました!");
+            int count = 0;
+        model.addAttribute("count", count);
+        model.addAttribute("account", userService.getName(id));
         }else{
         model.addAttribute("ngword", "不適切な問題です。");
+        int count = userService.getCount(id);
+        model.addAttribute("count", count);
+        model.addAttribute("account", userService.getName(id));
         }
         return "quiz/adduserquiz";
     }
@@ -274,7 +287,7 @@ public class QuizController {
                 return "admin/adminlogin";
             }
         }else{
-            model.addAttribute("failure", "ユーザーネームもしくはパスワードが間違っています");
+            model.addAttribute("failure", "ユーザー名もしくはパスワードが間違っています");
             return "admin/adminlogin";
         }      
     }
@@ -334,33 +347,30 @@ public class QuizController {
 
     //問題チェック画面表示
     @GetMapping("admin/check")
-    public String checkQuizPage(Model model,@RequestParam(value = "p_cocid", required = false) Integer pCocid,
+    public String checkQuizPage(Model model,@RequestParam(value = "keyword", required = false) String keyword,
     @RequestParam(value = "dord", required = false) String dord,HttpSession session,HttpServletRequest request){
         Long obj = 19L;//管理者のIDが入る
         if(!Objects.equals(session.getAttribute("id"), obj)){
             return "admin/adminlogin";
         }
-        //チェックが必要なクイズを表示。なければな”問題はありません”と表示
         try {
-            if (pCocid != null && dord != null) {
-                // クエリパラメタに何もないとき
-                List<quiz> quiz= quizService.readOrderTypeQuizCheck(dord,pCocid);
+            if (keyword != null && dord != null) {
+                // 両方のパラメータがある場合の処理
+                List<quiz> quiz= quizService.serchBykeyword1(keyword, dord);
                 model.addAttribute("quiz",quiz);
                 return "admin/check";
-            } else if (pCocid != null) {
-                //このコード意味ない
-                List<quiz> quiz= quizService.selectByTypeCheck(pCocid);
+            } else if (keyword != null) {
+                List<quiz> quiz= quizService.serchBykeyword1(keyword,"ASC");
                 model.addAttribute("quiz",quiz);
                 return "admin/check";
             } else if (dord != null) {
-                // 降順か昇順か判断
                 List<quiz> quiz= quizService.selectByOrderCheck(dord);
                 model.addAttribute("quiz",quiz);
                 return "admin/check";
             } else {
-                List<quiz> quizzes = quizService.checkListQuiz();
-            model.addAttribute("quiz", quizzes);
-            return "admin/check";
+                List<quiz> quiz= quizService.checkListQuiz();
+                model.addAttribute("quiz",quiz);
+                return "admin/check";
             }
             
         } catch (NotFoundException e) {
