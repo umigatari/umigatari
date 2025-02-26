@@ -16,7 +16,7 @@
     </div>
     </div>
     <div class="score-box">
-        <p>今までの累計正解数：<span id="count" th:text="${count}">0</span></p>
+        <p>今までの累計正答数：<span id="count" th:text="${count}">0</span></p>
         <p th:if="${solvedCount > 0}">
             今日はのこり<span th:text="${solvedCount}">5</span>問回答できます！
         </p>
@@ -110,11 +110,11 @@
         var correct = /*[[${correct}]]*/ [];
 
         var images = {
-        1: '/img/1.png',
+        1: '/img/ning3.jpg',
         2: '/img/2.png',
-        3: '/img/3.png',
-        4: '/img/4.png',
-        5: '/img/5.png'
+        3: '/img/8.png',
+        4: '/img/11.png',
+        5: '/img/14.png'
         };
         for (var i = 0; i < correct.length; i++) {
             var stampId = "stamp-" + correct[i];

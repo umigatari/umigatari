@@ -91,6 +91,9 @@
                         </form>
                     </div>
                 </div>
+                <div class="content-section" id="quiz-form" th:if="${count <= 15}">
+                    <p th:text="${str}">メッセージ</p>
+                </div>
             </div>
         </div>
     </main>

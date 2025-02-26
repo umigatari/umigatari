@@ -182,7 +182,7 @@ public class QuizController {
             
             int count = userService.getCount(uid);
             
-            String str = "今までの累計正解数は、" + count + "問です";
+            String str = "今までの累計正答数は、" + count + "問です";
             model.addAttribute("count", str);
             
             model.addAttribute("message", "正解!");
@@ -202,7 +202,7 @@ public class QuizController {
             model.addAttribute("message", "不正解");
             Set<Integer> correct = (Set<Integer>) session.getAttribute("correct");
             int count = userService.getCount(uid);
-            String str = "今までの累計正解数は、" + count + "回です";
+            String str = "今までの累計正答数は、" + count + "回です";
             model.addAttribute("str",str);
             model.addAttribute("qanda",qanda);
             model.addAttribute("correct",correct);
@@ -219,15 +219,18 @@ public class QuizController {
             return "userpage/nopage";
         }
 
-        //正解数を取得
+        //正答数を取得
         Object obj = session.getAttribute("id");
         Long id = (Long)obj;
         int count = userService.getCount(id);
         Object created = session.getAttribute("created");
         if(created!=null){
             count=0;
+            model.addAttribute("str", "本日はクイズを作成済みです"); 
+        }else{
+            model.addAttribute("str", "まだこの機能は解放されていません"); 
         }
-        session.setAttribute("created", obj);
+        
         model.addAttribute("count", count);
         model.addAttribute("account", userService.getName(id));
         return "quiz/adduserquiz";
@@ -243,6 +246,8 @@ public class QuizController {
             quizService.insertQuiz(quiz);
             model.addAttribute("create", "問題を作成しました!");
             int count = 0;
+            session.setAttribute("created", obj);
+            model.addAttribute("str", "本日はクイズを作成済みです");
         model.addAttribute("count", count);
         model.addAttribute("account", userService.getName(id));
         }else{
