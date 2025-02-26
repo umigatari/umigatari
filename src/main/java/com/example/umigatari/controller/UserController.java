@@ -1,6 +1,8 @@
 package com.example.umigatari.controller;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +70,7 @@ public class UserController {
         Object objtime = session.getAttribute("entertime");
         Timestamp entertime = (Timestamp) objtime;
         analysisService.exitTime(id,entertime);
-        String [] img = {"6","7","8","9","10"};
+        String [] img = {"1","4","8","5","3"};
         Random random = new Random();
         int randomNumber = random.nextInt(5);
         model.addAttribute("img",img[randomNumber]);
@@ -156,12 +158,25 @@ public class UserController {
                 session.setAttribute("id", id);
                 model.addAttribute("login", "ログイン成功しました");
     
-                // セッションIDのクッキーの有効期限を6時間に設定
+                // 日本時間のタイムゾーンを指定
+                ZoneId zoneId = ZoneId.of("Asia/Tokyo");
+
+                // 現在の日本時間
+                LocalDateTime now = LocalDateTime.now(zoneId);
+
+                // 今日の23:59:59（日本時間）
+                LocalDateTime endOfDay = now.toLocalDate().atTime(23, 59, 59);
+
+                // 2つの時刻の差を秒で計算
+                long secondsUntilEndOfDay = java.time.Duration.between(now, endOfDay).getSeconds();
+
+                // セッションIDのクッキーを作成
                 Cookie sessionCookie = new Cookie("JSESSIONID", session.getId());
-                sessionCookie.setMaxAge(6 * 60 * 60); // 6時間
+                sessionCookie.setMaxAge((int) secondsUntilEndOfDay); // 今日の終わりまで有効
                 sessionCookie.setPath("/");
                 sessionCookie.setHttpOnly(true);
                 response.addCookie(sessionCookie);
+
     
                 
 
