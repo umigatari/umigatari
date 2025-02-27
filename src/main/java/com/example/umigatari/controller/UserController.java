@@ -3,6 +3,7 @@ package com.example.umigatari.controller;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -138,7 +139,7 @@ public class UserController {
     }
 
     @PostMapping("password")
-    public String loginPassword(@RequestParam String mail, @RequestParam String password, HttpSession session, Model model, HttpServletResponse response) {
+    public String loginPassword(@RequestParam String mail, @RequestParam String password, HttpSession session, Model model, HttpServletResponse response,HttpServletRequest request) {
         try {
             String name = userService.mailToName(mail);
             Map<String, Object> result = userService.readPassword(name, password);
@@ -192,6 +193,15 @@ public class UserController {
                     correct.add(0);
                 session.setAttribute("correct", correct);
                 }
+                Cookie[] cookies = request.getCookies();
+                if (cookies != null) {
+                    for (Cookie cookie : cookies) {
+                        if ("created".equals(cookie.getName()) && "true".equals(cookie.getValue())) {
+                            session.setAttribute("created", true);
+                            break;
+                        }
+                    }
+                }
 
                 return "redirect:stamp";
             } else {
@@ -211,15 +221,42 @@ public class UserController {
 
     //ログアウト ok
     @PostMapping("logout")
-    public String logout(HttpSession session) {
-                Long obj = 19L;//管理者のIDが入る
-        if(Objects.equals(session.getAttribute("id"), obj)){
-            session.invalidate(); 
+    public String logout(HttpSession session, HttpServletResponse response) {
+        Long obj = 19L; // 管理者のID
+    
+        if (Objects.equals(session.getAttribute("id"), obj)) {
+            session.invalidate();
             return "admin/adminlogin";
         }
+    
+        boolean check = false; // ここで最初に宣言しておく
+    
+        if (session.getAttribute("created") != null) {
+            check = true; // ここで値を更新
+        }
+    
         session.invalidate(); 
+    
+        if (check) {
+    // 日本時間（JST）の現在時刻
+    LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Tokyo"));
+
+    // 今日の23:59:59 JST
+    LocalDateTime endOfDay = now.toLocalDate().atTime(23, 59, 59);
+
+    // 今から今日の23:59:59までの秒数を計算
+    long secondsUntilEndOfDay = ChronoUnit.SECONDS.between(now, endOfDay);
+
+    // クッキーを作成し、今日の23:59:59まで有効にする
+    Cookie createdCookie = new Cookie("created", "true");
+    createdCookie.setMaxAge((int) secondsUntilEndOfDay); // 日本時間の今日中まで
+    createdCookie.setPath("/"); // どのページでもアクセス可能にする
+    response.addCookie(createdCookie);
+}
+    
         return "redirect:quiz/1";
     }
+
     
 
     //パスワードを忘れたページを表示 ok
