@@ -25,13 +25,13 @@
                 <input type="hidden" name="mail" th:value="${mail}">
                 <input type="hidden" name="addrivute" th:value="${addrivute}">
                 <label for="username">ニックネーム</label>
-                <input type="text" id="name" name="name" required placeholder="ニックネーム">
+                <input type="text" id="name" name="name" required placeholder="ニックネーム" minlength="1"  maxlength="100">
                 <p>ニックネームはランキングに表示されます。個人が特定されるような情報は入力しないようご注意ください。</p>
                 <label for="password">パスワード</label>
-                <input type="password" id="password" name="password" required placeholder="パスワード" minlength="8">
+                <input type="password" id="password" name="password" required placeholder="パスワード" minlength="8" maxlength="100">
 
                 <label for="confirm-password">パスワードの確認</label>
-                <input type="password" id="confirm-password" name="confirm-password" required placeholder="パスワードの確認" minlength="8">
+                <input type="password" id="confirm-password" name="confirm-password" required placeholder="パスワードの確認" minlength="8" maxlength="100">
 
                 <button type="submit">アカウントを作成する</button>
             </form>

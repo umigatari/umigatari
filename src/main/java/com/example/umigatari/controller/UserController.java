@@ -92,14 +92,14 @@ public class UserController {
         Object objadd = session.getAttribute("addrivute");
         int addrivute = (int) objadd;
         if(check){
-            String baseUrl = "https://example.com/createaccount/create";
-            String registrationUrl = baseUrl + "?mail=" + mail + "&addrivute=" + addrivute;
+            String baseUrl = "https://umigatari-quiz.com/createaccount/create";
+            String registrationUrl = baseUrl + "?mail=" + mail + "&addrvute=" + addrivute;
             String body = "新規登録用URLを送付しました。以下のURLから新規登録してください。\n"+registrationUrl;
             userService.sendEmail(mail, "新規登録について", body);
         model.addAttribute("send", "メールを送信しました");
         return "account/createaccountone";
         }
-        model.addAttribute("failure", "そのアドレスは既に登録されています");
+        model.addAttribute("failure", "メールが送信されませんでした。すでに利用されている可能性があります。");
         return "account/createaccountone";
     }
 
@@ -270,43 +270,45 @@ public class UserController {
     public String readmail(@RequestParam String mail,Model model,HttpSession session){
         Object objadd = session.getAttribute("addrivute");
         int addrivute = (int) objadd;
-        String baseUrl = "https://example.com/createaccount/create";
+        String baseUrl = "https://umigatari-quiz.com/changepassword";
             String registrationUrl = baseUrl + "?mail=" + mail + "&addrivute=" + addrivute;
-            String body = "新規登録用URLを送付しました。以下のURLから新規登録してください。\n"+registrationUrl;
-            userService.sendEmail(mail, "新規登録について", body);
+            String body = "パスワード変更用URLを送付しました。以下のURLから変更してください。\n"+registrationUrl;
+            userService.sendEmail(mail, "パスワード変更", body);
         model.addAttribute("send", "メールを送信しました");
         return "account/forgotpassone";
     }
 
     //パスワードを変更画面を表示
     @GetMapping("changepassword")
-    public String password(@RequestParam(value = "mail", required = true) String mail,@RequestParam(value = "addrivute", required = true) String addrivute, Model model,HttpSession session) {
+    public String password(@RequestParam(value = "mail") String mail,@RequestParam(value = "addrivute") String addrivute, Model model,HttpSession session) {
         //クエリパラメタから属性とメールアドレスを受け取る
-        session.setAttribute("addrivute", addrivute);
     if (mail == null || mail.isBlank()) {
         model.addAttribute("error", "メールアドレスが指定されていません。");
         return "account/error"; // 適切なエラーページに遷移
     }
     model.addAttribute("mail", mail);
+    model.addAttribute("addrivute", addrivute);
     return "account/forgotpasstwo";
     }
 
 
     //パスワード変更
     @PostMapping("change")
-    public String changePassword(@RequestParam String password,@RequestParam String mail ){
+    public String changePassword(@RequestParam String password,@RequestParam String mail,Model model,@RequestParam int addrivute,HttpSession session){
         userService.changePassword(mail, password);
-        return "redirect:login";
+        model.addAttribute("clear", "登録しました");
+        session.setAttribute("addrivute", addrivute);
+        return "account/forgotpasstwo";
     }
 
     //アカウント完全削除
-    @PostMapping("deleteaccount")
+    @GetMapping("deleteaccount")
     public String deleteAccount(HttpSession session){
        Object obj = session.getAttribute("id");
        Long id = (Long)obj;
        session.invalidate(); 
        userService.deleteAccount(id);
-       return "redirect:";
+       return "redirect:/";
     }
 
     //以下ユーザーページ
@@ -387,7 +389,7 @@ public class UserController {
             return "userpage/nopage";
         }
         String referer = request.getHeader("Referer");
-        String allowedRefererPattern = "^https?://examplepj.f5.si/stamp.*";
+        String allowedRefererPattern = "^https?://umigatari-quiz.com/stamp.*";
         if (referer == null || !referer.matches(allowedRefererPattern)) {
             if (referer == null) {
                 return "redirect:/userpage/nopage";

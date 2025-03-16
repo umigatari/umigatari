@@ -25,27 +25,27 @@
         <div class="image-slider" data-count="5">
             <div class="image-item" >
                 <img src="/img/2.png" alt="画像1" width="200" class="image"
-                    th:style="${count >= 3} ? 'filter: none;' : 'filter: blur(15px);'">
+                    th:style="${count >= 3} ? 'filter: none;' : 'filter: blur(15px);pointer-events: none;'">
                 <p th:if="${count < 3}" th:text="'あと ' + (3 - ${count}) + ' 問でこの画像をゲット！'">あと3問で画像をゲット！</p>
             </div>
             <div class="image-item" >
                 <img src="/img/12.png" alt="画像2" width="200" class="image"
-                    th:style="${count >= 5} ? 'filter: none;' : 'filter: blur(15px);'">
+                    th:style="${count >= 5} ? 'filter: none;' : 'filter: blur(15px); pointer-events: none;'">
                 <p th:if="${count < 5}" th:text="'あと ' + (5 - ${count}) + ' 問でこの画像をゲット！'">あと5問で画像をゲット！</p>
             </div>
             <div class="image-item" >
                 <img src="/img/10.png" alt="画像3" width="200" class="image"
-                    th:style="${count >= 7} ? 'filter: none;' : 'filter: blur(15px);'">
+                    th:style="${count >= 7} ? 'filter: none;' : 'filter: blur(15px); pointer-events: none;'">
                 <p th:if="${count < 7}" th:text="'あと ' + (7 - ${count}) + ' 問でこの画像をゲット！'">あと7問で画像をゲット！</p>
             </div>
             <div class="image-item" >
                 <img src="/img/7.png" alt="画像4" width="200" class="image"
-                    th:style="${count >= 9} ? 'filter: none;' : 'filter: blur(15px);'">
+                    th:style="${count >= 9} ? 'filter: none;' : 'filter: blur(15px); pointer-events: none;'">
                 <p th:if="${count < 9}" th:text="'あと ' + (9 - ${count}) + ' 問でこの画像をゲット！'">あと9問で画像をゲット！</p>
             </div>
             <div class="image-item" >
                 <img src="/img/9.png" alt="画像5" width="200" class="image"
-                    th:style="${count >= 11} ? 'filter: none;' : 'filter: blur(15px);'">
+                    th:style="${count >= 11} ? 'filter: none;' : 'filter: blur(15px); pointer-events: none;'">
                 <p th:if="${count < 11}" th:text="'あと ' + (11 - ${count}) + ' 問でこの画像をゲット！'">あと11問で画像をゲット！</p>
             </div>
         </div>

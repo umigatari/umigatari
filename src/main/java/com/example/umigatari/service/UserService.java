@@ -56,13 +56,13 @@ public class UserService {
                                     .text(Content.builder().data(body).charset("UTF-8").build())
                                     .build())
                             .build())
-                    .source("your-verified-email@example.com")//アドレスは後で変更
+                    .source("admin@umigatari-quiz.com")//アドレスは後で変更
                     .build();
 
             sesClient.sendEmail(emailRequest);
         } catch (SesException e) {
             System.err.println("Email sending failed: " + e.awsErrorDetails().errorMessage());
-            throw new RuntimeException("Failed to send email", e);
+            throw new RuntimeException("admin@umigatari-quiz.com", e);
         }
     }
 
