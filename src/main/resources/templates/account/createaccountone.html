@@ -16,9 +16,10 @@
     <h1>メールアドレス入力</h1>
     <p class="message">メールアドレスを入力してください。</p>
     <p th:text="${send}" class="message"> 送信しました</p>
+    <p th:text="${failure}" class="message"> 送信しました</p>
     <form action="/sendmail" method="post">
         <label for="email">メールアドレス</label>
-        <input type="mail" id="mail" name="mail" required placeholder="example@domain.com">
+        <input type="email" id="mail" name="mail" required placeholder="example@domain.com">
         <button type="submit">送信</button>
     </form>
 </div>

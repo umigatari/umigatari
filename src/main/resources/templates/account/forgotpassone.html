@@ -17,7 +17,8 @@
         <form action="/forgotpassword" method="post">
             <div class="form-group">
                 <label for="mail">登録しているメールアドレス</label>
-                <input type="mail" id="mail" name="mail" placeholder="メールアドレスを入力" required>
+                <p th:text="${send}" class="message"> 送信しました</p>
+                <input type="email" id="mail" name="mail" placeholder="メールアドレスを入力" required>
             </div>
             <button type="submit">パスワードリセットリンクを送信</button>
         </form>

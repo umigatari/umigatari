@@ -58,8 +58,8 @@ document.getElementById('confirm-delete-no').addEventListener('click', function(
             
 // 最終確認の「はい」ボタンが押されたとき
 document.getElementById('confirm-final-delete-yes').addEventListener('click', function() {
-    fetch('/deleteaccount', { method: 'POST' });
-window.location.href = '/deleteaccount'; 
+    fetch('/deleteaccount', { method: 'GET' });
+    window.location.href = '/';
 });
 
 // 最終確認の「いいえ」ボタンが押されたとき

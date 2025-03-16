@@ -20,6 +20,7 @@
     <form action="/change" method="post" onsubmit="validateForm(event)">
 
         <input type="hidden" name="mail" th:value="${mail}">
+        <input type="hidden" name="addrivute" th:value="${addrivute}">
 
         <label for="password">新しいパスワード</label>
                 <input type="password" id="password" name="password" required placeholder="パスワード" minlength="8">
@@ -29,6 +30,12 @@
 
         <button type="submit">パスワードを再設定する</button>
     </form>
+    <div th:if="${clear != null}">
+        <p class="message">パスワードが変更されました。</p>
+        <a href="/login">
+            <button>ログイン画面へ</button>
+        </a>
+    </div>
 
 </div>
 
